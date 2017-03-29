@@ -5,7 +5,7 @@
     <ion-title>Mi Universidad</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-menu [content]="nav" id="menu" persistent="true">
+<ion-menu [content]="nav" >
   <ion-header>
     <ion-toolbar>
       <ion-title>Menú</ion-title>
@@ -17,8 +17,8 @@
       <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
-      <button ion-item (click)="openPageMapaRondin()">
-        Recorrido micro universitario 
+      <button ion-item menuClose (click)="openPageMapaRondin()">
+        Recorrido micro universitario
       </button>
     </ion-list>
   </ion-content>

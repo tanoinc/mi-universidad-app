@@ -31,6 +31,10 @@ export class MyApp {
       this.menu.open();
     }
 
+  closeMenu() {
+    this.menu.close();
+  }
+
     openPageMapaRondin() {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
