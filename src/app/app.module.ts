@@ -9,7 +9,7 @@ import { MapaRondinPage } from '../pages/mapa-rondin/mapa-rondin';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
-
+import { Webservice } from "../providers/webservice/webservice";
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { HttpModule } from '@angular/http';
   providers: [
     StatusBar,
     SplashScreen,
+    Webservice,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
