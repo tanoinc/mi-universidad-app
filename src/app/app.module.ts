@@ -10,7 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { Webservice } from "../providers/webservice/webservice";
-
+import { Auth } from '../providers/auth';
+import { SignupPage } from '../pages/signup/signup';
 @NgModule({
   declarations: [
     MyApp,
@@ -18,6 +19,7 @@ import { Webservice } from "../providers/webservice/webservice";
     ContactPage,
     HomePage,
     TabsPage,
+    SignupPage,
     MapaRondinPage
   ],
   imports: [
@@ -31,12 +33,14 @@ import { Webservice } from "../providers/webservice/webservice";
     ContactPage,
     HomePage,
     TabsPage,
+    SignupPage,
     MapaRondinPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Webservice,
+    Auth,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

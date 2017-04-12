@@ -13,9 +13,8 @@ export class HomePage {
   newsfeed: any;
 
   constructor(public navCtrl: NavController, private ws: Webservice) {
-    ws.init().then((result) => { 
-      let aa = <Object> result;
-      console.log(aa);
+    ws.init().then((result:any) => { 
+      console.log("resultado!: "+result.client_id);
     });
   }
 
