@@ -2,9 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { TabsPage } from '../pages/tabs/tabs';
-import { MapaRondinPage } from "../pages/mapa-rondin/mapa-rondin";
+import { LatLng } from "@ionic-native/google-maps";
 
 
 
@@ -39,7 +38,7 @@ export class MyApp {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(MapaRondinPage).catch(() => {
+    this.nav.setRoot(TabsPage, {tabIndex: 3}).catch(() => {
         console.log("Didn't set nav root");
       });
     
