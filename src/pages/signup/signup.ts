@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
+import { GenericPage } from "../generic/generic";
 
 /*
   Generated class for the Signup page.
@@ -13,13 +14,14 @@ import { Webservice } from "../../providers/webservice/webservice";
   templateUrl: 'signup.html',
   providers: [Webservice]
 })
-export class SignupPage {
+export class SignupPage extends GenericPage {
 
   public loading: any;
   public email: string;
   public password: string;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, private ws: Webservice, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
 
   }
 
@@ -31,18 +33,12 @@ export class SignupPage {
     this.showLoader('Registrando');
     this.ws.userRegister(this.email, this.password).then((result) => {
       this.loading.dismiss();
-      console.log(result);
+      this.showAlert('Cuenta creada','Su cuenta de usuario ha sido creada con éxito!');
       //this.navCtrl.setRoot(HomePage);
     }, (err) => {
       this.loading.dismiss();
+      this.showAlert('Error','No se pudo crear la cuenta.');
     });
-  }
- 
-  showLoader(text){
-    this.loading = this.loadingCtrl.create({
-      content: text+'...'
-    });
-    this.loading.present();
   }
 
 }
