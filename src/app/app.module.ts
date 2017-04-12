@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
+import { NotifPage } from '../pages/notif/notif';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -10,11 +10,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { Webservice } from "../providers/webservice/webservice";
+import { RondinService } from "./rondin.service";
+import { GoogleMaps } from "@ionic-native/google-maps";
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    NotifPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -27,7 +29,7 @@ import { Webservice } from "../providers/webservice/webservice";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    NotifPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -37,7 +39,9 @@ import { Webservice } from "../providers/webservice/webservice";
     StatusBar,
     SplashScreen,
     Webservice,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GoogleMaps,
+    RondinService
   ]
 })
 export class AppModule {}
