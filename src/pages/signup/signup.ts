@@ -17,8 +17,12 @@ import { GenericPage } from "../generic/generic";
 export class SignupPage extends GenericPage {
 
   public loading: any;
+  public name: string;
+  public surname: string;
+  public username: string;
   public email: string;
   public password: string;
+  public passwordRepeat: string;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);

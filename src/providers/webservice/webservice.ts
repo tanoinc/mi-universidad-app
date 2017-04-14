@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { CONFIG } from "../../config/config";
 
 /*
   Generated class for the Webservice provider.
@@ -13,7 +14,7 @@ export class Webservice {
   private host_url: string; 
 
   constructor(private http: Http) {
-    this.host_url = 'http://localhost:8800/';
+    this.host_url = CONFIG.API_URL;
     //console.log('Hello Webservice Provider');
   }
 
@@ -54,5 +55,18 @@ export class Webservice {
   userRegister(email: string, password: string) {
     return this.post('api/v1/user', {'email': email, 'password': password});
   }
+
+  userLogin(username: string, password:string, client_id: string, client_secret: string) {
+    let data = {
+      'username' : username,
+      'password': password,
+      'grant_type': 'password',      
+      'client_id': client_id,
+      'client_secret': client_secret,
+      'scope': '',
+    };
+    return this.post('oauth/token', data);
+  }
+
 
 }
