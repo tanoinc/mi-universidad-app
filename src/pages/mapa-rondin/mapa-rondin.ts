@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import {
  GoogleMaps,
@@ -8,16 +8,14 @@ import {
  CameraPosition,
  MarkerOptions,
  Marker,
- PolylineOptions
+ PolylineOptions,
 } from '@ionic-native/google-maps';
 
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { map } from "rxjs/operator/map";
 import 'rxjs/add/operator/toPromise';
-import { Injectable } from '@angular/core';
 import { RondinService } from "../../app/rondin.service";
-import { Subscription } from "rxjs/Subscription";
+
 
 
 /*
@@ -34,10 +32,9 @@ import { Subscription } from "rxjs/Subscription";
 
 
 export class MapaRondinPage {
-    items1: Subscription;
-    items: Promise<LatLng[]>;
-    logError: any;
+  logError: any;
 
+  @ViewChild('map') Element: ElementRef;
   constructor(public navCtrl: NavController, 
   public navParams: NavParams,
   platform: Platform, 
@@ -46,32 +43,27 @@ export class MapaRondinPage {
   private rondin: RondinService
   ) 
   {
-    /*this.items1 = rondinService.getCoordenadasJsonSubscribe();
-    console.log(JSON.stringify(this.items));
-
-    console.log("Termino getCoordenadasJson");
-    this.items = rondinService.getCoordenadasJson();
-    console.log(JSON.stringify(this.items));*/
+    
   }
 
 
 
 ngOnInit() {
     console.log('ngOnInit MapaRondinPage');
-    this.rondin.getCoordenadasJson().subscribe(() => this.loadMap());
+    
 }
 
 ngAfterViewInit() {
- //this.loadMap();
+  console.log('ngAfterViewInit MapaRondinPage');
 }
 
 ionViewDidLoad() {
     console.log('ionViewDidLoad MapaRondinPage');
-    
+    this.rondin.getDatosMapaJson().subscribe(() => this.loadMap());
   }
 
 
-private add_markers(map, markers_data: Object[]) {
+private add_markers(map, markers_data: MarkerOptions[]) {
   if ((markers_data != null) && (markers_data.length > 0)) {
     for (var _i = 0; _i < markers_data.length; _i++) {
         map.addMarker(markers_data[_i])
@@ -82,31 +74,24 @@ private add_markers(map, markers_data: Object[]) {
   }
 }
 
-private add_polylines(map, polylines_data) {
-  //tomar tambien los datos color, width, etc
-  if ((polylines_data != null) && (polylines_data.length > 0)) {
-    map.addPolyline({
-    'points': polylines_data,
-    'color' : '#AA00FF',
-    'width': 5,
-    'geodesic': true
-});
-}
+private add_polylines(map, polylines_data: PolylineOptions) {
+  if (polylines_data != null) {
+    map.addPolyline(polylines_data);
+  }
 }
 
   loadMap() {
-    let data = this.rondin.coordenadas;
+    let data = this.rondin.datosMapa;
     let polylines_data = null;
     let markers_data = null;
-    //console.log("loadMap datos" + JSON.stringify(coordenadas));
-    console.log("loadMap polylines" + JSON.stringify(data.polylines));
+    
+    
     if (data.hasOwnProperty('polylines')) {
       polylines_data = data.polylines;
     }
     if (data.hasOwnProperty('markers')) {
       markers_data = data.markers;
     }
-    
     
 
  // make sure to create following structure in your view.html file
@@ -116,9 +101,8 @@ private add_polylines(map, polylines_data) {
  // </ion-content>
 
  // create a new map by passing HTMLElement
- let element: HTMLElement = document.getElementById('map');
-
- let map: GoogleMap = this.googleMaps.create(element);
+ //let element: HTMLElement = document.getElementById('map');
+ let map: GoogleMap = this.googleMaps.create(this.Element.nativeElement);
 
  // listen to MAP_READY event
  // You must wait for this event to fire before adding something to the map or modifying it in anyway
@@ -138,19 +122,6 @@ private add_polylines(map, polylines_data) {
 
  // move the map's camera to position
  map.moveCamera(position);
-
-
-let markerOptions: MarkerOptions = {
-   position: laplata,
-   title: 'Ionic'
- };
-
-//map.addMarker(markerOptions)
-/*map.addMarker(markers_data)
-            .then((marker: Marker) => {
-            marker.showInfoWindow();
-            });
- */
 
 
 
