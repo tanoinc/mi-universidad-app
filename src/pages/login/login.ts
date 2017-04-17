@@ -6,6 +6,7 @@ import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
 import { HomePage } from "../home/home";
 import { Events } from 'ionic-angular';
+import { CONFIG } from "../../config/config";
 
 /*
   Generated class for the Login page.
@@ -38,7 +39,7 @@ export class LoginPage extends GenericPage {
       this.loading.dismiss();
     }).catch((error) => {
       this.loading.dismiss();
-      this.showAlert("Error", "Usuario o clave incorrectos." + error);
+      this.showAlert("Error", "Usuario o clave incorrectos. " + (!CONFIG.PRODUCTION ? error : ''));
     });
   }
 

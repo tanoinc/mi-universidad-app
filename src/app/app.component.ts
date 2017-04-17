@@ -8,6 +8,7 @@ import { MapaRondinPage } from "../pages/mapa-rondin/mapa-rondin";
 import { Auth } from "../providers/auth";
 import { Webservice } from "../providers/webservice/webservice";
 import { Storage } from '@ionic/storage';
+import { CONFIG } from "../config/config";
 
 
 
@@ -34,6 +35,10 @@ export class MyApp {
       content: text+'...'
     });
     this.loading.present();
+  }
+
+  getAppTitle() {
+    return CONFIG.APP_NAME;
   }
 
   hideLoader() {
