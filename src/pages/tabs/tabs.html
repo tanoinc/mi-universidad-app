@@ -1,5 +1,5 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Inicio" tabIcon="home"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Crear cuenta" tabIcon="person-add"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>
+<ion-tabs #myTabs>
+  <ng-container *ngFor="let tab of displayedTabs()">
+  <ion-tab [root]="tab.root" [tabTitle]="tab.title" [tabIcon]="tab.icon"></ion-tab>
+  </ng-container>
 </ion-tabs>

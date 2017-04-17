@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CONFIG } from "../../config/config";
+import { Auth } from "../auth";
 
 /*
   Generated class for the Webservice provider.
@@ -11,16 +12,17 @@ import { CONFIG } from "../../config/config";
 */
 @Injectable()
 export class Webservice {
-  private host_url: string; 
+  private host_url: string;
+  private auth: Auth;
 
   constructor(private http: Http) {
     this.host_url = CONFIG.API_URL;
     //console.log('Hello Webservice Provider');
   }
 
-  private fetch(action: string) {
+  private fetch(action: string, header?: Headers) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.host_url+action).map(res => res.json()).subscribe(
+      this.http.get(this.host_url+action, {'headers':header}).map(res => res.json()).subscribe(
         (data) => {
           console.log('webservice: get('+action+'). Response:'); console.log(data);
           resolve(data);
@@ -68,5 +70,15 @@ export class Webservice {
     return this.post('oauth/token', data);
   }
 
+  setAuth(auth: Auth) {
+    this.auth = auth;
+  }
+
+  userNewsfeeds(auth: Auth)
+  {
+    let headers = new Headers({'Authorization':'Bearer '+auth.getAccessToken()});
+    console.log(headers);
+    return this.fetch('mobile/api/v1/newsfeed', headers);
+  }
 
 }

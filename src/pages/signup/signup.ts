@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
+import { LoginPage } from "../login/login";
 
 /*
   Generated class for the Signup page.
@@ -12,7 +13,7 @@ import { GenericPage } from "../generic/generic";
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
-  providers: [Webservice]
+  providers: []
 })
 export class SignupPage extends GenericPage {
 
@@ -38,7 +39,7 @@ export class SignupPage extends GenericPage {
     this.ws.userRegister(this.email, this.password).then((result) => {
       this.loading.dismiss();
       this.showAlert('Cuenta creada','Su cuenta de usuario ha sido creada con éxito!');
-      //this.navCtrl.setRoot(HomePage);
+      this.navCtrl.push(LoginPage);
     }, (err) => {
       this.loading.dismiss();
       this.showAlert('Error','No se pudo crear la cuenta.');

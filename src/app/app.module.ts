@@ -12,6 +12,9 @@ import { HttpModule } from '@angular/http';
 import { Webservice } from "../providers/webservice/webservice";
 import { Auth } from '../providers/auth';
 import { SignupPage } from '../pages/signup/signup';
+import { LoginPage } from "../pages/login/login";
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -20,11 +23,13 @@ import { SignupPage } from '../pages/signup/signup';
     HomePage,
     TabsPage,
     SignupPage,
+    LoginPage,
     MapaRondinPage
   ],
   imports: [
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,6 +39,7 @@ import { SignupPage } from '../pages/signup/signup';
     HomePage,
     TabsPage,
     SignupPage,
+    LoginPage,
     MapaRondinPage
   ],
   providers: [

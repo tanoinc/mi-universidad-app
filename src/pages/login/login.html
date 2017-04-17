@@ -19,16 +19,18 @@
   <ion-list>
   
     <ion-item>
-      <ion-label floating>Username</ion-label>
+      <ion-label floating>Correo electrónico o usuario</ion-label>
       <ion-input [(ngModel)]="credentials.username" type="text"></ion-input>
     </ion-item>
   
     <ion-item>
-      <ion-label floating>Password</ion-label>
+      <ion-label floating>Contraseña</ion-label>
       <ion-input [(ngModel)]="credentials.password" type="password"></ion-input>
     </ion-item>
   
   </ion-list>
-  <button (click)="login(credentials)">Login</button>
+  <button ion-button (click)="login(credentials)">Ingresá</button>
+  o
+  <button ion-button (click)="register()">Creá una cuenta</button>
 
 </ion-content>

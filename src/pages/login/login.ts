@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import { Auth } from "../../providers/auth";
 import { SignupPage } from "../signup/signup";
+import { Webservice } from "../../providers/webservice/webservice";
+import { GenericPage } from "../generic/generic";
+import { HomePage } from "../home/home";
+import { Events } from 'ionic-angular';
 
 /*
   Generated class for the Login page.
@@ -13,12 +17,13 @@ import { SignupPage } from "../signup/signup";
   selector: 'page-login',
   templateUrl: 'login.html'
 })
-export class LoginPage {
+export class LoginPage extends GenericPage {
 
-  public credentials: { username: string, password:string };
+  public credentials: { username: string, password: string };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public auth: Auth) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth, public events: Events) {
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
+    this.credentials = { username: "", password: "" };
   }
 
   ionViewDidLoad() {
@@ -26,10 +31,19 @@ export class LoginPage {
   }
 
   login(credentials) {
-
+    this.showLoader('Validando');
+    this.auth.login(credentials.username, credentials.password).then(() => {
+      this.events.publish('user:authenticated', this.auth);
+      //this.navCtrl.setRoot(HomePage);
+      this.loading.dismiss();
+    }).catch((error) => {
+      this.loading.dismiss();
+      this.showAlert("Error", "Usuario o clave incorrectos." + error);
+    });
   }
-  register(){
-      this.navCtrl.push(SignupPage);
+
+  register() {
+    this.navCtrl.setRoot(SignupPage);
   }
 
 }

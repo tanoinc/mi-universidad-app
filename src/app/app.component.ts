@@ -7,7 +7,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { MapaRondinPage } from "../pages/mapa-rondin/mapa-rondin";
 import { Auth } from "../providers/auth";
 import { Webservice } from "../providers/webservice/webservice";
-
+import { Storage } from '@ionic/storage';
 
 
 
@@ -18,15 +18,15 @@ export class MyApp {
   rootPage = TabsPage;
   @ViewChild(Nav) nav: Nav;
   public loading;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      // Here you can do any higher level native things you might need.      
+      return storage.ready();
+    }).then(()=>{
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
-
   }
 
   showLoader(text){

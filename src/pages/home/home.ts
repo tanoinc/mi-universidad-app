@@ -8,20 +8,37 @@ import { GenericPage } from "../generic/generic";
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [Webservice, Auth]
+  providers: []
 })
-export class HomePage extends GenericPage{
+export class HomePage extends GenericPage {
 
   newsfeed: any;
+  private prueba: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
-    this.newsfeed = [{client_id: auth.isLoaded()}, {client_id: 2}];
-    auth.login('lucianoc4@cespi.unlp.edu.ar', '123456').then(()=>{
-      this.newsfeed[0].client_id = auth.isLoaded();
-    }).catch((error)=>{
-      this.showAlert("Error", error);
+    this.newsfeed = [];
+
+    /*
+    this.ws.userNewsfeeds(this.auth).then((news: any) => {
+      this.newsfeed = news.data;
     });
+    */
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+  }
+
+  doRefresh(refresher) {
+    this.ws.userNewsfeeds(this.auth).then((news: any) => {
+      this.newsfeed = news.data;
+      refresher.complete();
+    }).catch((error) => {
+      this.showAlert("Error", error);
+      refresher.complete();
+    });
+
   }
 
 }

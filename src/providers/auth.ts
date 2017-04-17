@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the Auth provider.
@@ -16,61 +17,111 @@ export class Auth {
   private loaded: boolean;
   private auth_data: any;
   private authenticated: boolean;
+  private init_promise: Promise<any>;
 
-  constructor(public http: Http, private ws: Webservice) {
+  constructor(public http: Http, private ws: Webservice, private storage: Storage) {
     this.setClientId(null);
     this.setClientSecret(null);
     this.loaded = false;
     this.authenticated = false;
-    console.log('Hello Auth Provider');
-
   }
 
   setClientId(id: string) {
     this.client_id = id;
+    this.storage.set('Auth.client_id', id);
   }
 
   setClientSecret(secret: string) {
     this.client_secret = secret;
+    this.storage.set('Auth.secret', secret);
   }
 
-  isLoaded() {
-    return this.loaded;
+  private setAuthData(auth_data: any, store: boolean = true) {
+    this.auth_data = auth_data;
+    this.setAuthenticated((auth_data != null));
+    if (store) {
+      this.storage.set('Auth.auth_data', auth_data);
+    }
   }
 
   isAuthenticated() {
     return this.authenticated;
   }
 
-  init() {
-    if (!this.isLoaded()) {
-      return new Promise((resolve, reject) => {
-        this.ws.init().then((result: any) => {
-          this.setClientId(result.client_id);
-          this.setClientSecret(result.client_secret);
-          this.loaded = true;
-          resolve(true);
-        }).catch((ex) => {
-          reject(ex);
-        });
-      });
+  private setAuthenticated(authenticated: boolean = true) {
+    this.authenticated = authenticated;
+    if (authenticated) {
+      this.ws.setAuth(this);
     } else {
-      return new Promise((resolve, reject) => { resolve(true) });
+      this.ws.setAuth(null);
     }
   }
 
-  login(username:string, password:string) {
-    return new Promise((resolve, reject) => {
-      this.init().then(()=>{
-        this.ws.userLogin(username, password, this.client_id, this.client_secret).then((data)=>{
-          this.auth_data = data;
-          this.authenticated = true;
-          resolve();
-        }).catch((ex) => {
-          reject(ex);
-        });
-      });
+  getAuthData() {
+    if (this.isAuthenticated()) {
+      return this.auth_data;
+    }
+  }
+
+  getAccessToken() {
+    if (this.isAuthenticated()) {
+      return this.auth_data.access_token;
+    }
+  }
+
+  private initAuthData(clear_auth_data: boolean = false) {
+    return this.storage.get('Auth.auth_data').then((auth_data) => {
+      if (clear_auth_data) {
+        auth_data = null
+      }
+      this.setAuthData(auth_data, clear_auth_data);
+      return auth_data;
     });
   }
 
+  clearAuthData() {
+    this.setAuthData(null);
+  }
+
+  ready() {
+    return this.loaded;
+  }
+
+  private initReady() {
+    this.loaded = true;
+  }
+
+  init(clear_auth_data: boolean = false): Promise<any> {
+    if (!this.ready()) {
+      if (this.init_promise == null) {
+        this.init_promise = this
+          .initAuthData(clear_auth_data)
+          .then(() => {
+            return this.ws.init();
+          })
+          .then((result: any) => {
+            this.setClientId(result.client_id);
+            this.setClientSecret(result.client_secret);
+            this.initReady();
+          });
+      }
+      return this.init_promise;
+    } else {
+      return Promise.resolve();
+    }
+  }
+
+  login(username: string, password: string) {
+    if (this.ready()) {
+      return this.ws
+        .userLogin(username, password, this.client_id, this.client_secret)
+        .then((data) => { this.setAuthData(data) });
+    } else {
+      return this.init(true)
+        .then(() => {
+          return this.ws.userLogin(username, password, this.client_id, this.client_secret);
+        })
+        .then((data) => { this.setAuthData(data); });
+    }
+  }
 }
