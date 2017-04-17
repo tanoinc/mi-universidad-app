@@ -23,12 +23,11 @@ export class TabsPage {
   display_modes = ['not-authenticated', 'authenticated',];
 
   constructor(private auth: Auth, public events: Events, public navCtrl: NavController, public params: NavParams) {
-    this.display((params.get('mode')?params.get('mode'):'not-authenticated'));
+    this.display((params.get('mode') ? params.get('mode') : 'not-authenticated'));
     this.events.subscribe('user:authenticated', (auth) => {
-      this.navCtrl.setRoot(TabsPage, {mode:'authenticated'});
+      this.navCtrl.setRoot(TabsPage, { mode: 'authenticated' });
     });
   }
-
 
   ionViewDidEnter() {
     this.tabRef.select(0);
@@ -36,7 +35,7 @@ export class TabsPage {
   display(mode: string, defaultTab?: number) {
     console.log('Display mode: ' + mode);
     if (defaultTab != null) {
-      console.log('Tab setted: '+defaultTab);
+      console.log('Tab setted: ' + defaultTab);
       this.tabRef.select(defaultTab);
     }
     this.displayed_tabs = this.available_tabs.filter(val => (val.display.find(val_mode => val_mode == mode)));
