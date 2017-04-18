@@ -3,7 +3,7 @@ import { NavController, NavParams, LoadingController, AlertController } from 'io
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
 import { LoginPage } from "../login/login";
-import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from "@angular/forms";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
 
 /*
   Generated class for the Signup page.
@@ -25,17 +25,18 @@ export class SignupPage extends GenericPage {
   public email: string;
   public password: string;
   public passwordRepeat: string;
+  public errorData: any;
 
   public signupForm: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
-
+    this.errorData = {};
     this.signupForm = new FormGroup({
       'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'surname': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      'username': new FormControl('', [Validators.required, Validators.minLength(5)]),
-      'email': new FormControl('', [Validators.required, Validators.minLength(5)]),
+      'username': new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_-]+$') ]),
+      'email': new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$') ]),
       'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
       'passwordRepeat': new FormControl('', [Validators.required, Validators.minLength(8)]),
     }, this.matchingPasswords('password', 'passwordRepeat'));
@@ -50,13 +51,24 @@ export class SignupPage extends GenericPage {
     this.showLoader('Registrando');
     this.ws.userRegister(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.username, this.signupForm.value.name, this.signupForm.value.surname).then((result) => {
       this.loading.dismiss();
+      this.clearForm();
       this.showAlert('Cuenta creada', 'Su cuenta de usuario ha sido creada con éxito!');
       this.navCtrl.push(LoginPage);
     }, (err) => {
-      console.log(err)
       this.loading.dismiss();
+      this.errorData = err.data;
+      console.log(this.errorData);
       this.showAlert('Error', err.message);
     });
+  }
+
+  clearForm() {
+    this.name = "";
+    this.surname = "";
+    this.username = "";
+    this.email = "";
+    this.password = "";
+    this.passwordRepeat = "";
   }
 
   matchingPasswords(field1: string, field2: string): any {

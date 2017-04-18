@@ -13,7 +13,6 @@ import { GenericPage } from "../generic/generic";
 export class HomePage extends GenericPage {
 
   newsfeed: any;
-  private prueba: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);

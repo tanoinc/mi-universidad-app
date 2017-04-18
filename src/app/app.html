@@ -3,6 +3,15 @@
   <ion-navbar>
     <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
     <ion-title>{{getAppTitle()}}</ion-title>
+
+    <ion-buttons *ngIf="user" end>
+      <button ion-button icon-right large outline (click)="openUserProfile()">
+        {{user.name}} {{user.surname}}
+
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 <ion-menu [content]="nav" >

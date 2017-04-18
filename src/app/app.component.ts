@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, LoadingController } from 'ionic-angular';
+import { Platform, MenuController, Nav, LoadingController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -19,7 +19,8 @@ export class MyApp {
   rootPage = TabsPage;
   @ViewChild(Nav) nav: Nav;
   public loading;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage) {
+  public user = null;
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.      
@@ -28,6 +29,11 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    this.events.subscribe('user:authenticated', (auth:Auth) => {
+      this.user = auth.getUser();
+    });
+
   }
 
   showLoader(text){
@@ -51,6 +57,10 @@ export class MyApp {
 
   closeMenu() {
     this.menu.close();
+  }
+
+  openUserProfile() {
+    
   }
 
   openPageMapaRondin() {

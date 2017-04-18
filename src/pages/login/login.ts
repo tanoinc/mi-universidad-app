@@ -4,7 +4,6 @@ import { Auth } from "../../providers/auth";
 import { SignupPage } from "../signup/signup";
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
-import { HomePage } from "../home/home";
 import { Events } from 'ionic-angular';
 import { CONFIG } from "../../config/config";
 
@@ -35,7 +34,6 @@ export class LoginPage extends GenericPage {
     this.showLoader('Validando');
     this.auth.login(credentials.username, credentials.password).then(() => {
       this.events.publish('user:authenticated', this.auth);
-      //this.navCtrl.setRoot(HomePage);
       this.loading.dismiss();
     }).catch((error) => {
       this.loading.dismiss();

@@ -18,6 +18,7 @@ export class Auth {
   private auth_data: any;
   private authenticated: boolean;
   private init_promise: Promise<any>;
+  private auth_user: any;
 
   constructor(public http: Http, private ws: Webservice, private storage: Storage) {
     this.setClientId(null);
@@ -115,13 +116,21 @@ export class Auth {
     if (this.ready()) {
       return this.ws
         .userLogin(username, password, this.client_id, this.client_secret)
-        .then((data) => { this.setAuthData(data) });
+        .then((data) => { this.setAuthData(data) })
+        .then(() => { return this.ws.userData(); })
+        .then((user) => { this.auth_user = user; });
     } else {
       return this.init(true)
         .then(() => {
           return this.ws.userLogin(username, password, this.client_id, this.client_secret);
         })
-        .then((data) => { this.setAuthData(data); });
+        .then((data) => { this.setAuthData(data); })
+        .then(() => { return this.ws.userData(); })
+        .then((user) => { this.auth_user = user; });
     }
+  }
+
+  getUser() {
+    return this.auth_user;
   }
 }

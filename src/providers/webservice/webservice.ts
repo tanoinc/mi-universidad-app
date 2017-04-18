@@ -81,12 +81,19 @@ export class Webservice {
   }
 
   userNewsfeeds(auth?: Auth) {
+    return this.fetch('mobile/api/v1/newsfeed', this.headersFromAuth(auth));
+  }
+
+  userData(auth?: Auth) {
+    return this.fetch('mobile/api/v1/user', this.headersFromAuth(auth));
+  }
+
+  private headersFromAuth(auth?: Auth): Headers {
     if (!auth) {
       auth = this.auth;
     }
     let headers = new Headers({ 'Authorization': 'Bearer ' + auth.getAccessToken() });
-    console.log(headers);
-    return this.fetch('mobile/api/v1/newsfeed', headers);
+    return headers;
   }
 
 }
