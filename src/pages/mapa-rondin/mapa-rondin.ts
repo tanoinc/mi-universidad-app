@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, MenuController } from 'ionic-angular';
 import {
  GoogleMaps,
  GoogleMap,
@@ -40,7 +40,8 @@ export class MapaRondinPage {
   platform: Platform, 
   private googleMaps: GoogleMaps, 
   public http : Http,
-  private rondin: RondinService
+  private rondin: RondinService,
+  public menuController: MenuController
   ) 
   {
     
@@ -80,6 +81,27 @@ private add_polylines(map, polylines_data: PolylineOptions) {
   }
 }
 
+
+private eventoMapaMenu(map){
+  
+let leftMenu = this.menuController.get('left');
+
+    if (leftMenu) {
+      leftMenu.ionOpen.subscribe(() => {
+        if (map) {
+          map.setClickable(false);
+        }
+      });
+
+      leftMenu.ionClose.subscribe(() => {
+        if (map) {
+          map.setClickable(true);
+        }
+      });
+    }
+
+}
+
   loadMap() {
     let data = this.rondin.datosMapa;
     let polylines_data = null;
@@ -104,6 +126,8 @@ private add_polylines(map, polylines_data: PolylineOptions) {
  //let element: HTMLElement = document.getElementById('map');
  let map: GoogleMap = this.googleMaps.create(this.Element.nativeElement);
 
+ this.eventoMapaMenu(map);
+ 
  // listen to MAP_READY event
  // You must wait for this event to fire before adding something to the map or modifying it in anyway
  map.one(GoogleMapsEvent.MAP_READY).then(() => {
