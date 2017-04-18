@@ -19,11 +19,7 @@ export class HomePage extends GenericPage {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
     this.newsfeed = [];
 
-    /*
-    this.ws.userNewsfeeds(this.auth).then((news: any) => {
-      this.newsfeed = news.data;
-    });
-    */
+    this.updateNewsfeed();
   }
 
   ionViewDidLoad() {
@@ -31,14 +27,19 @@ export class HomePage extends GenericPage {
   }
 
   doRefresh(refresher) {
-    this.ws.userNewsfeeds(this.auth).then((news: any) => {
-      this.newsfeed = news.data;
+    this.updateNewsfeed()
+    .then((news: any) => {
       refresher.complete();
     }).catch((error) => {
       this.showAlert("Error", error);
       refresher.complete();
     });
+  }
 
+  updateNewsfeed() {
+    return this.ws.userNewsfeeds().then((news: any) => {
+      this.newsfeed = news.data;
+    });
   }
 
 }

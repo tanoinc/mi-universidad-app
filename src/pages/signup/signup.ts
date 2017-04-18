@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, AlertController } from 'io
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
 import { LoginPage } from "../login/login";
+import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from "@angular/forms";
 
 /*
   Generated class for the Signup page.
@@ -24,9 +25,20 @@ export class SignupPage extends GenericPage {
   public email: string;
   public password: string;
   public passwordRepeat: string;
-  
+
+  public signupForm: FormGroup;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
+
+    this.signupForm = new FormGroup({
+      'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
+      'surname': new FormControl('', [Validators.required, Validators.minLength(1)]),
+      'username': new FormControl('', [Validators.required, Validators.minLength(5)]),
+      'email': new FormControl('', [Validators.required, Validators.minLength(5)]),
+      'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
+      'passwordRepeat': new FormControl('', [Validators.required, Validators.minLength(8)]),
+    }, this.matchingPasswords('password', 'passwordRepeat'));
 
   }
 
@@ -34,16 +46,30 @@ export class SignupPage extends GenericPage {
     console.log('ionViewDidLoad SignupPage');
   }
 
-  register(){
+  register() {
     this.showLoader('Registrando');
-    this.ws.userRegister(this.email, this.password).then((result) => {
+    this.ws.userRegister(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.username, this.signupForm.value.name, this.signupForm.value.surname).then((result) => {
       this.loading.dismiss();
-      this.showAlert('Cuenta creada','Su cuenta de usuario ha sido creada con éxito!');
+      this.showAlert('Cuenta creada', 'Su cuenta de usuario ha sido creada con éxito!');
       this.navCtrl.push(LoginPage);
     }, (err) => {
+      console.log(err)
       this.loading.dismiss();
-      this.showAlert('Error','No se pudo crear la cuenta.');
+      this.showAlert('Error', err.message);
     });
+  }
+
+  matchingPasswords(field1: string, field2: string): any {
+    return (group: FormGroup): { [key: string]: any } => {
+      let password = group.controls[field1];
+      let confirmPassword = group.controls[field2];
+
+      if (password.value !== confirmPassword.value) {
+        return {
+          mismatchedPasswords: true
+        };
+      }
+    };
   }
 
 }
