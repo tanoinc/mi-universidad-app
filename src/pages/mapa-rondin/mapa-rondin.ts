@@ -82,8 +82,8 @@ private add_polylines(map, polylines_data: PolylineOptions) {
 }
 
 
-private eventoMapaMenu(map){
-  
+private eventoMapaMenu(map) {
+
 let leftMenu = this.menuController.get('left');
 
     if (leftMenu) {
@@ -106,7 +106,7 @@ let leftMenu = this.menuController.get('left');
     let data = this.rondin.datosMapa;
     let polylines_data = null;
     let markers_data = null;
-    
+    let center_pos: CameraPosition = null;
     
     if (data.hasOwnProperty('polylines')) {
       polylines_data = data.polylines;
@@ -114,7 +114,20 @@ let leftMenu = this.menuController.get('left');
     if (data.hasOwnProperty('markers')) {
       markers_data = data.markers;
     }
-    
+    if (data.hasOwnProperty('center')) {
+      center_pos = data.center;
+    }
+    else {
+      //La Plata
+      let position: LatLng = new LatLng(-34.910368,-57.938890);
+      center_pos = {
+        target: position,
+        zoom: 15,
+        tilt: 0
+      };
+      
+    }
+
 
  // make sure to create following structure in your view.html file
  // and add a height (for example 100%) to it, else the map won't be visible
@@ -133,19 +146,10 @@ let leftMenu = this.menuController.get('left');
  map.one(GoogleMapsEvent.MAP_READY).then(() => {
  console.log('Map is ready!');
 
- // create LatLng object
- 
- let laplata: LatLng = new LatLng(-34.90944628977434,-57.938558869063854);
- 
- // create CameraPosition
- let position: CameraPosition = {
-   target: laplata,
-   zoom: 15,
-   tilt: 0
- };
 
  // move the map's camera to position
- map.moveCamera(position);
+ console.log("Center Pos" + JSON.stringify(center_pos));
+ map.moveCamera(center_pos);
 
 
 

@@ -1,4 +1,9 @@
-{ "markers" : [
+{ 
+  "center" : { 
+    "target": {"lat": -34.910368,"lng": -57.938890 }, 
+    "zoom": 14, 
+    "tilt": 0 },
+  "markers" : [
 	{"title" : "marker1", "position" : { "lat": -34.902254, "lng": -57.933376 } },
 	{"title" : "marker2", "position" : { "lat": -34.942254, "lng": -57.933376 } }
 ],
