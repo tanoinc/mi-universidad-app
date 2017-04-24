@@ -1,10 +1,14 @@
 
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    <ion-title>Mi Universidad</ion-title>
-  </ion-navbar>
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons start right>
+      <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
+    </ion-buttons>
+    <ion-searchbar placeholder="Mi Universidad"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
+
+
 <ion-menu [content]="nav" >
   <ion-header>
     <ion-toolbar>

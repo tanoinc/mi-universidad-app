@@ -67,10 +67,10 @@ ionViewDidLoad() {
 private add_markers(map, markers_data: MarkerOptions[]) {
   if ((markers_data != null) && (markers_data.length > 0)) {
     for (var _i = 0; _i < markers_data.length; _i++) {
-        map.addMarker(markers_data[_i])
-            .then((marker: Marker) => {
+        map.addMarker(markers_data[_i]);
+           /* .then((marker: Marker) => {
             marker.showInfoWindow();
-            });
+            });*/
     }
   }
 }
@@ -148,7 +148,6 @@ let leftMenu = this.menuController.get('left');
 
 
  // move the map's camera to position
- console.log("Center Pos" + JSON.stringify(center_pos));
  map.moveCamera(center_pos);
 
 
