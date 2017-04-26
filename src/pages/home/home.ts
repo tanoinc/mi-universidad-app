@@ -41,4 +41,8 @@ export class HomePage extends GenericPage {
     });
   }
 
+  doInfinite():Promise<any> {
+    return this.updateNewsfeed();
+  }
+
 }
