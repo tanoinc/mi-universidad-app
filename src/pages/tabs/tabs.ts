@@ -6,6 +6,7 @@ import { SignupPage } from "../signup/signup";
 import { LoginPage } from "../login/login";
 import { Auth } from "../../providers/auth";
 import { Events, NavController, Tabs, NavParams } from 'ionic-angular';
+import { NotificationsPage } from "../notifications/notifications";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -15,6 +16,7 @@ export class TabsPage {
 
   available_tabs = [
     { title: "Inicio", root: HomePage, icon: "home", display: ['authenticated'] },
+    { title: "Notificaciones", root: NotificationsPage, icon: "notifications", display: ['authenticated'] },
     { title: "Ingresar", root: LoginPage, icon: "log-in", display: ['not-authenticated'] },
     { title: "Crear cuenta", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
     { title: "Contacto", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },

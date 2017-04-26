@@ -14,6 +14,7 @@ import { Auth } from '../providers/auth';
 import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from "../pages/login/login";
 import { IonicStorageModule } from '@ionic/storage';
+import { NotificationsPage } from "../pages/notifications/notifications";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { IonicStorageModule } from '@ionic/storage';
     TabsPage,
     SignupPage,
     LoginPage,
+    NotificationsPage,
     MapaRondinPage
   ],
   imports: [
@@ -40,6 +42,7 @@ import { IonicStorageModule } from '@ionic/storage';
     TabsPage,
     SignupPage,
     LoginPage,
+    NotificationsPage,
     MapaRondinPage
   ],
   providers: [

@@ -5,17 +5,22 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="arrow-dropdown"
-      pullingText="Baja para actualizar"
-      refreshingSpinner="circles"
-      refreshingText="Cargando...">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Baja para actualizar" refreshingText="Cargando...">
     </ion-refresher-content>
   </ion-refresher>
   <ion-list>
-    <ion-item *ngFor="let news of newsfeed">
-      {{news.title}}
+    <ion-list-header>Novedades</ion-list-header>
+    <ion-item text-wrap *ngFor="let news of newsfeed">
+      <h2>{{news.title}}</h2>
+      <h3>{{news.application_description}}</h3>
+      <p>{{news.content}}</p>
+      <h4 *ngIf="news.context_name" item-right>{{news.context_description}}</h4>
+      <ion-icon *ngIf="news.global == 1" name="globe" item-right></ion-icon>
+      <ion-icon *ngIf="news.context_name" name="pricetag" item-right></ion-icon>
+      <!--ion-thumbnail item-right>
+        <img src="img/my-thumbnail.png">
+      </ion-thumbnail-->
     </ion-item>
   </ion-list>
 </ion-content>
