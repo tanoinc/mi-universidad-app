@@ -80,8 +80,8 @@ export class Webservice {
     this.auth = auth;
   }
 
-  userNewsfeeds(auth?: Auth) {
-    return this.fetch('mobile/api/v1/newsfeed', this.headersFromAuth(auth));
+  userNewsfeeds(page:number=0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/newsfeed?page='+page, this.headersFromAuth(auth));
   }
 
   userData(auth?: Auth) {

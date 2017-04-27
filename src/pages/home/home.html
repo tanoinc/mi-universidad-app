@@ -23,7 +23,7 @@
       </ion-thumbnail-->
     </ion-item>
   </ion-list>
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page" >
     <ion-infinite-scroll-content loadingText="Cargando...">></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
