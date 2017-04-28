@@ -15,6 +15,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from "../pages/login/login";
 import { IonicStorageModule } from '@ionic/storage';
 import { NotificationsPage } from "../pages/notifications/notifications";
+import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NotificationsPage } from "../pages/notifications/notifications";
     SignupPage,
     LoginPage,
     NotificationsPage,
-    MapaRondinPage
+    MapaRondinPage,
+    SubscriptionsPage
   ],
   imports: [
     HttpModule,
@@ -43,7 +45,8 @@ import { NotificationsPage } from "../pages/notifications/notifications";
     SignupPage,
     LoginPage,
     NotificationsPage,
-    MapaRondinPage
+    SubscriptionsPage,    
+    MapaRondinPage,
   ],
   providers: [
     StatusBar,

@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
 import { Storage } from '@ionic/storage';
+import { Events } from "ionic-angular";
 
 /*
   Generated class for the Auth provider.
@@ -20,7 +21,7 @@ export class Auth {
   private init_promise: Promise<any>;
   private auth_user: any;
 
-  constructor(public http: Http, private ws: Webservice, private storage: Storage) {
+  constructor(public http: Http, private ws: Webservice, private storage: Storage, public events: Events) {
     this.setClientId(null);
     this.setClientSecret(null);
     this.loaded = false;
@@ -112,24 +113,31 @@ export class Auth {
     }
   }
 
-  login(username: string, password: string) {
-    if (this.ready()) {
-      return this.ws
-        .userLogin(username, password, this.client_id, this.client_secret)
-        .then((data) => { this.setAuthData(data) })
-        .then(() => { return this.ws.userData(); })
-        .then((user) => { this.auth_user = user; });
-    } else {
-      return this.init(true)
-        .then(() => {
-          return this.ws.userLogin(username, password, this.client_id, this.client_secret);
-        })
-        .then((data) => { this.setAuthData(data); })
-        .then(() => { return this.ws.userData(); })
-        .then((user) => { this.auth_user = user; });
-    }
+  loadStoredData() {
+    return this.init()
+      .then(() => { return this.ws.userData(); })
+      .then((user) => { this.setUser(user); });
   }
 
+  login(username: string, password: string) {
+    let user_login = null;
+    if (this.ready()) {
+      user_login = this.ws.userLogin(username, password, this.client_id, this.client_secret);
+    } else {
+      user_login = this.init(true).then(() => {
+        return this.ws.userLogin(username, password, this.client_id, this.client_secret);
+      });
+    }
+    return user_login
+      .then((data) => { this.setAuthData(data) })
+      .then(() => { return this.ws.userData(); })
+      .then((user) => { this.setUser(user); });
+  }
+
+  setUser(user) {
+    this.auth_user = user;
+    this.events.publish('user:authenticated', this);    
+  }
   getUser() {
     return this.auth_user;
   }

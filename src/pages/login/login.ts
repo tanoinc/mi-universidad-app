@@ -33,7 +33,7 @@ export class LoginPage extends GenericPage {
   login(credentials) {
     this.showLoader('Validando');
     this.auth.login(credentials.username, credentials.password).then(() => {
-      this.events.publish('user:authenticated', this.auth);
+      //this.events.publish('user:authenticated', this.auth);
       this.loading.dismiss();
     }).catch((error) => {
       this.loading.dismiss();

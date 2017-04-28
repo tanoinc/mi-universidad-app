@@ -23,11 +23,8 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button ion-item menuClose *ngFor="let p of displayed_pages" (click)="openPage(p.root)">
         {{p.title}}
-      </button>
-      <button ion-item menuClose (click)="openPageMapaRondin()">
-        Recorrido micro universitario
       </button>
     </ion-list>
   </ion-content>
