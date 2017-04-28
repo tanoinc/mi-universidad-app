@@ -41,7 +41,7 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
 
     //MapaPage es un mapa que recibe una url donde consultar los componentes del mapa (ej: markers)
-    this.nav.setRoot(MapaPage, { url:"assets/data/locations.json"}).catch(() => {
+    this.nav.push(MapaPage, { url:"assets/data/locations.json"}).catch(() => {
         console.log("Didn't set nav root");
       });
     
@@ -49,7 +49,7 @@ export class MyApp {
 
   //ComedorPage es una pagina, que contiene un boton a un mapa, éste utiliza MapaPage.
    openPageComedor() {
-    this.nav.setRoot(ComedorPage, { urlMapa:"assets/data/comedor.json"}).catch(() => {
+    this.nav.push(ComedorPage, { urlMapa:"assets/data/comedor.json"}).catch(() => {
         console.log("Didn't set nav root");
       });
   }
