@@ -42,8 +42,8 @@ export class Webservice {
           console.log('webservice: post(' + action + '). Response:'); console.log(data);
           resolve(data);
         },
-        (err:Response) => {
-          console.log('webservice: post(' + action + '): Error '+ err.status);
+        (err: Response) => {
+          console.log('webservice: post(' + action + '): Error ' + err.status);
           let return_error = null;
           if (err.status == 422) {
             return_error = err.json();
@@ -80,8 +80,8 @@ export class Webservice {
     this.auth = auth;
   }
 
-  userNewsfeeds(page:number=0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/newsfeed?page='+page, this.headersFromAuth(auth));
+  userNewsfeeds(page: number = 0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/newsfeed?page=' + page, this.headersFromAuth(auth));
   }
 
   userData(auth?: Auth) {
@@ -94,6 +94,10 @@ export class Webservice {
     }
     let headers = new Headers({ 'Authorization': 'Bearer ' + auth.getAccessToken() });
     return headers;
+  }
+
+  userApplicationsAvailable(search: string = "", page: number = 0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth));
   }
 
 }

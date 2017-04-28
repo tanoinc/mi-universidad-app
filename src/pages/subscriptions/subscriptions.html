@@ -7,12 +7,33 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>subscriptions</ion-title>
+    <ion-title>Suscripciones</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="Baja para actualizar" refreshingText="Cargando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+
+  <div *ngIf="this.list_searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <ion-list>
+    <button ion-item *ngFor="let application of applications">
+      <h2>{{application.name}}</h2>
+      <p>{{application.description}}</p>
+    </button>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
+    <ion-infinite-scroll-content loadingText="Cargando...">></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

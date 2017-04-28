@@ -13,9 +13,6 @@ import { GenericPage } from "../generic/generic";
 export class HomePage extends GenericPage {
 
   newsfeed: any;
-  per_page:number;
-  page:number;
-  has_next_page:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
@@ -38,19 +35,10 @@ export class HomePage extends GenericPage {
     });
   }
 
-  resetPage() {
-    this.page = 0;
-  }
-
-  nextPage() {
-    this.page += 1;
-  }
-
   updateNewsfeed() {
     return this.ws.userNewsfeeds().then((news: any) => {
-      this.per_page = news.per_page;
+      this.setPaginationData(news);
       this.newsfeed = news.data;
-      this.has_next_page = (news.next_page_url!= null);
       this.resetPage();
     });
   }
@@ -58,9 +46,8 @@ export class HomePage extends GenericPage {
   loadMoreNewsfeed(){
     this.nextPage();
     return this.ws.userNewsfeeds(this.page).then((news: any) => {
-      this.per_page = news.per_page;
+      this.setPaginationData(news);
       this.newsfeed = this.newsfeed.concat(news.data);
-      this.has_next_page = (news.next_page_url!= null);
     });
   }
 

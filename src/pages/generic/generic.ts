@@ -15,6 +15,10 @@ import { Webservice } from "../../providers/webservice/webservice";
 export class GenericPage {
 
   public loading: any;
+  protected per_page:number;
+  protected page:number;
+  protected has_next_page:boolean = true;
+
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {}
 
@@ -37,4 +41,19 @@ export class GenericPage {
     });
     alert.present();
   }
+
+  resetPage() {
+    this.page = 0;
+  }
+
+  nextPage() {
+    this.page += 1;
+  }
+
+  setPaginationData(data) {
+    this.per_page = data.per_page;
+    this.has_next_page = (data.next_page_url!= null);
+  }
+
+
 }

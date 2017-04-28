@@ -22,6 +22,8 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   public loading;
   public user = null;
+  public full_screen : boolean = false;
+
   available_pages = [
     { title: "Suscripciones", root: SubscriptionsPage, icon: "home", display: ['authenticated'] },
     { title: "Contacto", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
@@ -50,6 +52,12 @@ export class MyApp {
     this.events.subscribe('user:authenticated', (auth: Auth) => {
       this.user = auth.getUser();
       this.display('authenticated');
+    });
+    this.events.subscribe('app:full_screen_on', () => {
+      this.fullScreenOn();
+    });
+    this.events.subscribe('app:full_screen_off', () => {
+      this.fullScreenOff();
     });
   }
 
@@ -88,6 +96,14 @@ export class MyApp {
 
   openUserProfile() {
 
+  }
+
+  fullScreenOn() {
+    this.full_screen = true;
+  }
+  
+  fullScreenOff() {
+    this.full_screen = false;
   }
 
 }

@@ -35,3 +35,5 @@ UserInterfaceState.xcuserstate
 
 src/config/config.dev.ts
 src/config/config.prod.ts
+resources/ios/
+resources/android/
