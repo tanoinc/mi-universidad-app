@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, Platform, MenuController } from 'ionic-angular';
+import { NavController, NavParams, Platform, MenuController, AlertController } from 'ionic-angular';
 import {
  GoogleMaps,
  GoogleMap,
@@ -7,7 +7,6 @@ import {
  LatLng,
  CameraPosition,
  MarkerOptions,
- Marker,
  PolylineOptions,
 } from '@ionic-native/google-maps';
 
@@ -24,45 +23,56 @@ import { RondinService } from "../../app/rondin.service";
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
 @Component({
-  selector: 'page-mapa-rondin',
-  templateUrl: 'mapa-rondin.html'
+  selector: 'page-mapa',
+  templateUrl: 'mapa.html'
 })
 
-
-
-export class MapaRondinPage {
+export class MapaPage {
   logError: any;
-
+  protected url : string;
+  
   @ViewChild('map') Element: ElementRef;
   constructor(public navCtrl: NavController, 
   public navParams: NavParams,
   platform: Platform, 
-  private googleMaps: GoogleMaps, 
+  protected googleMaps: GoogleMaps, 
   public http : Http,
-  private rondin: RondinService,
-  public menuController: MenuController
+  protected rondin: RondinService,
+  public menuController: MenuController, 
+  protected alertCtrl: AlertController
   ) 
   {
-    
+    this.url = navParams.data.url;
   }
 
 
 
 ngOnInit() {
-    console.log('ngOnInit MapaRondinPage');
+    console.log('ngOnInit MapaPage');
     
 }
 
 ngAfterViewInit() {
-  console.log('ngAfterViewInit MapaRondinPage');
+  console.log('ngAfterViewInit MapaPage');
 }
 
 ionViewDidLoad() {
-    console.log('ionViewDidLoad MapaRondinPage');
-    this.rondin.getDatosMapaJson().subscribe(() => this.loadMap());
+    console.log('ionViewDidLoad MapaPage');
+    this.rondin.getDatosMapaJson(this.url).subscribe(() => this.loadMap(), error => this.errorMsj("Error","Ocurrió un error inesperado"));
   }
 
+private errorMsj(titulo,texto) {
+
+  let alert = this.alertCtrl.create({
+    title: titulo,
+    subTitle: texto,
+    buttons: ['Aceptar']
+  });
+  alert.present();
+
+}
 
 private add_markers(map, markers_data: MarkerOptions[]) {
   if ((markers_data != null) && (markers_data.length > 0)) {
@@ -82,7 +92,7 @@ private add_polylines(map, polylines_data: PolylineOptions) {
 }
 
 
-private eventoMapaMenu(map) {
+private eventoMapaMenu(map: GoogleMap) {
 
 let leftMenu = this.menuController.get('left');
 
@@ -103,7 +113,7 @@ let leftMenu = this.menuController.get('left');
 }
 
   loadMap() {
-    let data = this.rondin.datosMapa;
+    let data = this.rondin.getDatos();
     let polylines_data = null;
     let markers_data = null;
     let center_pos: CameraPosition = null;
@@ -140,7 +150,7 @@ let leftMenu = this.menuController.get('left');
  let map: GoogleMap = this.googleMaps.create(this.Element.nativeElement);
 
  this.eventoMapaMenu(map);
- 
+ map.clear();
  // listen to MAP_READY event
  // You must wait for this event to fire before adding something to the map or modifying it in anyway
  map.one(GoogleMapsEvent.MAP_READY).then(() => {

@@ -3,7 +3,8 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
-
+import { ComedorPage } from '../pages/comedor/comedor';
+import { MapaPage } from "../pages/mapa/mapa";
 
 
 
@@ -38,9 +39,18 @@ export class MyApp {
     // the nav component was found using @ViewChild(Nav)
     // reset the nav to remove previous pages and only have this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(TabsPage, {tabIndex: 3}).catch(() => {
+
+    //MapaPage es un mapa que recibe una url donde consultar los componentes del mapa (ej: markers)
+    this.nav.setRoot(MapaPage, { url:"assets/data/locations.json"}).catch(() => {
         console.log("Didn't set nav root");
       });
     
+  }
+
+  //ComedorPage es una pagina, que contiene un boton a un mapa, éste utiliza MapaPage.
+   openPageComedor() {
+    this.nav.setRoot(ComedorPage, { urlMapa:"assets/data/comedor.json"}).catch(() => {
+        console.log("Didn't set nav root");
+      });
   }
 }

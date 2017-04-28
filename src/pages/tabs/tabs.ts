@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HomePage } from '../home/home';
 import { NotifPage } from '../notif/notif';
 import { ContactPage } from '../contact/contact';
-import { MapaRondinPage } from "../mapa-rondin/mapa-rondin";
 import { NavParams } from "ionic-angular";
 
 @Component({
@@ -14,7 +13,6 @@ export class TabsPage {
   tab1Root: any = HomePage;
   tab2Root: any = NotifPage;
   tab3Root: any = ContactPage;
-  tab4Root: any = MapaRondinPage;
   mySelectedIndex: number;
   constructor(navParams : NavParams) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;

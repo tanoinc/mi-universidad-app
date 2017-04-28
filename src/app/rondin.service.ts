@@ -4,27 +4,26 @@ import { Http , Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class RondinService {
-        datosMapa: any;
+        private datos: any;
     
 constructor(private http: Http){
 
 }
 
 
- getDatosMapaJson() { 
+ getDatosMapaJson(url: string) {
     console.log("...getDatosMapaJson...");
-    return this.http.get("assets/data/locations.json")
+    return this.http.get(url)
             .map((res: Response) => res.json() )
             .map( res => {
-                this.datosMapa = res; 
-                return this.datosMapa },
+                this.datos = res; 
+                return this.datos },
     );
  
 }
 
 
- getDatosMapa() {
-        return this.datosMapa;
-
+ getDatos() {
+        return this.datos;
     }
 }

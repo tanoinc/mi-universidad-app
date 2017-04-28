@@ -1,0 +1,13 @@
+{ 
+  "center" : { 
+    "target": {"lat": -34.910368,"lng": -57.938890 }, 
+    "zoom": 14, 
+    "tilt": 0 },
+  "markers" : [
+	{"title" : "Comedor de Medicina, Naturales, Periodismo, Observatorio", "position" : { "lat": -34.909083, "lng": -57.928880 } },
+  {"title" : "Comedor de Agronomía", "position" : { "lat":  -34.911080, "lng": -57.931023 } },
+  {"title" : "Comedor de 1 y 60", "position" : { "lat": -34.914886, "lng": -57.935310 } },
+  {"title" : "Comedor de Rectorado, Derecho, Económicas", "position" : { "lat":-34.914094, "lng": -57.950049 }  },
+  {"title" : "Facultad de Odontología, Colegio Nacional", "position" : { "lat":-34.908397, "lng": -57.942694 }  }
+] 
+}
