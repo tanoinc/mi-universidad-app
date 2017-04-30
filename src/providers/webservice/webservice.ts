@@ -35,9 +35,9 @@ export class Webservice {
     });
   }
 
-  private post(action: string, data: any) {
+  private post(action: string, data: any, header?: Headers) {
     return new Promise((resolve, reject) => {
-      this.http.post(this.host_url + action, data).map(res => res.json()).subscribe(
+      this.http.post(this.host_url + action, data, { 'headers': header }).map(res => res.json()).subscribe(
         (data) => {
           console.log('webservice: post(' + action + '). Response:'); console.log(data);
           resolve(data);
@@ -98,6 +98,13 @@ export class Webservice {
 
   userApplicationsAvailable(search: string = "", page: number = 0, auth?: Auth) {
     return this.fetch('mobile/api/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  }
+
+  applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  }
+  userSubscribeContext(application_name: string, context_name: string, auth?: Auth) {
+    return this.post('mobile/api/v1/context/subscription', { 'application_name': application_name, 'context_name': context_name }, this.headersFromAuth(auth));
   }
 
 }

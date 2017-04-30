@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { GenericPage } from "../generic/generic";
 import { Webservice } from "../../providers/webservice/webservice";
 
@@ -18,14 +18,19 @@ export class GenericDynamicListPage extends GenericPage {
 
   protected search_text: string = "";
   protected list_searching: boolean = false;
+  protected full_screen: Boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events ) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
     this.update();
   }
 
   protected getUpdatePromise(): Promise<any> {
-    return Promise.resolve();
+    return Promise.resolve({});
+  }
+
+  protected getLoadMorePromise(): Promise<any> {
+    return Promise.resolve({});
   }
 
   update() {
@@ -53,7 +58,7 @@ export class GenericDynamicListPage extends GenericPage {
 
   loadMore() {
     this.nextPage();
-    return this.getUpdatePromise().then((data: any) => {
+    return this.getLoadMorePromise().then((data: any) => {
       this.setPaginationData(data);
       this.list = this.list.concat(data.data);
     });
@@ -71,5 +76,15 @@ export class GenericDynamicListPage extends GenericPage {
         this.showAlert("Error", error);
         this.list_searching = false;
       });
+  }
+
+  ionViewWillEnter() {
+    if (this.full_screen) {
+      this.events.publish('app:full_screen_on');
+    }
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('app:full_screen_off');
   }
 }

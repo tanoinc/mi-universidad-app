@@ -9,21 +9,30 @@
     <ion-refresher-content pullingText="Baja para actualizar" refreshingText="Cargando...">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list>
-    <ion-list-header>Novedades</ion-list-header>
-    <ion-item text-wrap *ngFor="let news of newsfeed">
+
+  <ion-card *ngFor="let news of newsfeed">
+    <ion-item>
       <h2>{{news.title}}</h2>
-      <h3>{{news.application_description}}</h3>
-      <p>{{news.content}}</p>
-      <h4 *ngIf="news.context_name" item-right>{{news.context_description}}</h4>
+      <p>{{news.created_at}}</p>
       <ion-icon *ngIf="news.global == 1" name="globe" item-right></ion-icon>
       <ion-icon *ngIf="news.context_name" name="pricetag" item-right></ion-icon>
-      <!--ion-thumbnail item-right>
-        <img src="img/my-thumbnail.png">
-      </ion-thumbnail-->
     </ion-item>
-  </ion-list>
-  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page" >
+    <ion-card-content>
+      <p>{{news.content}}</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col  center text-center>
+        <p *ngIf="news.context_name">{{news.context_description}}</p>
+      </ion-col>
+      <ion-col  center text-center>
+        <ion-note>
+          {{news.application_description}}
+        </ion-note>
+      </ion-col>      
+    </ion-row>
+  </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
     <ion-infinite-scroll-content loadingText="Cargando...">></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

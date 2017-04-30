@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import 'rxjs/add/operator/map';
 import { Auth } from "../../providers/auth";
@@ -14,7 +14,7 @@ export class HomePage extends GenericPage {
 
   newsfeed: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth, public events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
     this.newsfeed = [];
     this.resetPage();

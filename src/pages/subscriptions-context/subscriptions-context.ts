@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-list";
-import { SubscriptionsContextPage } from "../subscriptions-context/subscriptions-context";
 
 /*
   Generated class for the Subscriptions page.
@@ -11,30 +10,43 @@ import { SubscriptionsContextPage } from "../subscriptions-context/subscriptions
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-subscriptions',
-  templateUrl: 'subscriptions.html'
+  selector: 'page-subscriptions-context',
+  templateUrl: 'subscriptions-context.html'
 })
-export class SubscriptionsPage extends GenericDynamicListPage {
+export class SubscriptionsContextPage extends GenericDynamicListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.list_searching = true;
   }
 
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SubscriptionsPage');
+    console.log('ionViewDidLoad SubscriptionsContextPage: ');
+    console.log(this.getSelectedApplication().name);
+  }
+
+  protected getSelectedApplication() {
+    return this.navParams.get('application');
   }
 
   protected getUpdatePromise(): Promise<any> {
-    return this.ws.userApplicationsAvailable(this.search_text)
+    return this.ws.applicationContextsAvailable(this.getSelectedApplication().name, this.search_text)
   }
 
   protected getLoadMorePromise(): Promise<any> {
-    return this.ws.userApplicationsAvailable(this.search_text, this.page);
+    return this.ws.applicationContextsAvailable(this.getSelectedApplication().name, this.search_text, this.page);
   }
 
-  selected(application) {
-    this.navCtrl.push(SubscriptionsContextPage, { 'application': application });
+  subscribe(context) {
+    this.showLoader("Suscribiendo");
+    this.ws.userSubscribeContext(this.getSelectedApplication().name, context.name)
+    .then(()=>{
+      this.loading.dismiss();
+    })
+    .catch(()=>{
+      this.showAlert("Error", "Ocurrió un error al suscribirse");
+      this.loading.dismiss();
+    });
   }
-
 }

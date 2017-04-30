@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Suscripciones</ion-title>
+    <ion-title>Temas</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,10 +26,13 @@
   </div>
 
   <ion-list>
-    <button ion-item *ngFor="let application of list" (click)="selected(application)">
-      <h2>{{application.description}}</h2>
-      <p>{{application.name}}</p>
-    </button>
+    <ion-item *ngFor="let context of list">
+      <h2>{{context.description}}</h2>
+      <button ion-button item-right icon-left (click)="subscribe(context)">
+        <ion-icon name="pricetag"></ion-icon>
+        Suscribirse
+      </button>
+    </ion-item>
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
