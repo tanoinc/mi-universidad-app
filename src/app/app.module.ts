@@ -8,7 +8,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { MapaRondinPage } from '../pages/mapa-rondin/mapa-rondin';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { Webservice } from "../providers/webservice/webservice";
 import { Auth } from '../providers/auth';
 import { SignupPage } from '../pages/signup/signup';
@@ -17,6 +17,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { NotificationsPage } from "../pages/notifications/notifications";
 import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscriptions-context";
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,14 @@ import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscri
   imports: [
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [Http]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,7 +58,7 @@ import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscri
     LoginPage,
     NotificationsPage,
     SubscriptionsPage,
-    SubscriptionsContextPage,    
+    SubscriptionsContextPage,
     MapaRondinPage,
   ],
   providers: [
@@ -56,7 +66,11 @@ import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscri
     SplashScreen,
     Webservice,
     Auth,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
+
+export function createTranslateLoader(http: Http) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}

@@ -15,11 +15,11 @@ export class TabsPage {
   @ViewChild('myTabs') tabRef: Tabs;
 
   available_tabs = [
-    { title: "Inicio", root: HomePage, icon: "home", display: ['authenticated'] },
-    { title: "Notificaciones", root: NotificationsPage, icon: "notifications", display: ['authenticated'] },
-    { title: "Ingresar", root: LoginPage, icon: "log-in", display: ['not-authenticated'] },
-    { title: "Crear cuenta", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
-    { title: "Contacto", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
+    { title: "HOME", root: HomePage, icon: "home", display: ['authenticated'] },
+    { title: "NOTIFICATIONS", root: NotificationsPage, icon: "notifications", display: ['authenticated'] },
+    { title: "LOGIN", root: LoginPage, icon: "log-in", display: ['not-authenticated'] },
+    { title: "CREATE_ACCOUNT", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
+    { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
   displayed_tabs = [];
   display_modes = ['not-authenticated', 'authenticated',];

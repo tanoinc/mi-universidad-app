@@ -1,25 +1,27 @@
-<!--
-  Generated template for the Subscriptions page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Temas</ion-title>
+    <ion-title>{{'CONTEXTS'|translate}}</ion-title>
   </ion-navbar>
-
+  <ion-card>
+    <ion-card-header>
+      {{this.getSelectedApplication().name}}
+    </ion-card-header>
+    <ion-card-content>
+      {{this.getSelectedApplication().description}}
+    </ion-card-content>
+  </ion-card>
 </ion-header>
 
 <ion-content padding>
 
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingText="Baja para actualizar" refreshingText="Cargando...">
+    <ion-refresher-content pullingText="{{'PULL_DOWN_LOAD'|translate}}" refreshingText="{{'LOADING'|translate}}...">
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="search($event)" placeholder="{{'SEARCH'|translate}}"></ion-searchbar>
 
   <div *ngIf="this.list_searching" class="spinner-container">
     <ion-spinner></ion-spinner>
@@ -28,15 +30,19 @@
   <ion-list>
     <ion-item *ngFor="let context of list">
       <h2>{{context.description}}</h2>
-      <button ion-button item-right icon-left (click)="subscribe(context)">
+      <button *ngIf="!this.hasSuscribed(context.name)" ion-button item-right icon-left (click)="subscribe(context)">
         <ion-icon name="pricetag"></ion-icon>
-        Suscribirse
+        {{'SUBSCRIBE'|translate}}
       </button>
+      <button *ngIf="this.hasSuscribed(context.name)" ion-button item-right icon-left clear outline (click)="unsubscribe(context)">
+        <ion-icon name="checkmark"></ion-icon>
+        {{'SUBSCRIBED'|translate}}
+      </button>      
     </ion-item>
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
-    <ion-infinite-scroll-content loadingText="Cargando...">></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingText="{{'LOADING'|translate}}...">></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
 </ion-content>

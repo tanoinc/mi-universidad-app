@@ -1,0 +1,19 @@
+{
+    "HOLA": "Hola",
+    "HOME": "Inicio",
+    "NOTIFICATIONS": "Notificaciones",
+    "LOGIN": "Ingresar",
+    "CREATE_ACCOUNT": "Crear cuenta",
+    "CONTACT": "Contacto",
+    "SUBSCRIPTIONS": "Suscripciones",
+    "LOADING": "Cargando",
+    "PULL_DOWN_LOAD": "Baja para actualizar",
+    "CONTEXTS": "Temas",
+    "SUBSCRIBE": "Suscribite",
+    "SEARCH": "Buscar",
+    "UNSUBSCRIBE": "Desuscribirse",
+    "SUBSCRIBED": "Suscripto",
+    "MENU":"Menú",
+    "PREFERENCES":"Preferencias",
+    "LOGOUT":"Cerrar sesión"
+}

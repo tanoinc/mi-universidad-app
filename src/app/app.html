@@ -5,7 +5,7 @@
     <ion-title>{{getAppTitle()}}</ion-title>
 
     <ion-buttons *ngIf="user" end>
-      <button ion-button icon-right large outline (click)="openUserProfile()">
+      <button ion-button icon-right large outline (click)="toggleUserMenu()">
         {{user.name}} {{user.surname}}
 
         <ion-icon name="contact"></ion-icon>
@@ -14,21 +14,39 @@
 
   </ion-navbar>
 </ion-header>
-<ion-menu [content]="nav" >
+
+<ion-menu side="left" [content]="nav" >
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menú</ion-title>
+      <ion-title>{{'MENU'|translate}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
       <button ion-item menuClose *ngFor="let p of displayed_pages" (click)="openPage(p.root)">
+        <ion-icon item-right name="{{p.icon}}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
+</ion-menu>
 
+<ion-menu *ngIf="user" side="right" [content]="nav" >
+  <ion-header>
+    <ion-toolbar>
+      <ion-title><ion-icon name="contact"></ion-icon> {{user.name}} {{user.surname}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item menuClose *ngFor="let p of user_profile_pages" (click)="openPage(p.root)">
+        <ion-icon item-right name="{{p.icon}}"></ion-icon>
+        {{p.title|translate}}
+      </button>
+    </ion-list>
+  </ion-content>
 </ion-menu>
 
 <ion-nav id="nav" [root]="rootPage" #nav swipeBackEnabled="false"></ion-nav>

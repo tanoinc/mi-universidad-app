@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
 import { CONFIG } from "../config/config";
 import { ContactPage } from "../pages/contact/contact";
 import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
-
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -22,23 +22,29 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   public loading;
   public user = null;
-  public full_screen : boolean = false;
+  public full_screen: boolean = false;
 
   available_pages = [
-    { title: "Suscripciones", root: SubscriptionsPage, icon: "home", display: ['authenticated'] },
+    { title: "Suscripciones", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
     { title: "Contacto", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
   displayed_pages = [];
   display_modes = ['not-authenticated', 'authenticated',];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events) {
+  user_profile_pages = [
+    { title: "PREFERENCES", root: SubscriptionsPage, icon: "options" },
+    { title: "LOGOUT", root: ContactPage, icon: "log-out" },
+  ];
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService) {
+    this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.      
       return storage.ready();
     }).then(() => {
       this.display('not-authenticated');
-      return auth.loadStoredData().catch(()=>{});
+      return auth.loadStoredData().catch(() => { });
     }).then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -60,7 +66,6 @@ export class MyApp {
       this.fullScreenOff();
     });
   }
-
 
   display(mode: string, defaultTab?: number) {
     console.log('MenuController Display mode: ' + mode);
@@ -101,9 +106,13 @@ export class MyApp {
   fullScreenOn() {
     this.full_screen = true;
   }
-  
+
   fullScreenOff() {
     this.full_screen = false;
+  }
+
+  toggleUserMenu() {
+    this.menu.toggle('right');
   }
 
 }

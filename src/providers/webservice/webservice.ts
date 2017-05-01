@@ -56,6 +56,27 @@ export class Webservice {
     });
   }
 
+  private delete(action: string, header?: Headers) {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.host_url + action, { 'headers': header }).map(res => res.json()).subscribe(
+        (data) => {
+          console.log('webservice: delete (' + action + '). Response:'); console.log(data);
+          resolve(data);
+        },
+        (err: Response) => {
+          console.log('webservice: delete (' + action + '): Error ' + err.status);
+          let return_error = null;
+          if (err.status == 422) {
+            return_error = err.json();
+          } else {
+            return_error = err;
+          }
+          reject(return_error);
+        }
+      );
+    });
+  }
+
   init() {
     return this.fetch('api/v1/config/init');
   }
@@ -103,8 +124,21 @@ export class Webservice {
   applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth) {
     return this.fetch('mobile/api/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
   }
+
   userSubscribeContext(application_name: string, context_name: string, auth?: Auth) {
     return this.post('mobile/api/v1/context/subscription', { 'application_name': application_name, 'context_name': context_name }, this.headersFromAuth(auth));
+  }
+
+  userUnsubscribeContext(application_name: string, context_name: string, auth?: Auth) {
+    return this.delete('mobile/api/v1/context/subscription/' + application_name + '/' + context_name, this.headersFromAuth(auth));
+  }
+
+  userContextSubscriptions(search: string = "", page: number = 0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/context/subscriptions?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  }
+
+  userApplicationContextSubscriptions(application_name: string, search: string = "", page: number = 0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
   }
 
 }
