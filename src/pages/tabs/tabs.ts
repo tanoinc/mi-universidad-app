@@ -29,6 +29,9 @@ export class TabsPage {
     this.events.subscribe('user:authenticated', (auth) => {
       this.navCtrl.setRoot(TabsPage, { mode: 'authenticated' });
     });
+    this.events.subscribe('user:unauthenticated', (auth) => {
+      this.navCtrl.setRoot(TabsPage, { mode: 'not-authenticated' });
+    });    
   }
 
   ionViewDidEnter() {

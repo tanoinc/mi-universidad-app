@@ -134,6 +134,11 @@ export class Auth {
       .then((user) => { this.setUser(user); });
   }
 
+  logout() {
+    this.setAuthData(null, true);
+    this.events.publish('user:unauthenticated', this);
+  }
+
   setUser(user) {
     this.auth_user = user;
     this.events.publish('user:authenticated', this);    

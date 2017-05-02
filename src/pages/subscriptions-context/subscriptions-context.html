@@ -3,14 +3,6 @@
   <ion-navbar>
     <ion-title>{{'CONTEXTS'|translate}}</ion-title>
   </ion-navbar>
-  <ion-card>
-    <ion-card-header>
-      {{this.getSelectedApplication().name}}
-    </ion-card-header>
-    <ion-card-content>
-      {{this.getSelectedApplication().description}}
-    </ion-card-content>
-  </ion-card>
 </ion-header>
 
 <ion-content padding>
@@ -20,6 +12,16 @@
     <ion-refresher-content pullingText="{{'PULL_DOWN_LOAD'|translate}}" refreshingText="{{'LOADING'|translate}}...">
     </ion-refresher-content>
   </ion-refresher>
+
+  <ion-card>
+    <ion-card-header>
+      {{this.getSelectedApplication().description}}
+    </ion-card-header>
+    <ion-card-content>
+      {{this.getSelectedApplication().name}}
+    </ion-card-content>
+  </ion-card>
+
 
   <ion-searchbar (ionInput)="search($event)" placeholder="{{'SEARCH'|translate}}"></ion-searchbar>
 
@@ -37,7 +39,7 @@
       <button *ngIf="this.hasSuscribed(context.name)" ion-button item-right icon-left clear outline (click)="unsubscribe(context)">
         <ion-icon name="checkmark"></ion-icon>
         {{'SUBSCRIBED'|translate}}
-      </button>      
+      </button>
     </ion-item>
   </ion-list>
 

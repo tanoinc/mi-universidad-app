@@ -33,7 +33,6 @@ export class MyApp {
 
   user_profile_pages = [
     { title: "PREFERENCES", root: SubscriptionsPage, icon: "options" },
-    { title: "LOGOUT", root: ContactPage, icon: "log-out" },
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService) {
@@ -59,6 +58,9 @@ export class MyApp {
       this.user = auth.getUser();
       this.display('authenticated');
     });
+    this.events.subscribe('user:unauthenticated', (auth: Auth) => {
+      this.display('not-authenticated');
+    });    
     this.events.subscribe('app:full_screen_on', () => {
       this.fullScreenOn();
     });
@@ -113,6 +115,11 @@ export class MyApp {
 
   toggleUserMenu() {
     this.menu.toggle('right');
+  }
+
+  logout() {
+    this.auth.logout();
+    this.user = null;
   }
 
 }
