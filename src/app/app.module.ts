@@ -19,7 +19,26 @@ import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscriptions-context";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { CONFIG } from "../config/config";
 
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': CONFIG.FIREBASE_APP_ID,
+  },
+  'push': {
+    'sender_id': CONFIG.FIREBASE_SENDER_ID,
+    'pluginConfig': {
+      'ios': {
+        'badge': true,
+        'sound': true
+      },
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
+  }
+};
 
 @NgModule({
   declarations: [
@@ -45,7 +64,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         useFactory: (createTranslateLoader),
         deps: [Http]
       }
-    })
+    }),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -12,6 +12,7 @@ import { CONFIG } from "../config/config";
 import { ContactPage } from "../pages/contact/contact";
 import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { TranslateService } from "@ngx-translate/core";
+import { Push, PushToken } from '@ionic/cloud-angular';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class MyApp {
     { title: "PREFERENCES", root: SubscriptionsPage, icon: "options" },
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push) {
     this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -47,6 +48,10 @@ export class MyApp {
     }).then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+    }).then(() => {
+      return this.push.register();
+    }).then((t: PushToken) => {
+      return this.push.saveToken(t);
     });
 
     this.initEventSubscriptions();
@@ -60,7 +65,7 @@ export class MyApp {
     });
     this.events.subscribe('user:unauthenticated', (auth: Auth) => {
       this.display('not-authenticated');
-    });    
+    });
     this.events.subscribe('app:full_screen_on', () => {
       this.fullScreenOn();
     });
