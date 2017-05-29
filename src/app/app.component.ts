@@ -55,7 +55,10 @@ export class MyApp {
     });
 
     this.initEventSubscriptions();
-
+    this.push.rx.notification()
+      .subscribe((msg) => {
+        alert('Notificacion push recibida: ' + msg);
+      });
   }
 
   private initEventSubscriptions() {
