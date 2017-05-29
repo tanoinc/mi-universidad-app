@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Http , Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 @Injectable()
-export class RondinService {
+export class JsonService {
         private datos: any;
     
 constructor(private http: Http){
@@ -26,4 +26,8 @@ constructor(private http: Http){
  getDatos() {
         return this.datos;
     }
+
+  setDatos(datos) {
+        this.datos= datos;
+    }  
 }

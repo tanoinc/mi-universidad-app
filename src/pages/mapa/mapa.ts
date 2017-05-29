@@ -13,7 +13,7 @@ import {
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { RondinService } from "../../app/rondin.service";
+import { JsonService } from "../../app/json.service";
 
 
 
@@ -39,7 +39,7 @@ export class MapaPage {
   platform: Platform, 
   protected googleMaps: GoogleMaps, 
   public http : Http,
-  protected rondin: RondinService,
+  protected rondin: JsonService,
   public menuController: MenuController, 
   protected alertCtrl: AlertController
   ) 
@@ -59,8 +59,11 @@ ngAfterViewInit() {
 }
 
 ionViewDidLoad() {
-    console.log('ionViewDidLoad MapaPage');
-    this.rondin.getDatosMapaJson(this.url).subscribe(() => this.loadMap(), error => this.errorMsj("Error","Ocurrió un error inesperado"));
+    console.log('ionViewDidLoad MapaPage: ' + this.url);
+    if (this.url == null) this.loadMap();
+    else {
+    this.rondin.getDatosMapaJson(this.url).subscribe(() => this.preLoadMap(), error => this.errorMsj("Error","Ocurrió un error inesperado"));
+    }
   }
 
 private errorMsj(titulo,texto) {
@@ -111,7 +114,17 @@ let leftMenu = this.menuController.get('left');
     }
 
 }
+ preLoadMap() {
+   console.log("Deberia implementarse en la subclase");
+   
+   /*let datos = this.rondin.getDatos();
+   this.filtrar(datos);
+   this.rondin.setDatos(datos);
+   */
+   this.loadMap();
 
+ }
+ 
   loadMap() {
     let data = this.rondin.getDatos();
     let polylines_data = null;

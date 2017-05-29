@@ -9,10 +9,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { Webservice } from "../providers/webservice/webservice";
-import { RondinService } from "./rondin.service";
+import { JsonService } from "./json.service";
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { ComedorPage } from "../pages/comedor/comedor";
 import { MapaPage } from "../pages/mapa/mapa";
+import { MapaLibretasPage } from "../pages/mapa-libretas/mapa-libretas";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MapaPage } from "../pages/mapa/mapa";
     HomePage,
     TabsPage,
     MapaPage,
-    ComedorPage
+    ComedorPage,
+    MapaLibretasPage
   ],
   imports: [
     HttpModule,
@@ -36,7 +38,8 @@ import { MapaPage } from "../pages/mapa/mapa";
     HomePage,
     TabsPage,
     MapaPage,
-    ComedorPage
+    ComedorPage,
+    MapaLibretasPage
   ],
   providers: [
     StatusBar,
@@ -44,7 +47,7 @@ import { MapaPage } from "../pages/mapa/mapa";
     Webservice,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GoogleMaps,
-    RondinService
+    JsonService
   ]
 })
 export class AppModule {}

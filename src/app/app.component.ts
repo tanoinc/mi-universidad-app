@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ComedorPage } from '../pages/comedor/comedor';
 import { MapaPage } from "../pages/mapa/mapa";
+import { MapaLibretasPage } from "../pages/mapa-libretas/mapa-libretas";
 
 
 
@@ -50,6 +51,12 @@ export class MyApp {
   //ComedorPage es una pagina, que contiene un boton a un mapa, éste utiliza MapaPage.
    openPageComedor() {
     this.nav.push(ComedorPage, { urlMapa:"assets/data/comedor.json"}).catch(() => {
+        console.log("Didn't set nav root");
+      });
+  }
+
+  openPageConsultorios() {
+    this.nav.push(MapaLibretasPage, { url:"https://url.edu.ar"}).catch(() => {
         console.log("Didn't set nav root");
       });
   }

@@ -4,10 +4,9 @@
     "zoom": 14, 
     "tilt": 0 },
   "markers" : [
-	{"title" : "Comedor de Medicina, Naturales, Periodismo, Observatorio", "position" : { "lat": -34.909083, "lng": -57.928880 } },
-  {"title" : "Comedor de Agronomía", "position" : { "lat":  -34.911080, "lng": -57.931023 } },
-  {"title" : "Comedor de 1 y 60", "position" : { "lat": -34.914886, "lng": -57.935310 } },
-  {"title" : "Comedor de Rectorado, Derecho, Económicas", "position" : { "lat":-34.914094, "lng": -57.950049 }  },
-  {"title" : "Facultad de Odontología, Colegio Nacional", "position" : { "lat":-34.908397, "lng": -57.942694 }  }
+	{"title" : "Comedor Universitario Sede 2 Bosque Este", "icon": "www/assets/icon/restaurant16.png", "position" : { "lat": -34.9094482, "lng": -57.9256303 } },
+  {"title" : "Comedor Universitario Club Everton", "icon": "www/assets/icon/restaurant16.png", "position" : { "lat":  -34.9304954, "lng": -57.9446183 } },
+  {"title" : "Comedor Universitario Campo de Deportes UNLP","icon": "www/assets/icon/restaurant16.png",  "position" : { "lat": -34.9070897, "lng": -57.9414137 } },
+  {"title" : "Comedor Universitario ATULP","icon": "www/assets/icon/restaurant16.png", "position" : { "lat":-34.9131022, "lng": -57.9581816 }  }
 ] 
 }

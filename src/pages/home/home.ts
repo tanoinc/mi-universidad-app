@@ -13,10 +13,10 @@ export class HomePage {
   newsfeed: any;
 
   constructor(public navCtrl: NavController, private ws: Webservice) {
-    ws.init().then((result) => { 
+    /*ws.init().then((result) => { 
       let aa = <Object> result;
       console.log(aa);
-    });
+    });*/
   }
 
 }
