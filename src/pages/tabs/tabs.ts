@@ -21,6 +21,7 @@ export class TabsPage {
     { title: "CREATE_ACCOUNT", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
     { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
+  tabs_badge = { "NOTIFICATIONS": 0 }
   displayed_tabs = [];
   display_modes = ['not-authenticated', 'authenticated',];
 
@@ -31,7 +32,15 @@ export class TabsPage {
     });
     this.events.subscribe('user:unauthenticated', (auth) => {
       this.navCtrl.setRoot(TabsPage, { mode: 'not-authenticated' });
-    });    
+    });
+
+    this.events.subscribe('notification:push', (msg) => {
+      this.tabs_badge["NOTIFICATIONS"] += 1;
+    });
+    this.events.subscribe('notification:read', (msg) => {
+      this.tabs_badge["NOTIFICATIONS"] = 0;
+    });
+
   }
 
   ionViewDidEnter() {

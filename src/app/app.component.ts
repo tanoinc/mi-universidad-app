@@ -49,16 +49,15 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     }).then(() => {
-      return this.push.register();
-    }).then((t: PushToken) => {
-      return this.push.saveToken(t);
+      return this.push.register().then((t: PushToken) => {
+        return this.push.saveToken(t);
+      }).catch(() => {
+
+      });
     });
 
     this.initEventSubscriptions();
-    this.push.rx.notification()
-      .subscribe((msg) => {
-        alert('Notificacion push recibida: ' + msg);
-      });
+
   }
 
   private initEventSubscriptions() {
@@ -75,6 +74,12 @@ export class MyApp {
     this.events.subscribe('app:full_screen_off', () => {
       this.fullScreenOff();
     });
+
+    this.push.rx.notification()
+      .subscribe((msg) => {
+        this.events.publish('notification:push', msg);
+        console.log('Notificacion push recibida: ' + msg);
+      });
   }
 
   display(mode: string, defaultTab?: number) {
@@ -129,5 +134,7 @@ export class MyApp {
     this.auth.logout();
     this.user = null;
   }
-
+  pruebaNotificacion() {
+    this.events.publish('notification:push', {'msg':"prueba"});
+  }
 }

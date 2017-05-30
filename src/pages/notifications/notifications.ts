@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-notifications',
@@ -8,8 +8,12 @@ import { NavController } from 'ionic-angular';
 })
 export class NotificationsPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public events: Events) {
 
+  }
+
+  ionViewDidEnter() {
+    this.events.publish('notification:read');
   }
 
 }
