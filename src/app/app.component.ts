@@ -51,6 +51,8 @@ export class MyApp {
     }).then(() => {
       return this.push.register().then((t: PushToken) => {
         return this.push.saveToken(t);
+      }).then((t: PushToken) => {
+        console.log("Token push: " + t);
       }).catch(() => {
 
       });

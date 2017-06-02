@@ -12,7 +12,7 @@ export class NotificationsPage {
 
   }
 
-  ionViewDidEnter() {
+  ionViewDidLeave() {
     this.events.publish('notification:read');
   }
 
