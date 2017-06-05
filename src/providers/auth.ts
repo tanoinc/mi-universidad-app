@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
 import { Storage } from '@ionic/storage';
 import { Events } from "ionic-angular";
+import { PushToken } from '@ionic/cloud-angular';
 
 /*
   Generated class for the Auth provider.
@@ -141,9 +142,15 @@ export class Auth {
 
   setUser(user) {
     this.auth_user = user;
-    this.events.publish('user:authenticated', this);    
+    this.events.publish('user:authenticated', this);
   }
+
   getUser() {
     return this.auth_user;
   }
+
+  registerPushToken(t: PushToken) {
+    return this.ws.userRegisterPushToken(t.token, t.type);
+  }
+
 }

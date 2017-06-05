@@ -37,29 +37,30 @@ export class MyApp {
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push) {
-    this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.      
+      this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
       return storage.ready();
     }).then(() => {
       this.display('not-authenticated');
       return auth.loadStoredData().catch(() => { });
     }).then(() => {
+      return this.initPush().catch(() => { });
+    }).then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
-    }).then(() => {
-      return this.push.register().then((t: PushToken) => {
-        return this.push.saveToken(t);
-      }).then((t: PushToken) => {
-        console.log("Token push: " + t);
-      }).catch(() => {
-
-      });
     });
 
     this.initEventSubscriptions();
 
+  }
+
+  private initPush() {
+    return this.push.register().then((t: PushToken) => {
+      return this.push.saveToken(t);
+    }).then((t: PushToken) => {
+      console.log("Token push: " + t);
+      return this.auth.registerPushToken(t);
+    });
   }
 
   private initEventSubscriptions() {
@@ -137,6 +138,6 @@ export class MyApp {
     this.user = null;
   }
   pruebaNotificacion() {
-    this.events.publish('notification:push', {'msg':"prueba"});
+    this.events.publish('notification:push', { 'msg': "prueba" });
   }
 }

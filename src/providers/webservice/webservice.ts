@@ -141,4 +141,8 @@ export class Webservice {
     return this.fetch('mobile/api/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
   }
 
+  userRegisterPushToken(token: string, type: string, auth?: Auth) {
+    return this.post('mobile/api/v1/user/push_token', { 'token': token, 'type': type }, this.headersFromAuth(auth));
+  }
+
 }
