@@ -4,5 +4,16 @@
     "NOTIFICATIONS": "Notifications",
     "LOGIN": "Log-in",
     "CREATE_ACCOUNT": "Create account",
-    "CONTACT": "Contact"
+    "CONTACT": "Contact",
+    "SUBSCRIPTIONS": "Subscriptions",
+    "LOADING": "Loading",
+    "PULL_DOWN_LOAD": "Pull down to load",
+    "CONTEXTS": "Contexts",
+    "SUBSCRIBE": "Subscribe",
+    "SEARCH": "Search",
+    "UNSUBSCRIBE": "Unsuscribe",
+    "SUBSCRIBED": "Subscribed",
+    "MENU":"Menu",
+    "PREFERENCES":"Preferences",
+    "LOGOUT":"Log out"
 }

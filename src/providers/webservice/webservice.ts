@@ -121,6 +121,10 @@ export class Webservice {
     return this.fetch('mobile/api/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth));
   }
 
+  userNotifications(page: number = 0, auth?: Auth) {
+    return this.fetch('mobile/api/v1/notification?page=' + page, this.headersFromAuth(auth));
+  }
+
   applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth) {
     return this.fetch('mobile/api/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
   }
