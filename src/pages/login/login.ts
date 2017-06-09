@@ -45,4 +45,13 @@ export class LoginPage extends GenericPage {
     this.navCtrl.setRoot(SignupPage);
   }
 
+  facebookLogin() {
+    this.auth.facebookLogin().then(() => {
+      this.loading.dismiss();
+    }).catch((error) => {
+      this.loading.dismiss();
+      this.showAlert("Error", "Ocurró un error al intentar ingresar. " + (!CONFIG.PRODUCTION ? error : ''));
+    });
+  }
+
 }

@@ -55,7 +55,8 @@ export class MyApp {
   }
 
   private initPush() {
-    return this.push.register().then((t: PushToken) => {
+    return this.push.register()
+    .then((t: PushToken) => {
       return this.push.saveToken(t);
     }).then((t: PushToken) => {
       console.log("Token push: " + t);
@@ -134,8 +135,11 @@ export class MyApp {
   }
 
   logout() {
-    this.auth.logout();
-    this.user = null;
+    this.showLoader('Saliendo');
+    this.auth.logout().then(() => {
+      this.user = null;
+      this.hideLoader();
+    });
   }
   pruebaNotificacion() {
     this.events.publish('notification:push', { 'msg': "prueba" });

@@ -97,6 +97,10 @@ export class Webservice {
     return this.post('oauth/token', data);
   }
 
+  userLogout(auth?: Auth) {
+    return this.delete('oauth/token/'+this.auth.getAccessToken(), this.headersFromAuth(auth))
+  }
+
   setAuth(auth: Auth) {
     this.auth = auth;
   }
@@ -147,6 +151,10 @@ export class Webservice {
 
   userRegisterPushToken(token: string, type: string, auth?: Auth) {
     return this.post('mobile/api/v1/user/push_token', { 'token': token, 'type': type }, this.headersFromAuth(auth));
+  }
+
+  userUnregisterPushToken(token: string, type: string, auth?: Auth) {
+    return this.delete('mobile/api/v1/user/push_token/' + type + '/' + token, this.headersFromAuth(auth));
   }
 
 }

@@ -15,5 +15,6 @@
     "SUBSCRIBED": "Subscribed",
     "MENU":"Menu",
     "PREFERENCES":"Preferences",
-    "LOGOUT":"Log out"
+    "LOGOUT":"Log out",
+    "LOG_IN_WITH_FACEBOOK":"Log in with Facebook"
 }

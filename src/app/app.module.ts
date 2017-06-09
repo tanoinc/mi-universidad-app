@@ -26,6 +26,11 @@ const cloudSettings: CloudSettings = {
   'core': {
     'app_id': CONFIG.FIREBASE_APP_ID,
   },
+  'auth': {
+    'facebook': {
+      'scope': ['email', 'public_profile']
+    }
+  },  
   'push': {
     'sender_id': CONFIG.FIREBASE_SENDER_ID,
     'pluginConfig': {
