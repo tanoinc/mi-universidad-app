@@ -98,7 +98,7 @@ export class Webservice {
   }
 
   userLogout(auth?: Auth) {
-    return this.delete('oauth/token/'+this.auth.getAccessToken(), this.headersFromAuth(auth))
+    return this.delete('oauth/tokens/'+this.auth.getAccessToken(), this.headersFromAuth(auth))
   }
 
   setAuth(auth: Auth) {
