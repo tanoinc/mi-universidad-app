@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { Events } from "ionic-angular";
 import { PushToken } from '@ionic/cloud-angular';
 import { FacebookAuth, User } from '@ionic/cloud-angular';
+import { JwtHelper } from "angular2-jwt";
 
 /*
   Generated class for the Auth provider.
@@ -21,14 +22,16 @@ export class Auth {
   private auth_data: any;
   private authenticated: boolean;
   private init_promise: Promise<any>;
-  private auth_user: any;
+  private auth_custom_user: any;
   private push_token: PushToken;
+  private jwt_helper: JwtHelper;
 
   constructor(public http: Http, private ws: Webservice, private storage: Storage, public events: Events, public facebookAuth: FacebookAuth, protected user: User) {
     this.setClientId(null);
     this.setClientSecret(null);
     this.loaded = false;
     this.authenticated = false;
+    this.jwt_helper = new JwtHelper();
   }
 
   setClientId(id: string) {
@@ -43,7 +46,12 @@ export class Auth {
 
   private setAuthData(auth_data: any, store: boolean = true) {
     this.auth_data = auth_data;
-    this.setAuthenticated((auth_data != null));
+    if (auth_data != null) {
+      this.auth_data.access_token_data = this.jwt_helper.decodeToken(this.auth_data.access_token);
+      this.setAuthenticated(true);
+    } else {
+      this.setAuthenticated(false);
+    }
     if (store) {
       this.storage.set('Auth.auth_data', auth_data);
     }
@@ -74,11 +82,17 @@ export class Auth {
     }
   }
 
+  getAccessTokenId() {
+    if (this.isAuthenticated()) {
+      return this.auth_data.access_token_data.jti;
+    }
+  }
+
   private initPushToken() {
     return this.storage.get('Auth.push_token')
-    .then((push_token) => {
-      this.push_token = push_token;
-    });
+      .then((push_token) => {
+        this.push_token = push_token;
+      });
   }
 
   private initAuthData(clear_auth_data: boolean = false) {
@@ -110,7 +124,7 @@ export class Auth {
             this.setClientId(result.client_id);
             this.setClientSecret(result.client_secret);
             return this.initPushToken();
-          }).then(() => {            
+          }).then(() => {
             this.initReady();
           });
       }
@@ -142,18 +156,20 @@ export class Auth {
   }
 
   facebookLogin() {
-    return this.facebookAuth.login();
+    return this.facebookAuth.login().then((fb_data) => {
+      console.log("FB data: " + JSON.stringify(fb_data) + " user: " + JSON.stringify(this.user.social.facebook.data.raw_data));
+    });
   }
 
   logout() {
-    return this.unregisterPushToken().catch(()=>{
-        console.log('push token unavailable');
-      }).then(() => {
-        return this.ws.userLogout();
-      }).then(() => {
-        this.setAuthData(null, true);
-        this.events.publish('user:unauthenticated', this);
-      });
+    return this.unregisterPushToken().catch(() => {
+      console.log('push token unavailable');
+    }).then(() => {
+      return this.ws.userLogout();
+    }).then(() => {
+      this.setAuthData(null, true);
+      this.events.publish('user:unauthenticated', this);
+    });
   }
 
   facebookLogout() {
@@ -161,12 +177,12 @@ export class Auth {
   }
 
   setUser(user) {
-    this.auth_user = user;
+    this.auth_custom_user = user;
     this.events.publish('user:authenticated', this);
   }
 
   getUser() {
-    return this.auth_user;
+    return this.auth_custom_user;
   }
 
   registerPushToken(t: PushToken) {

@@ -58,7 +58,13 @@ export class Webservice {
 
   private delete(action: string, header?: Headers) {
     return new Promise((resolve, reject) => {
-      this.http.delete(this.host_url + action, { 'headers': header }).map(res => res.json()).subscribe(
+      this.http.delete(this.host_url + action, { 'headers': header }).map(res => {
+        try {
+          return res.json();
+        } catch (ex) {
+          return null;
+        }
+      }).subscribe(
         (data) => {
           console.log('webservice: delete (' + action + '). Response:'); console.log(data);
           resolve(data);
@@ -98,7 +104,7 @@ export class Webservice {
   }
 
   userLogout(auth?: Auth) {
-    return this.delete('oauth/tokens/'+this.auth.getAccessToken(), this.headersFromAuth(auth))
+    return this.delete('oauth/tokens/'+this.auth.getAccessTokenId(), this.headersFromAuth(auth))
   }
 
   setAuth(auth: Auth) {
