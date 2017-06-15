@@ -43,8 +43,8 @@ export class MyApp {
     }).then(() => {
       this.display('not-authenticated');
       return auth.loadStoredData().catch(() => { });
-    }).then(() => {
-      return this.initPush().catch(() => { });
+//    }).then(() => {
+//      return this.initPush().catch(() => { });
     }).then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -67,9 +67,11 @@ export class MyApp {
   private initEventSubscriptions() {
     this.events.subscribe('user:authenticated', (auth: Auth) => {
       this.user = auth.getUser();
+      this.initPush().catch(() => { });
       this.display('authenticated');
     });
     this.events.subscribe('user:unauthenticated', (auth: Auth) => {
+      this.auth.unregisterPushToken().catch(() => { });
       this.display('not-authenticated');
     });
     this.events.subscribe('app:full_screen_on', () => {
@@ -78,11 +80,10 @@ export class MyApp {
     this.events.subscribe('app:full_screen_off', () => {
       this.fullScreenOff();
     });
-
     this.push.rx.notification()
       .subscribe((msg) => {
         this.events.publish('notification:push', msg);
-        console.log('Notificacion push recibida: ' + msg);
+        console.log('Notificacion push recibida: ' + JSON.stringify(msg));
       });
   }
 
