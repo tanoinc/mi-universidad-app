@@ -13,8 +13,9 @@
     "SEARCH": "Search",
     "UNSUBSCRIBE": "Unsuscribe",
     "SUBSCRIBED": "Subscribed",
-    "MENU":"Menu",
-    "PREFERENCES":"Preferences",
-    "LOGOUT":"Log out",
-    "LOG_IN_WITH_FACEBOOK":"Log in with Facebook"
+    "MENU": "Menu",
+    "PREFERENCES": "Preferences",
+    "LOGOUT": "Log out",
+    "LOG_IN_WITH_FACEBOOK": "Log in with Facebook",
+    "NO_NOTIFICATIONS": "No notifications available"
 }

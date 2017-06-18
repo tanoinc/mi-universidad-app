@@ -16,5 +16,7 @@
     "MENU":"Menú",
     "PREFERENCES":"Preferencias",
     "LOGOUT":"Cerrar sesión",
-    "LOG_IN_WITH_FACEBOOK":"Ingresá con Facebook"
+    "LOG_IN_WITH_FACEBOOK":"Ingresá con Facebook",
+    "NO_NOTIFICATIONS": "Sin notificaciones"
+    
 }

@@ -1,4 +1,3 @@
-
 <ion-header *ngIf="!this.full_screen">
   <ion-navbar>
     <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
@@ -15,7 +14,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-menu side="left" [content]="nav" >
+<ion-menu side="left" [content]="nav">
   <ion-header>
     <ion-toolbar>
       <ion-title>{{'MENU'|translate}}</ion-title>
@@ -23,22 +22,31 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button ion-item menuClose *ngFor="let p of displayed_pages" (click)="openPage(p.root)">
-        <ion-icon item-right name="{{p.icon}}"></ion-icon>
-        {{p.title}}
-      </button>
+    <ion-list id="sidenav">
+      <ng-container *ngFor="let p of displayed_pages">
+        <button ion-item [menuClose]="p.subpages" (click)="openPage(p)">
+          <ion-icon item-right name="{{p.icon}}"></ion-icon>
+          {{p.title|translate}}
+        </button>
+        <ion-item-group *ngIf="p.subpages" submenu [class.visible]="p.show_subpages">
+          <button submenu-item ion-item menuClose *ngFor="let subp of p.subpages" (click)="openPage(subp)">
+            <ion-icon item-right name="{{subp.icon}}"></ion-icon>
+            {{subp.title|translate}}
+          </button>
+        </ion-item-group>
+      </ng-container>
       <button ion-item menuClose (click)="pruebaNotificacion()">
         Notificación! (debug)
-      </button>      
+      </button>
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<ion-menu *ngIf="user" side="right" [content]="nav" >
+<ion-menu *ngIf="user" side="right" [content]="nav">
   <ion-header>
     <ion-toolbar>
-      <ion-title><ion-icon name="contact"></ion-icon> {{user.name}} {{user.surname}}</ion-title>
+      <ion-title>
+        <ion-icon name="contact"></ion-icon> {{user.name}} {{user.surname}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -51,7 +59,7 @@
       <button ion-item menuClose (click)="logout()">
         <ion-icon item-right name="log-out"></ion-icon>
         {{"LOGOUT"|translate}}
-      </button>      
+      </button>
     </ion-list>
   </ion-content>
 </ion-menu>

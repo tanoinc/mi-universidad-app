@@ -16,6 +16,8 @@ import { SubscriptionsContextPage } from "../subscriptions-context/subscriptions
 })
 export class SubscriptionsPage extends GenericDynamicListPage {
 
+  protected full_screen: Boolean = true;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.list_searching = true;

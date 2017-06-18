@@ -18,10 +18,10 @@ export class GenericDynamicListPage extends GenericPage {
 
   protected search_text: string = "";
   protected list_searching: boolean = false;
-  protected full_screen: Boolean = true;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events ) {
-    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.update();
   }
 
@@ -78,13 +78,5 @@ export class GenericDynamicListPage extends GenericPage {
       });
   }
 
-  ionViewWillEnter() {
-    if (this.full_screen) {
-      this.events.publish('app:full_screen_on');
-    }
-  }
 
-  ionViewWillLeave() {
-    this.events.publish('app:full_screen_off');
-  }
 }

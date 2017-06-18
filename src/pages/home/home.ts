@@ -15,7 +15,7 @@ export class HomePage extends GenericPage {
   newsfeed: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth, public events: Events) {
-    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.newsfeed = [];
     this.resetPage();
     this.updateNewsfeed();

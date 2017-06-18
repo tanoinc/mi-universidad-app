@@ -11,11 +11,16 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-list>
+  <div class="empty_message" *ngIf="list.length == 0">
+    <ion-icon name="notifications-off"></ion-icon>
+    <h2 class="card-title">{{'NO_NOTIFICATIONS'|translate}}</h2>
+  </div>
+
+  <ion-list *ngIf="list.length > 0">
     <ion-item *ngFor="let notification of list">
-        <ion-icon item-left name="{{icon(notification)}}"></ion-icon>
-        {{title(notification)}}
-        <p>{{notification.created_at}}</p>
+      <ion-icon item-left name="{{icon(notification)}}"></ion-icon>
+      {{title(notification)}}
+      <p>{{notification.created_at}}</p>
     </ion-item>
   </ion-list>
 

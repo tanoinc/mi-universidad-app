@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 
 /*
@@ -15,25 +15,25 @@ import { Webservice } from "../../providers/webservice/webservice";
 export class GenericPage {
 
   public loading: any;
-  protected per_page:number;
-  protected page:number;
-  protected has_next_page:boolean = true;
+  protected per_page: number;
+  protected page: number;
+  protected has_next_page: boolean = true;
+  protected full_screen: Boolean = false;
 
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad GenericPage');
   }
 
-  showLoader(text){
+  showLoader(text) {
     this.loading = this.loadingCtrl.create({
-      content: text+'...'
+      content: text + '...'
     });
     this.loading.present();
   }
 
-  showAlert(title:string, subtitle: string) {
+  showAlert(title: string, subtitle: string) {
     let alert = this.alertCtrl.create({
       title: title,
       subTitle: subtitle,
@@ -52,8 +52,16 @@ export class GenericPage {
 
   setPaginationData(data) {
     this.per_page = data.per_page;
-    this.has_next_page = (data.next_page_url!= null);
+    this.has_next_page = (data.next_page_url != null);
   }
 
+  ionViewWillEnter() {
+    if (this.full_screen) {
+      this.events.publish('app:full_screen_on');
+    }
+  }
 
+  ionViewWillLeave() {
+    this.events.publish('app:full_screen_off');
+  }
 }

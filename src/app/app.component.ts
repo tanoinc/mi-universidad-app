@@ -13,6 +13,7 @@ import { ContactPage } from "../pages/contact/contact";
 import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { TranslateService } from "@ngx-translate/core";
 import { Push, PushToken } from '@ionic/cloud-angular';
+import { ApplicationContents } from "../providers/application-contents";
 
 
 @Component({
@@ -26,8 +27,8 @@ export class MyApp {
   public full_screen: boolean = false;
 
   available_pages = [
-    { title: "Suscripciones", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
-    { title: "Contacto", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
+    { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
+    { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
   displayed_pages = [];
   display_modes = ['not-authenticated', 'authenticated',];
@@ -36,15 +37,15 @@ export class MyApp {
     { title: "PREFERENCES", root: SubscriptionsPage, icon: "options" },
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents) {
     platform.ready().then(() => {
       this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
       return storage.ready();
     }).then(() => {
       this.display('not-authenticated');
       return auth.loadStoredData().catch(() => { });
-//    }).then(() => {
-//      return this.initPush().catch(() => { });
+      //    }).then(() => {
+      //      return this.initPush().catch(() => { });
     }).then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -56,30 +57,41 @@ export class MyApp {
 
   private initPush() {
     return this.push.register()
-    .then((t: PushToken) => {
-      return this.push.saveToken(t);
-    }).then((t: PushToken) => {
-      console.log("Token push: " + t);
-      return this.auth.registerPushToken(t);
-    });
+      .then((t: PushToken) => {
+        return this.push.saveToken(t);
+      }).then((t: PushToken) => {
+        console.log("Token push: " + t);
+        return this.auth.registerPushToken(t);
+      });
   }
 
   private initEventSubscriptions() {
+
     this.events.subscribe('user:authenticated', (auth: Auth) => {
       this.user = auth.getUser();
       this.initPush().catch(() => { });
-      this.display('authenticated');
+      this.app_contents.load().then(() => {
+        let p = this.app_contents.getPages();
+        this.available_pages = this.available_pages.concat(this.app_contents.getPages());
+        console.log("Pages loaded: ");
+        console.log(this.available_pages);
+        this.display('authenticated');
+      });
     });
+
     this.events.subscribe('user:unauthenticated', (auth: Auth) => {
       this.auth.unregisterPushToken().catch(() => { });
       this.display('not-authenticated');
     });
+
     this.events.subscribe('app:full_screen_on', () => {
       this.fullScreenOn();
     });
+
     this.events.subscribe('app:full_screen_off', () => {
       this.fullScreenOff();
     });
+
     this.push.rx.notification()
       .subscribe((msg) => {
         this.events.publish('notification:push', msg);
@@ -116,7 +128,12 @@ export class MyApp {
   }
 
   openPage(page) {
-    this.nav.push(page);
+    if (page.subpages) {
+      page.show_subpages = !page.show_subpages;
+    } else {
+      this.nav.push(page.root, { data: page.raw_data });
+    }
+    console.log(this.displayed_pages);
   }
 
   openUserProfile() {

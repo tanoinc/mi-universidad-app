@@ -163,4 +163,8 @@ export class Webservice {
     return this.delete('mobile/api/v1/user/push_token/' + type + '/' + token, this.headersFromAuth(auth));
   }
 
+  userApplicationContents( auth?: Auth ) {
+    return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth));
+  }
+
 }

@@ -22,7 +22,7 @@ export class LoginPage extends GenericPage {
   public credentials: { username: string, password: string };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth, public events: Events) {
-    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl);
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.credentials = { username: "", password: "" };
   }
 

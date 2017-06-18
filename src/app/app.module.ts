@@ -21,6 +21,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { CONFIG } from "../config/config";
+import { ApplicationContents } from "../providers/application-contents";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -91,6 +92,7 @@ const cloudSettings: CloudSettings = {
     SplashScreen,
     Webservice,
     Auth,
+    ApplicationContents,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
