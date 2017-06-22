@@ -3,7 +3,7 @@ import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
 import { Auth } from "./auth";
 import { Storage } from '@ionic/storage';
-import { ContactPage } from "../pages/contact/contact";
+import { GoogleMapPage } from "../pages/google-map/google-map";
 
 /*
   Generated class for the ApplicationContents provider.
@@ -14,6 +14,7 @@ import { ContactPage } from "../pages/contact/contact";
 @Injectable()
 export class ApplicationContents {
   protected readonly CONTENTS_KEY = 'ApplicationContents.contents';
+  protected readonly CONTENT_GOOGLE_MAP = "App\\ContentGoogleMap";
   protected contents: any;
   protected loaded: boolean = false;
 
@@ -53,8 +54,8 @@ export class ApplicationContents {
   }
 
   protected stringTypeToPage(type: string) {
-    if (type=="App\\ContentGoogleMap") {
-      return ContactPage;
+    if (type == this.CONTENT_GOOGLE_MAP) {
+      return GoogleMapPage;
     }
   }
 
@@ -65,19 +66,19 @@ export class ApplicationContents {
       application.contents.forEach(content => {
         subpages_loaded.push({
           title: content.description,
-          root: this.stringTypeToPage(content.contained_type), 
+          root: this.stringTypeToPage(content.contained_type),
           icon: content.icon_name,
           raw_data: content
         });
       });
-      pages.push({ 
+      pages.push({
         title: application.description,
-        root: null, 
-        icon: "apps", 
+        root: null,
+        icon: "apps",
         subpages: subpages_loaded,
         show_subpages: false,
         display: ['authenticated']
-      });      
+      });
     });
     return pages;
   }
@@ -85,9 +86,9 @@ export class ApplicationContents {
   public getApplicationPages() {
     this.getContents().each();
   }
-  public getContentPages(application_name:string) {
+
+  public getContentPages(application_name: string) {
     this.getContents().each();
   }
-
 
 }

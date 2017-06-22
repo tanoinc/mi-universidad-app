@@ -22,6 +22,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { CONFIG } from "../config/config";
 import { ApplicationContents } from "../providers/application-contents";
+import { GoogleMaps } from "@ionic-native/google-maps";
+import { GoogleMapPage } from "../pages/google-map/google-map";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -59,6 +61,7 @@ const cloudSettings: CloudSettings = {
     MapaRondinPage,
     SubscriptionsPage,
     SubscriptionsContextPage,
+    GoogleMapPage,
   ],
   imports: [
     HttpModule,
@@ -85,7 +88,7 @@ const cloudSettings: CloudSettings = {
     NotificationsPage,
     SubscriptionsPage,
     SubscriptionsContextPage,
-    MapaRondinPage,
+    GoogleMapPage,
   ],
   providers: [
     StatusBar,
@@ -93,6 +96,7 @@ const cloudSettings: CloudSettings = {
     Webservice,
     Auth,
     ApplicationContents,
+    GoogleMaps,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

@@ -14,7 +14,7 @@ import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { TranslateService } from "@ngx-translate/core";
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { ApplicationContents } from "../providers/application-contents";
-
+import { GoogleMapPage } from "../pages/google-map/google-map";
 
 @Component({
   templateUrl: 'app.html'
@@ -71,7 +71,6 @@ export class MyApp {
       this.user = auth.getUser();
       this.initPush().catch(() => { });
       this.app_contents.load().then(() => {
-        let p = this.app_contents.getPages();
         this.available_pages = this.available_pages.concat(this.app_contents.getPages());
         console.log("Pages loaded: ");
         console.log(this.available_pages);

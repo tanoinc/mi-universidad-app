@@ -20,9 +20,12 @@ export class Webservice {
     //console.log('Hello Webservice Provider');
   }
 
-  private fetch(action: string, header?: Headers) {
+  private fetch(action: string, header?: Headers, external_url:boolean=false) {
     return new Promise((resolve, reject) => {
-      this.http.get(this.host_url + action, { 'headers': header }).map(res => res.json()).subscribe(
+      if (!external_url) {
+        action = this.host_url + action;
+      }
+      this.http.get( action, { 'headers': header }).map(res => res.json()).subscribe(
         (data) => {
           console.log('webservice: get(' + action + '). Response:'); console.log(data);
           resolve(data);
@@ -79,7 +82,7 @@ export class Webservice {
           }
           reject(return_error);
         }
-      );
+        );
     });
   }
 
@@ -104,7 +107,7 @@ export class Webservice {
   }
 
   userLogout(auth?: Auth) {
-    return this.delete('oauth/tokens/'+this.auth.getAccessTokenId(), this.headersFromAuth(auth))
+    return this.delete('oauth/tokens/' + this.auth.getAccessTokenId(), this.headersFromAuth(auth))
   }
 
   setAuth(auth: Auth) {
@@ -163,8 +166,12 @@ export class Webservice {
     return this.delete('mobile/api/v1/user/push_token/' + type + '/' + token, this.headersFromAuth(auth));
   }
 
-  userApplicationContents( auth?: Auth ) {
+  userApplicationContents(auth?: Auth) {
     return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth));
+  }
+
+  contentLoad(content_params: any) {
+    return this.fetch(content_params.contained.url, null, true);
   }
 
 }
