@@ -57,7 +57,6 @@ export class SignupPage extends GenericPage {
     }, (err) => {
       this.loading.dismiss();
       this.errorData = err.data;
-      console.log(this.errorData);
       this.showAlert('Error', err.message);
     });
   }

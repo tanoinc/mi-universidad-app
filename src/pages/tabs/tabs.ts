@@ -47,13 +47,10 @@ export class TabsPage {
     this.tabRef.select(0);
   }
   display(mode: string, defaultTab?: number) {
-    console.log('Display mode: ' + mode);
     if (defaultTab != null) {
-      console.log('Tab setted: ' + defaultTab);
       this.tabRef.select(defaultTab);
     }
     this.displayed_tabs = this.available_tabs.filter(val => (val.display.find(val_mode => val_mode == mode)));
-    console.log(this.displayed_tabs);
 
   }
 

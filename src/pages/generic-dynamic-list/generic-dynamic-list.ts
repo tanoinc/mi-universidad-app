@@ -43,7 +43,6 @@ export class GenericDynamicListPage extends GenericPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GenericDynamicListPage');
   }
 
   doRefresh(refresher) {

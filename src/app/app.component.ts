@@ -14,7 +14,6 @@ import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { TranslateService } from "@ngx-translate/core";
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { ApplicationContents } from "../providers/application-contents";
-import { GoogleMapPage } from "../pages/google-map/google-map";
 
 @Component({
   templateUrl: 'app.html'
@@ -60,7 +59,6 @@ export class MyApp {
       .then((t: PushToken) => {
         return this.push.saveToken(t);
       }).then((t: PushToken) => {
-        console.log("Token push: " + t);
         return this.auth.registerPushToken(t);
       });
   }
@@ -72,8 +70,6 @@ export class MyApp {
       this.initPush().catch(() => { });
       this.app_contents.load().then(() => {
         this.available_pages = this.available_pages.concat(this.app_contents.getPages());
-        console.log("Pages loaded: ");
-        console.log(this.available_pages);
         this.display('authenticated');
       });
     });
@@ -94,12 +90,10 @@ export class MyApp {
     this.push.rx.notification()
       .subscribe((msg) => {
         this.events.publish('notification:push', msg);
-        console.log('Notificacion push recibida: ' + JSON.stringify(msg));
       });
   }
 
-  display(mode: string, defaultTab?: number) {
-    console.log('MenuController Display mode: ' + mode);
+  display(mode: string) {
     this.displayed_pages = this.available_pages.filter(val => (val.display.find(val_mode => val_mode == mode)));
   }
 
@@ -132,7 +126,6 @@ export class MyApp {
     } else {
       this.nav.push(page.root, { data: page.raw_data });
     }
-    console.log(this.displayed_pages);
   }
 
   openUserProfile() {

@@ -1,21 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, forwardRef } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
-/*
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  LatLng,
-  CameraPosition,
-  MarkerOptions,
-  PolylineOptions,
-} from '@ionic-native/google-maps';
-*/
 import { GenericPage } from "../generic/generic";
 import { Webservice } from "../../providers/webservice/webservice";
 import { GoogleMap, GoogleMaps, MarkerOptions, PolylineOptions, CameraPosition, LatLng, GoogleMapsEvent } from "@ionic-native/google-maps";
+import { Geolocation } from '@ionic-native/geolocation';
 import { ApplicationContents } from "../../providers/application-contents";
-import { Http } from "@angular/http";
 
 /*
   Generated class for the GoogleMap page.
@@ -25,7 +14,7 @@ import { Http } from "@angular/http";
 */
 @Component({
   selector: 'page-google-map',
-  templateUrl: 'google-map.html'
+  templateUrl: 'google-map.html',
 })
 export class GoogleMapPage extends GenericPage {
 
@@ -33,8 +22,12 @@ export class GoogleMapPage extends GenericPage {
   protected map: GoogleMap;
   protected content_params: any;
   protected full_screen: Boolean = true;
+  protected current_geolocation: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected google_map: GoogleMaps, public params: NavParams, protected http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController, protected events: Events, protected google_map: GoogleMaps, public params: NavParams,
+    @Inject(forwardRef(() => ApplicationContents)) protected content, protected geolocation: Geolocation
+  ) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.content_params = this.navParams.get('data');
     this.load();
@@ -42,13 +35,28 @@ export class GoogleMapPage extends GenericPage {
 
   load() {
     this.showLoader('Cargando ' + this.content_params.name);
-    this.ws.contentLoad(this.content_params).then((data) => {
-      return this.loadMap(data);
-    }).then(() => {
-      this.loading.dismiss();
-    }).catch(() => {
-      this.loading.dismiss();
-    });
+    let options = { timeout: 10000, enableHighAccuracy: true };
+    this.geolocation.getCurrentPosition(options)
+      .catch(() => {
+        this.loading.dismiss();
+        this.showAlert('Error', 'No se pudo obtener la posición actual en el mapa.');
+      })
+      .then((geo_data) => {
+        console.log('MAP: Geolocation loaded: ' + JSON.stringify(geo_data));
+        this.current_geolocation = geo_data;
+        return this.content.contentLoad(this.content_params, this.current_geolocation);
+      })
+      .then((data) => {
+        console.log('MAP: Content loaded: ' + JSON.stringify(data));
+        return this.loadMap(data);
+      })
+      .then(() => {
+        this.loading.dismiss();
+      })
+      .catch(() => {
+        this.loading.dismiss();
+        this.showAlert('Error', 'No se pudieron obtener los datos del mapa.');
+      });
   }
 
   ionViewDidLoad() {
@@ -86,15 +94,6 @@ export class GoogleMapPage extends GenericPage {
     }
     if (data.hasOwnProperty('center')) {
       center_pos = data.center;
-    } else {
-      //La Plata
-      let position: LatLng = new LatLng(-34.910368, -57.938890);
-      center_pos = {
-        target: position,
-        zoom: 15,
-        tilt: 0
-      };
-
     }
 
     this.map = this.google_map.create(this.map_element.nativeElement);
@@ -103,10 +102,21 @@ export class GoogleMapPage extends GenericPage {
 
     return this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
-        this.map.moveCamera(center_pos);
+        if (!center_pos) {
+          center_pos = {
+            target: new LatLng(this.current_geolocation.coords.latitude, this.current_geolocation.coords.longitude),
+            zoom: 15,
+            tilt: 0
+          };
+        }
+        this.centerMap(center_pos);
         this.add_polylines(this.map, polylines_data);
         this.add_markers(this.map, markers_data);
       });
+  }
+
+  centerMap(center_pos) {
+    this.map.moveCamera(center_pos);
   }
 
 }

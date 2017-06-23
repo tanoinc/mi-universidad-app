@@ -22,10 +22,14 @@ export class Webservice {
 
   private fetch(action: string, header?: Headers, external_url:boolean=false) {
     return new Promise((resolve, reject) => {
+      let local_action = "";
       if (!external_url) {
-        action = this.host_url + action;
+        local_action = this.host_url + action;
+      } else {
+        local_action = action;
       }
-      this.http.get( action, { 'headers': header }).map(res => res.json()).subscribe(
+      console.log("Por cargar (get): "+action);
+      this.http.get( local_action, { 'headers': header }).map(res => res.json()).subscribe(
         (data) => {
           console.log('webservice: get(' + action + '). Response:'); console.log(data);
           resolve(data);
@@ -167,11 +171,16 @@ export class Webservice {
   }
 
   userApplicationContents(auth?: Auth) {
+    console.log('Cargando contenido...');
     return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth));
   }
 
-  contentLoad(content_params: any) {
-    return this.fetch(content_params.contained.url, null, true);
+  contentLoadExternal(url: string) {
+    return this.fetch(url, null, true);
+  }
+
+  contentLoad(content_id: number, data: any = null, auth?: Auth) {
+    return this.post('mobile/api/v1/content/data_url/' + content_id, data, this.headersFromAuth(auth));
   }
 
 }

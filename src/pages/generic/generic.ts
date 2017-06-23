@@ -23,7 +23,7 @@ export class GenericPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GenericPage');
+
   }
 
   showLoader(text) {

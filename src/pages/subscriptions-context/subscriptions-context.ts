@@ -26,7 +26,6 @@ export class SubscriptionsContextPage extends GenericDynamicListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SubscriptionsContextPage: ');
-    console.log(this.getSelectedApplication().name);
   }
 
   protected getSelectedApplication() {

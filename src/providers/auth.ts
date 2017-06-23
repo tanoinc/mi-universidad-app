@@ -157,13 +157,12 @@ export class Auth {
 
   facebookLogin() {
     return this.facebookAuth.login().then((fb_data) => {
-      console.log("FB data: " + JSON.stringify(fb_data) + " user: " + JSON.stringify(this.user.social.facebook.data.raw_data));
+      //console.log("FB data: " + JSON.stringify(fb_data) + " user: " + JSON.stringify(this.user.social.facebook.data.raw_data));
     });
   }
 
   logout() {
     return this.unregisterPushToken().catch(() => {
-      console.log('push token unavailable');
     }).then(() => {
       return this.ws.userLogout();
     }).then(() => {

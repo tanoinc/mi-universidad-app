@@ -83,12 +83,16 @@ export class ApplicationContents {
     return pages;
   }
 
-  public getApplicationPages() {
-    this.getContents().each();
+  public contentLoad(content_params: any, user_info: any = null) {
+    if (content_params.contained.data_url != null) {
+      return this.ws.contentLoadExternal(content_params.contained.data_url);
+    } else {
+      if (content_params.contained.send_user_info)
+      {
+        return this.ws.contentLoad(content_params.id, user_info);
+      } else {
+        return this.ws.contentLoad(content_params.id);
+      }
+    }
   }
-
-  public getContentPages(application_name: string) {
-    this.getContents().each();
-  }
-
 }

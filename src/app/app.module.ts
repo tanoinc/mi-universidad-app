@@ -24,6 +24,7 @@ import { CONFIG } from "../config/config";
 import { ApplicationContents } from "../providers/application-contents";
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { GoogleMapPage } from "../pages/google-map/google-map";
+import { Geolocation } from '@ionic-native/geolocation';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -95,8 +96,9 @@ const cloudSettings: CloudSettings = {
     SplashScreen,
     Webservice,
     Auth,
-    ApplicationContents,
     GoogleMaps,
+    Geolocation,
+    ApplicationContents,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

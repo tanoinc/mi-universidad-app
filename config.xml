@@ -92,9 +92,12 @@
         <variable name="APP_NAME" value="" />
     </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="~1.4.0">
-        <variable name="API_KEY_FOR_ANDROID" value="" />
-        <variable name="API_KEY_FOR_IOS" value="" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAN5CE3HvzpDSUOBulRkvM3yT0CQsI1XH4" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyB7l-7Fd43QRQzhetMMAgyhBbUtYFyS-pk" />
         <variable name="NSLOCATIONWHENINUSEUSAGEDESCRIPTION" value="Show your location on the map" />
         <variable name="NSLOCATIONALWAYSUSAGEDESCRIPTION" value="Trace your location on the map" />
+    </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="~2.4.3">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
 </widget>
