@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 
 import { HomePage } from '../home/home';
-import { ContactPage } from '../contact/contact';
 import { SignupPage } from "../signup/signup";
 import { LoginPage } from "../login/login";
 import { Auth } from "../../providers/auth";
 import { Events, NavController, Tabs, NavParams } from 'ionic-angular';
 import { NotificationsPage } from "../notifications/notifications";
+import { CalendarPage } from "../calendar/calendar";
 
 @Component({
   templateUrl: 'tabs.html'
@@ -19,7 +19,7 @@ export class TabsPage {
     { title: "NOTIFICATIONS", root: NotificationsPage, icon: "notifications", display: ['authenticated'] },
     { title: "LOGIN", root: LoginPage, icon: "log-in", display: ['not-authenticated'] },
     { title: "CREATE_ACCOUNT", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
-    { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
+    { title: "CALENDAR", root: CalendarPage, icon: "calendar", display: ['authenticated'] },
   ];
   tabs_badge = { "NOTIFICATIONS": 0 }
   displayed_tabs = [];

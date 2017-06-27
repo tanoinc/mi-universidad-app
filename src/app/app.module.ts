@@ -5,7 +5,6 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { MapaRondinPage } from '../pages/mapa-rondin/mapa-rondin';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule, Http } from '@angular/http';
@@ -25,6 +24,9 @@ import { ApplicationContents } from "../providers/application-contents";
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { GoogleMapPage } from "../pages/google-map/google-map";
 import { Geolocation } from '@ionic-native/geolocation';
+import { NgCalendarModule  } from 'ionic2-calendar';
+import { CalendarPage } from "../pages/calendar/calendar";
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -59,12 +61,13 @@ const cloudSettings: CloudSettings = {
     SignupPage,
     LoginPage,
     NotificationsPage,
-    MapaRondinPage,
     SubscriptionsPage,
     SubscriptionsContextPage,
     GoogleMapPage,
+    CalendarPage
   ],
   imports: [
+    NgCalendarModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
@@ -90,6 +93,7 @@ const cloudSettings: CloudSettings = {
     SubscriptionsPage,
     SubscriptionsContextPage,
     GoogleMapPage,
+    CalendarPage
   ],
   providers: [
     StatusBar,
