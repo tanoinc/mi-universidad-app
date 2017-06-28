@@ -19,12 +19,31 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-list>
-    <button ion-item *ngFor="let application of list" (click)="selected(application)">
-      <h2>{{application.description}}</h2>
-      <p>{{application.name}}</p>
-    </button>
-  </ion-list>
+  <ion-card *ngFor="let application of list">
+    <ion-card-header>
+      {{application.name}}
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{application.description}}</p>
+      <button ion-button icon-left block medium (click)="addApplication(application)">
+        <ion-icon name="add" item-start></ion-icon>
+        {{'ADD_APPLICATION'|translate}}
+      </button>
+      <p text-center class="notes" *ngIf="application.auth_required">
+        <ion-icon name='lock'></ion-icon>
+        {{'AUTH_REQUIRED'|translate}}
+      </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col text-right>
+        <button ion-button clear small color="danger" icon-left (click)="selected(application)">
+          <ion-icon name='pricetag'></ion-icon>
+          {{'VIEW_CONTEXTS'|translate}}
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
     <ion-infinite-scroll-content loadingText="{{'LOADING'|translate}}...">></ion-infinite-scroll-content>

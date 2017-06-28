@@ -37,13 +37,13 @@ export class GoogleMapPage extends GenericPage {
     this.showLoader('Cargando ' + this.content_params.name);
     let options = { timeout: 10000, enableHighAccuracy: true };
     this.geolocation.getCurrentPosition(options)
-      .catch(() => {
+      .catch((error) => {
         this.loading.dismiss();
-        this.showAlert('Error', 'No se pudo obtener la posición actual en el mapa.');
+        this.showAlert('Error ' + error.code, 'No se pudo obtener la posición actual en el mapa: ' + error.message);
       })
       .then((geo_data) => {
         console.log('MAP: Geolocation loaded: ' + JSON.stringify(geo_data));
-        this.current_geolocation = geo_data;
+        this.current_geolocation = this.convertToPosition(geo_data);
         return this.content.contentLoad(this.content_params, this.current_geolocation);
       })
       .then((data) => {
@@ -61,6 +61,41 @@ export class GoogleMapPage extends GenericPage {
 
   ionViewDidLoad() {
 
+  }
+
+  convertToPosition(position: any) {
+    var positionObject: any = {};
+
+    if ('coords' in position) {
+      positionObject.coords = {};
+
+      if ('latitude' in position.coords) {
+        positionObject.coords.latitude = position.coords.latitude;
+      }
+      if ('longitude' in position.coords) {
+        positionObject.coords.longitude = position.coords.longitude;
+      }
+      if ('accuracy' in position.coords) {
+        positionObject.coords.accuracy = position.coords.accuracy;
+      }
+      if ('altitude' in position.coords) {
+        positionObject.coords.altitude = position.coords.altitude;
+      }
+      if ('altitudeAccuracy' in position.coords) {
+        positionObject.coords.altitudeAccuracy = position.coords.altitudeAccuracy;
+      }
+      if ('heading' in position.coords) {
+        positionObject.coords.heading = position.coords.heading;
+      }
+      if ('speed' in position.coords) {
+        positionObject.coords.speed = position.coords.speed;
+      }
+    }
+    if ('timestamp' in position) {
+      positionObject.timestamp = position.timestamp;
+    }
+
+    return positionObject;
   }
 
   private add_markers(map, markers_data: MarkerOptions[]) {

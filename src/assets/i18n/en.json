@@ -18,5 +18,8 @@
     "LOGOUT": "Log out",
     "LOG_IN_WITH_FACEBOOK": "Log in with Facebook",
     "NO_NOTIFICATIONS": "No notifications available",
-    "CALENDAR": "Calendar"
+    "CALENDAR": "Calendar",
+    "ADD_APPLICATION":"Add application",
+    "AUTH_REQUIRED":"Authentication required",
+    "VIEW_CONTEXTS": "View subsciptions"
 }

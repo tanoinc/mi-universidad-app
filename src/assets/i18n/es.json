@@ -18,5 +18,8 @@
     "LOGOUT":"Cerrar sesión",
     "LOG_IN_WITH_FACEBOOK":"Ingresá con Facebook",
     "NO_NOTIFICATIONS": "Sin notificaciones",
-    "CALENDAR": "Calendario"
+    "CALENDAR": "Calendario",
+    "ADD_APPLICATION":"Agregar aplicación",
+    "AUTH_REQUIRED":"Requiere autenticación",
+    "VIEW_CONTEXTS": "Suscripción a temas"
 }

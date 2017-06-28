@@ -27,6 +27,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { CalendarPage } from "../pages/calendar/calendar";
 import { BrowserModule } from '@angular/platform-browser';
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -104,6 +105,7 @@ const cloudSettings: CloudSettings = {
     GoogleMaps,
     Geolocation,
     ApplicationContents,
+    InAppBrowser,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
