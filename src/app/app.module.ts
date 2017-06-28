@@ -26,7 +26,7 @@ import { GoogleMapPage } from "../pages/google-map/google-map";
 import { Geolocation } from '@ionic-native/geolocation';
 import { NgCalendarModule  } from 'ionic2-calendar';
 import { CalendarPage } from "../pages/calendar/calendar";
-
+import { BrowserModule } from '@angular/platform-browser';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -67,7 +67,7 @@ const cloudSettings: CloudSettings = {
     CalendarPage
   ],
   imports: [
-    NgCalendarModule,
+    BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
@@ -78,7 +78,8 @@ const cloudSettings: CloudSettings = {
         deps: [Http]
       }
     }),
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    NgCalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

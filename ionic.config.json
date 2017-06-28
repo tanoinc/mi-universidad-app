@@ -1,6 +1,5 @@
 {
   "name": "mi-universidad-app",
   "app_id": "9a72ee71",
-  "v2": true,
-  "typescript": true
+  "type": "ionic-angular"
 }

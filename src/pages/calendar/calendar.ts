@@ -18,7 +18,7 @@ export class CalendarPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarPage');
   }
-/*
+
   eventSource;
   viewTitle;
   isToday: boolean;
@@ -96,5 +96,5 @@ export class CalendarPage {
     current.setHours(0, 0, 0);
     return date < current;
   };
-*/
+
 }
