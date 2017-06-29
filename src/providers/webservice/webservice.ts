@@ -171,7 +171,6 @@ export class Webservice {
   }
 
   userApplicationContents(auth?: Auth) {
-    console.log('Cargando contenido...');
     return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth));
   }
 
@@ -181,6 +180,10 @@ export class Webservice {
 
   contentLoad(content_id: number, data: any = null, auth?: Auth) {
     return this.post('mobile/api/v1/content/data_url/' + content_id, data, this.headersFromAuth(auth));
+  }
+
+  userCalendarEvents(auth?: Auth) {
+    return this.fetch('mobile/api/v1/calendar_event', this.headersFromAuth(auth));
   }
 
 }

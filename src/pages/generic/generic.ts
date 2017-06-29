@@ -26,7 +26,7 @@ export class GenericPage {
 
   }
 
-  showLoader(text) {
+  showLoader(text:string="Cargando") {
     this.loading = this.loadingCtrl.create({
       content: text + '...'
     });

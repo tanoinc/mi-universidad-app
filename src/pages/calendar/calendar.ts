@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
+import { Webservice } from "../../providers/webservice/webservice";
+import { GenericPage } from "../generic/generic";
 
 /*
   Generated class for the Calendar page.
@@ -11,9 +13,11 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-calendar',
   templateUrl: 'calendar.html'
 })
-export class CalendarPage {
+export class CalendarPage extends GenericPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarPage');
@@ -28,8 +32,37 @@ export class CalendarPage {
   }; // these are the variable used by the calendar.
 
   loadEvents() {
-    this.eventSource = this.createRandomEvents();
+    //this.eventSource = this.createRandomEvents();
+    this.showLoader();
+    this.loadFromWs().then((ws_events)=>{
+      this.eventSource = ws_events;
+      this.loading.dismiss();
+    });
   }
+
+  loadFromWs(): Promise<any> {
+    return this.ws.userCalendarEvents().then((ws_events:any)=>{
+      let events: Array<any> = [];
+      if (ws_events.data.length > 0) {
+        events = ws_events.data.map((ws_event)=>{
+          let start = new Date(ws_event.event_date);
+          let end = new Date(ws_event.event_date);
+          let s_time = ws_event.event_duration.split(":");
+          end.setHours(start.getHours()+parseInt(s_time[0]));
+          end.setMinutes(start.getMinutes()+parseInt(s_time[1]));
+          end.setSeconds(start.getSeconds()+parseInt(s_time[2]));
+          return {
+            title: ws_event.event_name,
+            startTime: start,
+            endTime: end,
+            allDay: false
+          };
+        });
+      }
+      return Promise.resolve(events);
+    });
+  }
+
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
