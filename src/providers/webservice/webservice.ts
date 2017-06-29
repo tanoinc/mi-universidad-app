@@ -20,7 +20,7 @@ export class Webservice {
     //console.log('Hello Webservice Provider');
   }
 
-  private fetch(action: string, header?: Headers, external_url:boolean=false) {
+  private fetch(action: string, header?: Headers, external_url: boolean = false) {
     return new Promise((resolve, reject) => {
       let local_action = "";
       if (!external_url) {
@@ -28,8 +28,8 @@ export class Webservice {
       } else {
         local_action = action;
       }
-      console.log("Por cargar (get): "+action);
-      this.http.get( local_action, { 'headers': header }).map(res => res.json()).subscribe(
+      console.log("Por cargar (get): " + action);
+      this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
         (data) => {
           console.log('webservice: get(' + action + '). Response:'); console.log(data);
           resolve(data);
@@ -186,4 +186,7 @@ export class Webservice {
     return this.fetch('mobile/api/v1/calendar_event', this.headersFromAuth(auth));
   }
 
+  userCalendarEventsBetweenDates(start: Date, end: Date, auth?: Auth) {
+    return this.fetch('mobile/api/v1/calendar_event/between_dates/'+start.toISOString().split('T')[0]+'/'+end.toISOString().split('T')[0], this.headersFromAuth(auth));
+  }
 }

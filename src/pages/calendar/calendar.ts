@@ -17,6 +17,7 @@ export class CalendarPage extends GenericPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
+    this.showLoader('Cargando');
     this.loadEvents();
   }
 
@@ -37,15 +38,20 @@ export class CalendarPage extends GenericPage {
       .then((data: any) => {
         refresher.complete();
       }).catch((error) => {
-        this.showAlert('Error','No pudo cargarse el calendario: '+error.message);
         refresher.complete();
       });
   }
 
   loadEvents() {
-    return this.loadFromWs().then((ws_events)=>{
+    return this.loadFromWs()
+    .then((ws_events)=>{
       this.eventSource = ws_events;
-    });
+    }).then((data: any) => {
+      this.loading.dismiss();
+    }).catch((error) => {
+      this.showAlert('Error','No pudo cargarse el calendario: '+error.message);
+      this.loading.dismiss();
+    });;
   }
 
   loadFromWs(): Promise<any> {
