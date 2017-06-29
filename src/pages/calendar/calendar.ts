@@ -17,6 +17,7 @@ export class CalendarPage extends GenericPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
+    this.loadEvents();
   }
 
   ionViewDidLoad() {
@@ -31,12 +32,19 @@ export class CalendarPage extends GenericPage {
     currentDate: new Date()
   }; // these are the variable used by the calendar.
 
+  doRefresh(refresher) {
+    this.loadEvents()
+      .then((data: any) => {
+        refresher.complete();
+      }).catch((error) => {
+        this.showAlert('Error','No pudo cargarse el calendario: '+error.message);
+        refresher.complete();
+      });
+  }
+
   loadEvents() {
-    //this.eventSource = this.createRandomEvents();
-    this.showLoader();
-    this.loadFromWs().then((ws_events)=>{
+    return this.loadFromWs().then((ws_events)=>{
       this.eventSource = ws_events;
-      this.loading.dismiss();
     });
   }
 

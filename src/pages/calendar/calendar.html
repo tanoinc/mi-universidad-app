@@ -21,7 +21,12 @@
 
 
 <ion-content padding>
-  <button ion-button (click)="loadEvents()">Load Events</button>
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="{{'PULL_DOWN_LOAD'|translate}}" refreshingText="{{'LOADING'|translate}}...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)"
     step="30">
