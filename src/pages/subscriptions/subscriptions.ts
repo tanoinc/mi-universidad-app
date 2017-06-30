@@ -41,7 +41,9 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   }
 
   addApplication(application) {
-    this.iab.create('http://google.com/');    
+    this.ws.userAddApplication(application.name).then((data:any) => {
+      this.iab.create(data.url_redirect);
+    });
   }
 
 }

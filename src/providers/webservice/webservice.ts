@@ -189,4 +189,8 @@ export class Webservice {
   userCalendarEventsBetweenDates(start: Date, end: Date, auth?: Auth) {
     return this.fetch('mobile/api/v1/calendar_event/between_dates/'+start.toISOString().split('T')[0]+'/'+end.toISOString().split('T')[0], this.headersFromAuth(auth));
   }
+
+  userAddApplication(application_name:string, auth?: Auth) {
+    return this.post('mobile/api/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
+  }
 }
