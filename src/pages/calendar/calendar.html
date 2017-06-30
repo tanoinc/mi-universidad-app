@@ -10,10 +10,6 @@
     <ion-title>calendar</ion-title>
     <ion-buttons end>
       <button ion-button [disabled]="isToday" (click)="today()">Today</button>
-      <button ion-button (click)="changeMode('month')">M</button>
-      <button ion-button (click)="changeMode('week')">W</button>
-      <button ion-button (click)="changeMode('day')">D</button>
-      <button ion-button (click)="loadEvents()">Load Events</button>
     </ion-buttons>
   </ion-navbar>
 
@@ -21,7 +17,19 @@
 
 
 <ion-content padding>
-  
+  <!-- Segment in content -->
+  <ion-segment [(ngModel)]="calendar.mode" color="primary">
+    <ion-segment-button value="month">
+      {{'MONTH'|translate}}
+    </ion-segment-button>
+    <ion-segment-button value="week">
+      {{'WEEK'|translate}}
+    </ion-segment-button>
+    <ion-segment-button value="day">
+      {{'DAY'|translate}}
+    </ion-segment-button>    
+  </ion-segment>
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingText="{{'PULL_DOWN_LOAD'|translate}}" refreshingText="{{'LOADING'|translate}}...">
     </ion-refresher-content>
@@ -29,6 +37,6 @@
 
   <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)"
-    step="30">
+    [queryMode]="calendar.queryMode" (onRangeChanged)="onRangeChanged($event)" step="30" noEventsLabel="{{'NO_EVENTS'|translate}}">
   </calendar>
 </ion-content>

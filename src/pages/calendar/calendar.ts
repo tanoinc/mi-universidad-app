@@ -14,62 +14,82 @@ import { GenericPage } from "../generic/generic";
   templateUrl: 'calendar.html'
 })
 export class CalendarPage extends GenericPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
-    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
-    this.showLoader('Cargando');
-    this.loadEvents();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CalendarPage');
-  }
-
+  current_start_date: Date;
+  current_end_date: Date;
   eventSource;
   viewTitle;
   isToday: boolean;
   calendar = {
     mode: 'month',
-    currentDate: new Date()
-  }; // these are the variable used by the calendar.
+    currentDate: new Date(),
+    queryMode: 'remote'
+  };
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
+  }
 
   doRefresh(refresher) {
-    this.loadEvents()
-      .then((data: any) => {
+    this.loadCalendar()
+      .then(() => {
         refresher.complete();
       }).catch((error) => {
         refresher.complete();
       });
   }
 
-  loadEvents() {
-    return this.loadFromWs()
-    .then((ws_events)=>{
-      this.eventSource = ws_events;
-    }).then((data: any) => {
-      this.loading.dismiss();
-    }).catch((error) => {
-      this.showAlert('Error','No pudo cargarse el calendario: '+error.message);
-      this.loading.dismiss();
-    });;
+  setEventSource(ws_events) {
+    this.eventSource = ws_events;
   }
 
-  loadFromWs(): Promise<any> {
-    return this.ws.userCalendarEvents().then((ws_events:any)=>{
+  calendarError(error) {
+    this.showAlert('Error', 'No pudo cargarse el calendario: ' + error.message);
+  }
+
+  loadCalendar(show_loader: boolean = true) {
+    if (show_loader) {
+      this.showLoader('Cargando');
+    }
+    return this
+      .loadFromWs(this.current_start_date, this.current_end_date)
+      .then((ws_events) => this.setEventSource(ws_events))
+      .then(() => {
+        if (show_loader) {
+          this.loading.dismiss();
+        }
+      })
+      .catch((error) => this.calendarError(error));
+  }
+
+  protected wsEventToCalendar(ws_event) {
+    let start = new Date(ws_event.event_date);
+    let end = new Date(ws_event.event_date);
+    let s_time = ws_event.event_duration.split(":");
+    let is_all_day = false;
+    end.setHours(start.getHours() + parseInt(s_time[0]));
+    end.setMinutes(start.getMinutes() + parseInt(s_time[1]));
+    end.setSeconds(start.getSeconds() + parseInt(s_time[2]));
+    if (start.getHours() == 0 && start.getMinutes() == 0 && start.getSeconds() == 0 && ws_event.event_duration == "24:00:00") {
+      is_all_day = true;
+    }
+    let name = ws_event.event_name + " (" + ws_event.application_description + ")";
+    if (ws_event.context_id) {
+      name = ws_event.context_description + ": " + name;
+    }
+    return { name: name, start_date: start, end_date: end, is_all_day: is_all_day };
+  }
+
+  loadFromWs(start: Date, end: Date): Promise<any> {
+    return this.ws.userCalendarEventsBetweenDates(start, end).then((ws_events: any) => {
       let events: Array<any> = [];
       if (ws_events.data.length > 0) {
-        events = ws_events.data.map((ws_event)=>{
-          let start = new Date(ws_event.event_date);
-          let end = new Date(ws_event.event_date);
-          let s_time = ws_event.event_duration.split(":");
-          end.setHours(start.getHours()+parseInt(s_time[0]));
-          end.setMinutes(start.getMinutes()+parseInt(s_time[1]));
-          end.setSeconds(start.getSeconds()+parseInt(s_time[2]));
+        events = ws_events.data.map((ws_event) => {
+          let calendar_dates = this.wsEventToCalendar(ws_event);
           return {
-            title: ws_event.event_name,
-            startTime: start,
-            endTime: end,
-            allDay: false
+            title: calendar_dates.name,
+            startTime: calendar_dates.start_date,
+            endTime: calendar_dates.end_date,
+            allDay: calendar_dates.is_all_day
           };
         });
       }
@@ -83,9 +103,7 @@ export class CalendarPage extends GenericPage {
   onEventSelected(event) {
     console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
   }
-  changeMode(mode) {
-    this.calendar.mode = mode;
-  }
+
   today() {
     this.calendar.currentDate = new Date();
   }
@@ -99,43 +117,10 @@ export class CalendarPage extends GenericPage {
     event.setHours(0, 0, 0, 0);
     this.isToday = today.getTime() === event.getTime();
   }
-  createRandomEvents() {
-    var events = [];
-    for (var i = 0; i < 50; i += 1) {
-      var date = new Date();
-      var eventType = Math.floor(Math.random() * 2);
-      var startDay = Math.floor(Math.random() * 90) - 45;
-      var endDay = Math.floor(Math.random() * 2) + startDay;
-      var startTime;
-      var endTime;
-      if (eventType === 0) {
-        startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-        if (endDay === startDay) {
-          endDay += 1;
-        }
-        endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-        events.push({
-          title: 'All Day - ' + i,
-          startTime: startTime,
-          endTime: endTime,
-          allDay: true
-        });
-      } else {
-        var startMinute = Math.floor(Math.random() * 24 * 60);
-        var endMinute = Math.floor(Math.random() * 180) + startMinute;
-        startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-        endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-        events.push({
-          title: 'Event - ' + i,
-          startTime: startTime,
-          endTime: endTime,
-          allDay: false
-        });
-      }
-    }
-    return events;
-  }
   onRangeChanged(ev) {
+    this.current_start_date = ev.startTime;
+    this.current_end_date = ev.endTime;
+    this.loadCalendar();
     console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
   }
   markDisabled(date: Date) {

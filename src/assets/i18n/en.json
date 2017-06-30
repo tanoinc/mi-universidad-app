@@ -21,5 +21,9 @@
     "CALENDAR": "Calendar",
     "ADD_APPLICATION":"Add application",
     "AUTH_REQUIRED":"Authentication required",
-    "VIEW_CONTEXTS": "View subsciptions"
+    "VIEW_CONTEXTS": "View subsciptions",
+    "MONTH":"Month",
+    "WEEK":"Week",
+    "DAY":"Day",
+    "NO_EVENTS":"No events"
 }

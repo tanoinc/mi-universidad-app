@@ -21,5 +21,9 @@
     "CALENDAR": "Calendario",
     "ADD_APPLICATION":"Agregar aplicación",
     "AUTH_REQUIRED":"Requiere autenticación",
-    "VIEW_CONTEXTS": "Suscripción a temas"
+    "VIEW_CONTEXTS": "Suscripción a temas",
+    "MONTH":"Mes",
+    "WEEK":"Semana",
+    "DAY":"Día",
+    "NO_EVENTS":"Sin eventos"
 }
