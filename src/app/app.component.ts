@@ -25,10 +25,12 @@ export class MyApp {
   public user = null;
   public full_screen: boolean = false;
 
-  available_pages = [
+  readonly static_pages = [
     { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
     { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
+
+  available_pages = [];
   displayed_pages = [];
   display_modes = ['not-authenticated', 'authenticated',];
 
@@ -37,6 +39,7 @@ export class MyApp {
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents) {
+    this.resetPages();
     platform.ready().then(() => {
       this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
       return storage.ready();
@@ -54,6 +57,10 @@ export class MyApp {
 
   }
 
+  private resetPages() {
+    this.available_pages = this.static_pages;
+  }
+
   private initPush() {
     return this.push.register()
       .then((t: PushToken) => {
@@ -69,6 +76,7 @@ export class MyApp {
       this.user = auth.getUser();
       this.initPush().catch(() => { });
       this.app_contents.load().then(() => {
+        this.resetPages();
         this.available_pages = this.available_pages.concat(this.app_contents.getPages());
         this.display('authenticated');
       });
