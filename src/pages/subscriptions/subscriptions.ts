@@ -18,22 +18,42 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 export class SubscriptionsPage extends GenericDynamicListPage {
 
   protected full_screen: Boolean = true;
+  mode: string = "unsubscribed";
+  mode_method: { subscribed: (s, p?) => Promise<any>; unsubscribed: (s, p?) => Promise<any>; };
+  applications: { subscribed: any[]; unsubscribed: any[]; }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected iab: InAppBrowser) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.list_searching = true;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SubscriptionsPage');
+    this.mode_method = {
+      subscribed: (s, p?) => this.ws.userApplicationsSubscribed(s, p),
+      unsubscribed: (s, p?) => this.ws.userApplicationsAvailable(s, p)
+    };
+    this.applications = {
+      subscribed: null,
+      unsubscribed: null
+    };    
   }
 
   protected getUpdatePromise(): Promise<any> {
-    return this.ws.userApplicationsAvailable(this.search_text)
+    return this.mode_method[this.mode](this.search_text);
   }
 
   protected getLoadMorePromise(): Promise<any> {
-    return this.ws.userApplicationsAvailable(this.search_text, this.page);
+    return this.mode_method[this.mode](this.search_text, this.page);
+  }
+
+  update() {
+    return super.update().then(()=>{
+      console.log(this.mode);
+      this.applications[this.mode] = this.list;
+    });
+  }
+
+  segmentChanged(event) {
+    if (this.applications[this.mode] == null) {
+      this.update();
+    }
   }
 
   selected(application) {
@@ -41,7 +61,7 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   }
 
   addApplication(application) {
-    this.ws.userAddApplication(application.name).then((data:any) => {
+    this.ws.userAddApplication(application.name).then((data: any) => {
       this.iab.create(data.url_redirect);
     });
   }

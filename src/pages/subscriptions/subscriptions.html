@@ -15,24 +15,37 @@
 
   <ion-searchbar (ionInput)="search($event)" placeholder="{{'SEARCH'|translate}}"></ion-searchbar>
 
+  <ion-segment [(ngModel)]="mode" color="primary" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="unsubscribed">
+      {{'APP_UNSUBSCRIBED'|translate}}
+    </ion-segment-button>
+    <ion-segment-button value="subscribed">
+      {{'APP_SUBSCRIBED'|translate}}
+    </ion-segment-button>
+  </ion-segment>
+
+
   <div *ngIf="this.list_searching" class="spinner-container">
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-card *ngFor="let application of list">
+
+  <ion-card *ngFor="let application of applications[mode]">
     <ion-card-header>
-      {{application.name}}
+      {{application.description}}
     </ion-card-header>
     <ion-card-content>
-      <p>{{application.description}}</p>
-      <button ion-button icon-left block medium (click)="addApplication(application)">
+      <p>{{application.name}}</p>
+      <ng-container *ngIf="mode == 'unsubscribed'">
+        <button ion-button icon-left block medium (click)="addApplication(application)">
         <ion-icon name="add" item-start></ion-icon>
         {{'ADD_APPLICATION'|translate}}
       </button>
-      <p text-center class="notes" *ngIf="application.auth_required">
-        <ion-icon name='lock'></ion-icon>
-        {{'AUTH_REQUIRED'|translate}}
-      </p>
+        <p text-center class="notes" *ngIf="application.auth_required">
+          <ion-icon name='lock'></ion-icon>
+          {{'AUTH_REQUIRED'|translate}}
+        </p>
+      </ng-container>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col text-right>
@@ -42,7 +55,6 @@
         </button>
       </ion-col>
     </ion-row>
-
   </ion-card>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">

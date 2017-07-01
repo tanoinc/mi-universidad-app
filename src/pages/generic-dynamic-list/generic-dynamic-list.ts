@@ -20,8 +20,11 @@ export class GenericDynamicListPage extends GenericPage {
   protected list_searching: boolean = false;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
+  }
+
+  ionViewDidLoad() {
     this.update();
   }
 
@@ -40,9 +43,6 @@ export class GenericDynamicListPage extends GenericPage {
       this.resetPage();
       this.list_searching = false;
     });
-  }
-
-  ionViewDidLoad() {
   }
 
   doRefresh(refresher) {

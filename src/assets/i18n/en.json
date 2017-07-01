@@ -25,5 +25,7 @@
     "MONTH":"Month",
     "WEEK":"Week",
     "DAY":"Day",
-    "NO_EVENTS":"No events"
+    "NO_EVENTS":"No events",
+    "APP_UNSUBSCRIBED":"Available",
+    "APP_SUBSCRIBED":"Subscribed"
 }

@@ -19,11 +19,13 @@
     "LOG_IN_WITH_FACEBOOK":"Ingresá con Facebook",
     "NO_NOTIFICATIONS": "Sin notificaciones",
     "CALENDAR": "Calendario",
-    "ADD_APPLICATION":"Agregar aplicación",
+    "ADD_APPLICATION":"Añadir aplicación",
     "AUTH_REQUIRED":"Requiere autenticación",
     "VIEW_CONTEXTS": "Suscripción a temas",
     "MONTH":"Mes",
     "WEEK":"Semana",
     "DAY":"Día",
-    "NO_EVENTS":"Sin eventos"
+    "NO_EVENTS":"Sin eventos",
+    "APP_UNSUBSCRIBED":"Disponibles",
+    "APP_SUBSCRIBED":"Suscriptas"
 }

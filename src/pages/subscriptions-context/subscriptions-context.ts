@@ -20,12 +20,7 @@ export class SubscriptionsContextPage extends GenericDynamicListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
-    this.list_searching = true;
-  }
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SubscriptionsContextPage: ');
+    this.list_searching = false;
   }
 
   protected getSelectedApplication() {
