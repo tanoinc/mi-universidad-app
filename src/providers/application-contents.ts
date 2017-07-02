@@ -4,6 +4,7 @@ import { Webservice } from "./webservice/webservice";
 import { Auth } from "./auth";
 import { Storage } from '@ionic/storage';
 import { GoogleMapPage } from "../pages/google-map/google-map";
+import { TextPage } from "../pages/text/text";
 
 /*
   Generated class for the ApplicationContents provider.
@@ -15,6 +16,7 @@ import { GoogleMapPage } from "../pages/google-map/google-map";
 export class ApplicationContents {
   protected readonly CONTENTS_KEY = 'ApplicationContents.contents';
   protected readonly CONTENT_GOOGLE_MAP = "App\\ContentGoogleMap";
+  protected readonly CONTENT_TEXT = "App\\ContentText";
   protected contents: any;
   protected loaded: boolean = false;
 
@@ -56,6 +58,8 @@ export class ApplicationContents {
   protected stringTypeToPage(type: string) {
     if (type == this.CONTENT_GOOGLE_MAP) {
       return GoogleMapPage;
+    } else if (type == this.CONTENT_TEXT) {
+      return TextPage;
     }
   }
 
