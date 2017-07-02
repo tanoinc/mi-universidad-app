@@ -1,0 +1,8 @@
+@font-face {
+  font-family: AppFont;
+  src: url("../assets/fonts/OpenSans-Light.ttf");
+}
+
+body, span, button, h1, h2, h3, h4, h5, h6, p, ion-item, ion-title {
+  font-family: 'AppFont' !important;
+}
