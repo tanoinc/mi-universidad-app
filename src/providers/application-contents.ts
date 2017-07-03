@@ -69,7 +69,8 @@ export class ApplicationContents {
       let subpages_loaded = [];
       application.contents.forEach(content => {
         subpages_loaded.push({
-          title: content.description,
+          title: content.name,
+          
           root: this.stringTypeToPage(content.contained_type),
           icon: content.icon_name,
           raw_data: content

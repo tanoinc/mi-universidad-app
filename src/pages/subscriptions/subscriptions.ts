@@ -62,7 +62,7 @@ export class SubscriptionsPage extends GenericDynamicListPage {
 
   addApplication(application) {
     this.ws.userAddApplication(application.name).then((data: any) => {
-      this.iab.create(data.url_redirect);
+      this.iab.create(data.url_redirect, '_blank', { hardwareback: 'no', location: 'no' });
     });
   }
 
