@@ -28,7 +28,7 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #464b5d
 );
 
 
@@ -42,8 +42,13 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-
+$toolbar-md-title-text-color: white;
+$tabs-background: white;
+$card-md-text-color: #464b5d;
+$tabs-border-color: white;
+$card-md-box-shadow: none;
+$toolbar-background: #04505a;
+$toolbar-active-color: white;
 
 
 // App Windows Variables

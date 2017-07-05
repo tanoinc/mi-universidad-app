@@ -1,7 +1,9 @@
 <ion-header *ngIf="!this.full_screen">
   <ion-navbar>
     <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    <ion-title>{{getAppTitle()}}</ion-title>
+    <ion-title>
+      <img alt="Logo" id="logo-titulo" src="assets/images/logo-titulo.png">
+    </ion-title>
 
     <ion-buttons *ngIf="user" end>
       <button ion-button icon-right large outline (click)="toggleUserMenu()">

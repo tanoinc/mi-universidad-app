@@ -1,8 +1,20 @@
 @font-face {
   font-family: AppFont;
-  src: url("../assets/fonts/OpenSans-Light.ttf");
+  src: url("../assets/fonts/OpenSans-Regular.ttf");
 }
 
 body, span, button, h1, h2, h3, h4, h5, h6, p, ion-item, ion-title {
   font-family: 'AppFont' !important;
+}
+
+#logo-titulo {
+  max-height: 25px;
+}
+
+.card-md h2 {
+  font-weight: bold;
+}
+
+ion-card.card-md {
+  border-bottom: 2px solid #b9b8b8;
 }
