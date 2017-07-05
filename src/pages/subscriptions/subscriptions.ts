@@ -32,7 +32,7 @@ export class SubscriptionsPage extends GenericDynamicListPage {
     this.applications = {
       subscribed: null,
       unsubscribed: null
-    };    
+    };
   }
 
   protected getUpdatePromise(): Promise<any> {
@@ -44,8 +44,7 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   }
 
   update() {
-    return super.update().then(()=>{
-      console.log(this.mode);
+    return super.update().then(() => {
       this.applications[this.mode] = this.list;
     });
   }
@@ -62,8 +61,52 @@ export class SubscriptionsPage extends GenericDynamicListPage {
 
   addApplication(application) {
     this.ws.userAddApplication(application.name).then((data: any) => {
-      this.iab.create(data.url_redirect);
+      let browser = this.iab.create(data.url_redirect, '_blank', { hardwareback: 'no', location: 'no' });
+      this.onApplicationAdded(browser, application.name);
+      /*
+      browser.on("loadstop").subscribe(function () {
+        //browser.executeScript({ code: "localStorage.setItem('close_window', false);" });
+        let nameInterval = setInterval(function () {
+          browser.executeScript({ code: "localStorage.getItem('close_window');" }).then((close) => {
+            if (close == "true") {
+              clearInterval(nameInterval);
+              browser.close();
+            }
+          });
+        }, 1000);
+      });
+      browser.executeScript({ code: "localStorage.getItem(\"close_window\");" });
+      */
     });
   }
 
+  onApplicationAdded(browser, application_name) {
+    return new Promise((resolve, reject) => {
+      let interval = null;
+      browser.on("loadstop").subscribe(function () {
+        interval = setInterval(function () {
+          browser.executeScript({ code: "localStorage.getItem('"+application_name+"_status');" })
+          .then((status) => {
+            console.log(JSON.stringify(interval));            
+            if (status == "CONNECTED") {
+              console.log("conectado!!");
+              console.log(JSON.stringify(interval));
+              clearInterval(interval);
+              browser.close();
+              resolve();
+            } else if (status == "ERROR") {
+              console.log("error!!");
+              console.log(JSON.stringify(interval));
+              clearInterval(interval);
+              browser.close();
+              reject();
+            }
+          }).catch(()=>{
+            clearInterval(interval);
+          });
+        }, 1000);
+      });
+
+    });
+  }
 }
