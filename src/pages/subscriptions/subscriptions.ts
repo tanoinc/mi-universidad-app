@@ -83,28 +83,30 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   onApplicationAdded(browser, application_name) {
     return new Promise((resolve, reject) => {
       let interval = null;
+      let already_loaded = false;
       browser.on("loadstop").subscribe(function () {
-        interval = setInterval(function () {
-          browser.executeScript({ code: "localStorage.getItem('"+application_name+"_status');" })
-          .then((status) => {
-            console.log(JSON.stringify(interval));            
-            if (status == "CONNECTED") {
-              console.log("conectado!!");
-              console.log(JSON.stringify(interval));
-              clearInterval(interval);
-              browser.close();
-              resolve();
-            } else if (status == "ERROR") {
-              console.log("error!!");
-              console.log(JSON.stringify(interval));
-              clearInterval(interval);
-              browser.close();
-              reject();
-            }
-          }).catch(()=>{
-            clearInterval(interval);
-          });
-        }, 1000);
+        if (!already_loaded) {
+          already_loaded = true;
+          browser.executeScript({ code: "localStorage.setItem('" + application_name + "_status','CONNECTING');" })
+          interval = setInterval(function () {
+            browser.executeScript({ code: "localStorage.getItem('" + application_name + "_status');" })
+              .then((status) => {
+                let p_status = status[0];
+                console.log(JSON.stringify(p_status));
+                if (p_status == "CONNECTED") {
+                  clearInterval(interval);
+                  browser.close();
+                  resolve();
+                } else if (p_status == "ERROR") {
+                  clearInterval(interval);
+                  browser.close();
+                  reject();
+                }
+              }).catch(() => {
+                clearInterval(interval);
+              });
+          }, 1000);
+        }
       });
 
     });

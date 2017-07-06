@@ -16,10 +16,6 @@ export class NotificationsPage extends GenericDynamicListPage {
     this.list_searching = true;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationsPage');
-  }
-
   ionViewDidLeave() {
     this.events.publish('notification:read');
   }
