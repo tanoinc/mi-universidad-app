@@ -15,9 +15,11 @@ $font-path: "../assets/fonts";
 $login-form-top-padding: 0;
 $login-form-padding: 0;
 $login-background: none;
+$login-background-bottom: none;
 $signup-form-top-padding: 0;
 $signup-form-padding: 0;
 $signup-background: none;
+$signup-background-bottom: none;
 
 @import "variables.custom.scss";
 
@@ -34,7 +36,7 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #464b5d
 );
 
 
@@ -48,7 +50,6 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
 
 
 
@@ -82,3 +83,4 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
