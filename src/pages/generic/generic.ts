@@ -58,6 +58,8 @@ export class GenericPage {
   ionViewWillEnter() {
     if (this.full_screen) {
       this.events.publish('app:full_screen_on');
+    } else {
+      this.events.publish('app:full_screen_off');
     }
   }
 
