@@ -4,6 +4,7 @@ import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
 import { LoginPage } from "../login/login";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { CONFIG } from "../../config/config";
 
 /*
   Generated class for the Signup page.
@@ -28,6 +29,7 @@ export class SignupPage extends GenericPage {
   public errorData: any;
 
   public signupForm: FormGroup;
+  protected full_screen = CONFIG.NOT_AUTHENTICATED_FULL_SCREEN;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);

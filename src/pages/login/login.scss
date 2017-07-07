@@ -3,9 +3,12 @@ page-login {
         padding: $login-form-padding;
         padding-top: $login-form-top-padding;
     }
+
     .scroll-content {
         background-color: transparent;
-    }    
+        background: $login-background-bottom;
+    }
+
     ion-content.content { 
         background: $login-background;
     }
