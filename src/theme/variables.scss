@@ -15,9 +15,11 @@ $font-path: "../assets/fonts";
 $login-form-top-padding: 0;
 $login-form-padding: 0;
 $login-background: none;
+$login-background-bottom: none;
 $signup-form-top-padding: 0;
 $signup-form-padding: 0;
 $signup-background: none;
+$signup-background-bottom: none;
 
 @import "variables.custom.scss";
 
@@ -48,13 +50,7 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-$toolbar-md-title-text-color: white;
-$tabs-background: white;
-$card-md-text-color: #464b5d;
-$tabs-border-color: white;
-$card-md-box-shadow: none;
-$toolbar-background: #04505a;
-$toolbar-active-color: white;
+
 
 
 // App Windows Variables

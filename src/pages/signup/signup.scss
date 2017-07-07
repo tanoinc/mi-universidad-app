@@ -5,6 +5,7 @@ page-signup {
     }
     .scroll-content {
         background-color: transparent;
+        background: $signup-background-bottom;
     }    
     ion-content.content { 
         background: $signup-background;
