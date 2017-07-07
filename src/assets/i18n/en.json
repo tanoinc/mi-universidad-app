@@ -27,5 +27,8 @@
     "DAY":"Day",
     "NO_EVENTS":"No events",
     "APP_UNSUBSCRIBED":"Available",
-    "APP_SUBSCRIBED":"Subscribed"
+    "APP_SUBSCRIBED":"Subscribed",
+    "EMAIL_OR_USERNAME":"E-mail or username",
+    "PASSWORD":"Password",
+    "REGISTER": "Register"
 }

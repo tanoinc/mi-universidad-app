@@ -1,6 +1,12 @@
 page-signup {
-
-}
-p.alert {
-    color: red;
+    #signup_form {
+        padding: $signup-form-padding;
+        padding-top: $signup-form-top-padding;
+    }
+    .scroll-content {
+        background-color: transparent;
+    }    
+    ion-content.content { 
+        background: $signup-background;
+    }    
 }

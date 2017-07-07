@@ -61,6 +61,11 @@ export class SignupPage extends GenericPage {
     });
   }
 
+  cancel() {
+    this.signupForm.reset();
+    this.navCtrl.setRoot(LoginPage);
+  }  
+
   clearForm() {
     this.name = "";
     this.surname = "";

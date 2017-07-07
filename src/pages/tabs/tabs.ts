@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-
+import { CONFIG } from "../../config/config";
 import { HomePage } from '../home/home';
 import { SignupPage } from "../signup/signup";
 import { LoginPage } from "../login/login";
@@ -12,8 +12,9 @@ import { CalendarPage } from "../calendar/calendar";
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
-  @ViewChild('myTabs') tabRef: Tabs;
+  @ViewChild('menu_tabs') tabRef: Tabs;
 
+  tabs_hidden: boolean = false;
   available_tabs = [
     { title: "HOME", root: HomePage, icon: "home", display: ['authenticated'] },
     { title: "NOTIFICATIONS", root: NotificationsPage, icon: "notifications", display: ['authenticated'] },
@@ -51,7 +52,11 @@ export class TabsPage {
       this.tabRef.select(defaultTab);
     }
     this.displayed_tabs = this.available_tabs.filter(val => (val.display.find(val_mode => val_mode == mode)));
-
+    if (mode == 'not-authenticated') {
+      this.tabs_hidden = CONFIG.NOT_AUTHENTICATED_TABS_HIDDEN;
+    } else {
+      this.tabs_hidden = false;
+    }
   }
 
   displayedTabs() {
