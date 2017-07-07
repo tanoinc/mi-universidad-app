@@ -4,5 +4,6 @@ export const CONFIG_ENV = {
     APP_NAME : "Mi Universidad (dev)",
     DEFAULT_LANG: "es",
     FIREBASE_SENDER_ID: "",
-    FIREBASE_APP_ID: ""
+    FIREBASE_APP_ID: "",
+    NOT_AUTHENTICATED_TABS_HIDDEN: false
 }

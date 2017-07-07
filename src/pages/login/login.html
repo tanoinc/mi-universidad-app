@@ -12,29 +12,23 @@
 
 </ion-header>
 
-
 <ion-content padding>
 
-
+<div id="login_form">
   <ion-list>
-  
     <ion-item>
-      <ion-label floating>Correo electrónico o usuario</ion-label>
-      <ion-input [(ngModel)]="credentials.username" type="text"></ion-input>
+      <ion-input [(ngModel)]="credentials.username" type="text" clearInput="true" placeholder="{{'EMAIL_OR_USERNAME'|translate}}"></ion-input>
     </ion-item>
-  
     <ion-item>
-      <ion-label floating>Contraseña</ion-label>
-      <ion-input [(ngModel)]="credentials.password" type="password"></ion-input>
+      <ion-input [(ngModel)]="credentials.password" type="password" placeholder="{{'PASSWORD'|translate}}"></ion-input>
     </ion-item>
-  
   </ion-list>
-  <button ion-button (click)="login(credentials)">Ingresá</button>
-  o
-  <button ion-button color="secondary" (click)="register()">Creá una cuenta</button>
 
-  <button ion-button full icon-left (click)="facebookLogin()">
+  <button ion-button block (click)="login(credentials)">Ingresá</button>
+  <button ion-button block color="secondary" (click)="register()">Creá una cuenta</button>
+  <button ion-button block icon-left (click)="facebookLogin()">
     <ion-icon name="logo-facebook"></ion-icon> {{'LOG_IN_WITH_FACEBOOK'|translate}}
   </button>
+</div>
 
 </ion-content>

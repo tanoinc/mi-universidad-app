@@ -14,80 +14,82 @@
 
 
 <ion-content padding>
+    <div id="signup_form">
+        <form [formGroup]="signupForm" (ngSubmit)="register()">
+            <ion-list inset>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="person"></ion-icon>
+                    </ion-label>
+                    <ion-input formControlName="name" placeholder="Nombre" type="text"></ion-input>
+                    <ion-input formControlName="surname" placeholder="Apellido" type="text"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="errorData.name || errorData.surname || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
+                    <ng-container *ngFor="let error of errorData.name">
+                        <p class="alert">{{error}}</p>
+                    </ng-container>
+                    <ng-container *ngFor="let error of errorData.surname">
+                        <p class="alert">{{error}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.controls.name.errors && signupForm.controls.name.dirty">
+                        <p class="alert">El nombre es obligatorio</p>
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.controls.surname.errors && signupForm.controls.surname.dirty">
+                        <p class="alert">El apellido es obligatorio</p>
+                    </ng-container>
+                </ng-container>
 
-    <form [formGroup]="signupForm" (ngSubmit)="register()">
-        <ion-list inset>
-            <ion-item>
-                <ion-label>
-                    <ion-icon name="person"></ion-icon>
-                </ion-label>
-                <ion-input formControlName="name" placeholder="Nombre" type="text"></ion-input>
-                <ion-input formControlName="surname" placeholder="Apellido" type="text"></ion-input>
-            </ion-item>
-            <ng-container *ngIf="errorData.name || errorData.surname || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
-                <ng-container *ngFor="let error of errorData.name">
-                    <p class="alert">{{error}}</p>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="person"></ion-icon>
+                    </ion-label>
+                    <ion-input formControlName="username" placeholder="Nombre de usuario" type="text"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="errorData.username || (signupForm.controls.username.errors && signupForm.controls.username.dirty)">
+                    <ng-container *ngFor="let error of errorData.username">
+                        <p class="alert">{{error}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.controls.username.errors && signupForm.controls.username.dirty">
+                        <p class="alert">Al menos 5 caracteres (alfanuméricos, guión bajo o medio).</p>
+                    </ng-container>
                 </ng-container>
-                <ng-container *ngFor="let error of errorData.surname">
-                    <p class="alert">{{error}}</p>
-                </ng-container>
-                <ng-container *ngIf="signupForm.controls.name.errors && signupForm.controls.name.dirty">
-                    <p class="alert">El nombre es obligatorio</p>
-                </ng-container>
-                <ng-container *ngIf="signupForm.controls.surname.errors && signupForm.controls.surname.dirty">
-                    <p class="alert">El apellido es obligatorio</p>
-                </ng-container>
-            </ng-container>
-            
-            <ion-item>
-                <ion-label>
-                    <ion-icon name="person"></ion-icon>
-                </ion-label>
-                <ion-input formControlName="username" placeholder="Nombre de usuario" type="text"></ion-input>
-            </ion-item>
-            <ng-container *ngIf="errorData.username || (signupForm.controls.username.errors && signupForm.controls.username.dirty)">
-                <ng-container *ngFor="let error of errorData.username">
-                    <p class="alert">{{error}}</p>
-                </ng-container>
-                <ng-container *ngIf="signupForm.controls.username.errors && signupForm.controls.username.dirty">
-                    <p class="alert">Al menos 5 caracteres (alfanuméricos, guión bajo o medio).</p>
-                </ng-container>
-            </ng-container>
 
-            <ion-item>
-                <ion-label>
-                    <ion-icon name="mail"></ion-icon>
-                </ion-label>
-                <ion-input formControlName="email" placeholder="E-mail" type="email"></ion-input>
-            </ion-item>
-            <ng-container *ngIf="errorData.email || (signupForm.controls.email.errors && signupForm.controls.email.dirty)">
-                <ng-container *ngFor="let error of errorData.email">
-                    <p class="alert">{{error}}</p>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="mail"></ion-icon>
+                    </ion-label>
+                    <ion-input formControlName="email" placeholder="E-mail" type="email"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="errorData.email || (signupForm.controls.email.errors && signupForm.controls.email.dirty)">
+                    <ng-container *ngFor="let error of errorData.email">
+                        <p class="alert">{{error}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.controls.email.errors && signupForm.controls.email.dirty">
+                        <p class="alert">Tenés que ingresar una dirección de correo electrónico válida.</p>
+                    </ng-container>
                 </ng-container>
-                <ng-container *ngIf="signupForm.controls.email.errors && signupForm.controls.email.dirty">
-                    <p class="alert">Tenés que ingresar una dirección de correo electrónico válida.</p>
+
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="lock"></ion-icon>
+                    </ion-label>
+                    <ion-input formControlName="password" placeholder="Contraseña" type="password"></ion-input>
+                    <ion-input formControlName="passwordRepeat" placeholder="Repetí la contraseña" type="password"></ion-input>
+                </ion-item>
+                <ng-container *ngIf="errorData.password || (signupForm.controls.password.errors && signupForm.controls.password.dirty)">
+                    <ng-container *ngFor="let error of errorData.password">
+                        <p class="alert">{{error}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="signupForm.controls.password.errors && signupForm.controls.password.dirty">
+                        <p class="alert">Las contraseñas son obligatorias y deben coincidir.</p>
+                    </ng-container>
                 </ng-container>
-            </ng-container>
 
-            <ion-item>
-                <ion-label>
-                    <ion-icon name="lock"></ion-icon>
-                </ion-label>
-                <ion-input formControlName="password" placeholder="Contraseña" type="password"></ion-input>
-                <ion-input formControlName="passwordRepeat" placeholder="Repetí la contraseña" type="password"></ion-input>
-            </ion-item>
-            <ng-container *ngIf="errorData.password || (signupForm.controls.password.errors && signupForm.controls.password.dirty)">
-                <ng-container *ngFor="let error of errorData.password">
-                    <p class="alert">{{error}}</p>
-                </ng-container>
-                <ng-container *ngIf="signupForm.controls.password.errors && signupForm.controls.password.dirty">
-                    <p class="alert">Las contraseñas son obligatorias y deben coincidir.</p>
-                </ng-container>
-            </ng-container>
+            </ion-list>
 
-        </ion-list>
-        <button ion-button full [disabled]="!signupForm.valid" type="submit" class="continue-button">Crear nueva cuenta</button>
-    </form>
+            <button ion-button block [disabled]="!signupForm.valid" type="submit" class="continue-button">{{'REGISTER'|translate}}</button>
 
-
+        </form>
+        <button ion-button block (click)="cancel()" color="danger">Cancelar</button>
+    </div>
 </ion-content>

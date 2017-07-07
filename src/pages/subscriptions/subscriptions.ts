@@ -63,20 +63,6 @@ export class SubscriptionsPage extends GenericDynamicListPage {
     this.ws.userAddApplication(application.name).then((data: any) => {
       let browser = this.iab.create(data.url_redirect, '_blank', { hardwareback: 'no', location: 'no' });
       this.onApplicationAdded(browser, application.name);
-      /*
-      browser.on("loadstop").subscribe(function () {
-        //browser.executeScript({ code: "localStorage.setItem('close_window', false);" });
-        let nameInterval = setInterval(function () {
-          browser.executeScript({ code: "localStorage.getItem('close_window');" }).then((close) => {
-            if (close == "true") {
-              clearInterval(nameInterval);
-              browser.close();
-            }
-          });
-        }, 1000);
-      });
-      browser.executeScript({ code: "localStorage.getItem(\"close_window\");" });
-      */
     });
   }
 
