@@ -24,6 +24,7 @@ export class MyApp {
   public loading;
   public user = null;
   public full_screen: boolean = false;
+  public current_display_mode = null;
 
   readonly static_pages = [
     { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
@@ -46,8 +47,6 @@ export class MyApp {
     }).then(() => {
       this.display('not-authenticated');
       return auth.loadStoredData().catch(() => { });
-      //    }).then(() => {
-      //      return this.initPush().catch(() => { });
     }).then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
@@ -70,14 +69,27 @@ export class MyApp {
       });
   }
 
+  addAvailablePages(pages: any[]) {
+    this.available_pages = this.available_pages.concat(pages);
+  }
+
+  private updateContentPages() {
+    return this.app_contents.load().then(() => {
+      this.resetPages();
+      this.addAvailablePages(this.app_contents.getPages());
+      this.updateDisplay();
+    });
+  }
+
   private initEventSubscriptions() {
+    this.events.subscribe('application:subscription_changed', () => {
+      this.updateContentPages();
+    });
 
     this.events.subscribe('user:authenticated', (auth: Auth) => {
       this.user = auth.getUser();
       this.initPush().catch(() => { });
-      this.app_contents.load().then(() => {
-        this.resetPages();
-        this.available_pages = this.available_pages.concat(this.app_contents.getPages());
+      this.updateContentPages().then(() => {
         this.display('authenticated');
       });
     });
@@ -101,8 +113,13 @@ export class MyApp {
       });
   }
 
+  protected updateDisplay() {
+    this.displayed_pages = this.available_pages.filter(val => (val.display.find(val_mode => val_mode == this.current_display_mode)));
+  }
+
   display(mode: string) {
-    this.displayed_pages = this.available_pages.filter(val => (val.display.find(val_mode => val_mode == mode)));
+    this.current_display_mode = mode;
+    this.updateDisplay();
   }
 
   showLoader(text) {

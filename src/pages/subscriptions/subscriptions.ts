@@ -59,14 +59,49 @@ export class SubscriptionsPage extends GenericDynamicListPage {
     this.navCtrl.push(SubscriptionsContextPage, { 'application': application });
   }
 
+  protected applicationAdded(application) {
+    this.move(application, 'unsubscribed', 'subscribed');
+    this.events.publish('application:subscription_changed');
+  }
+
   addApplication(application) {
     this.ws.userAddApplication(application.name).then((data: any) => {
-      let browser = this.iab.create(data.url_redirect, '_blank', { hardwareback: 'no', location: 'no' });
-      this.onApplicationAdded(browser, application.name);
+      if (application.auth_required) {
+        let browser = this.iab.create(data.url_redirect, '_blank', { hardwareback: 'no', location: 'no' });
+        this.onApplicationConnected(browser, application.name)
+          .then(() => {
+            this.applicationAdded(application);
+          }).catch(() => {
+            this.showAlert('Error', 'Se produjo un error al añadir la aplicación');
+          });
+      } else {
+        this.applicationAdded(application);
+      }
     });
   }
 
-  onApplicationAdded(browser, application_name) {
+  move(application, from, to = null) {
+    let index: number = this.applications[from].indexOf(application);
+    if (index !== -1) {
+      this.applications[from].splice(index, 1);
+    }
+    if (to != null && this.applications[to] != null) {
+      this.applications[to].push(application);
+    }
+  }
+
+  protected applicationRemoved(application) {
+    this.move(application, 'subscribed', 'unsubscribed');
+    this.events.publish('application:subscription_changed');
+  }
+
+  removeApplication(application) {
+    this.ws.userRemoveApplication(application.name).then(() => {
+      this.applicationRemoved(application);
+    });
+  }
+
+  onApplicationConnected(browser, application_name) {
     return new Promise((resolve, reject) => {
       let interval = null;
       let already_loaded = false;

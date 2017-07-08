@@ -16,11 +16,11 @@
   <ion-searchbar (ionInput)="search($event)" placeholder="{{'SEARCH'|translate}}"></ion-searchbar>
 
   <ion-segment [(ngModel)]="mode" color="primary" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="unsubscribed">
-      {{'APP_UNSUBSCRIBED'|translate}}
-    </ion-segment-button>
     <ion-segment-button value="subscribed">
       {{'APP_SUBSCRIBED'|translate}}
+    </ion-segment-button>    
+    <ion-segment-button value="unsubscribed">
+      {{'APP_UNSUBSCRIBED'|translate}}
     </ion-segment-button>
   </ion-segment>
 
@@ -29,33 +29,48 @@
     <ion-spinner></ion-spinner>
   </div>
 
-
-  <ion-card *ngFor="let application of applications[mode]">
-    <ion-card-header>
-      {{application.description}}
-    </ion-card-header>
-    <ion-card-content>
-      <p>{{application.name}}</p>
-      <ng-container *ngIf="mode == 'unsubscribed'">
+  <ng-container *ngIf="mode == 'unsubscribed'">
+    <ion-card *ngFor="let application of applications[mode]">
+      <ion-card-header>
+        {{application.description}}
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{application.name}}</p>
         <button ion-button icon-left block medium (click)="addApplication(application)">
-        <ion-icon name="add" item-start></ion-icon>
-        {{'ADD_APPLICATION'|translate}}
-      </button>
+          <ion-icon name="add" item-start></ion-icon>
+          {{'ADD_APPLICATION'|translate}}
+        </button>
         <p text-center class="notes" *ngIf="application.auth_required">
           <ion-icon name='lock'></ion-icon>
           {{'AUTH_REQUIRED'|translate}}
         </p>
-      </ng-container>
-    </ion-card-content>
-    <ion-row no-padding>
-      <ion-col text-right>
-        <button ion-button clear small color="danger" icon-left (click)="selected(application)">
+      </ion-card-content>
+      <ion-row no-padding>
+        <ion-col text-right>
+          <button ion-button clear small color="danger" icon-left (click)="selected(application)">
           <ion-icon name='pricetag'></ion-icon>
           {{'VIEW_CONTEXTS'|translate}}
         </button>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="mode == 'subscribed'">
+    <ion-list>
+      <ion-item-sliding *ngFor="let application of applications[mode]"> 
+        <button ion-item (click)="selected(application)">
+          {{application.description}}
+        </button>
+        <ion-item-options side="right">
+          <button ion-button color="danger" (click)="removeApplication(application)">
+            <ion-icon name="remove-circle"></ion-icon>
+            {{'REMOVE_APPLICATION'|translate}}
+          </button>
+        </ion-item-options>        
+      </ion-item-sliding>
+    </ion-list>    
+  </ng-container>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
     <ion-infinite-scroll-content loadingText="{{'LOADING'|translate}}...">></ion-infinite-scroll-content>

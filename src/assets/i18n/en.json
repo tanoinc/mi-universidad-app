@@ -30,5 +30,6 @@
     "APP_SUBSCRIBED":"Subscribed",
     "EMAIL_OR_USERNAME":"E-mail or username",
     "PASSWORD":"Password",
-    "REGISTER": "Register"
+    "REGISTER": "Register",
+    "REMOVE_APPLICATION": "Remove"
 }

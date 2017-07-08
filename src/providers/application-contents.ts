@@ -70,20 +70,22 @@ export class ApplicationContents {
       application.contents.forEach(content => {
         subpages_loaded.push({
           title: content.name,
-          
+
           root: this.stringTypeToPage(content.contained_type),
           icon: content.icon_name,
           raw_data: content
         });
       });
-      pages.push({
-        title: application.description,
-        root: null,
-        icon: "apps",
-        subpages: subpages_loaded,
-        show_subpages: false,
-        display: ['authenticated']
-      });
+      if (subpages_loaded.length > 0) {
+        pages.push({
+          title: application.description,
+          root: null,
+          icon: "apps",
+          subpages: subpages_loaded,
+          show_subpages: false,
+          display: ['authenticated']
+        });
+      }
     });
     return pages;
   }
@@ -92,8 +94,7 @@ export class ApplicationContents {
     if (content_params.contained.data_url != null) {
       return this.ws.contentLoadExternal(content_params.contained.data_url);
     } else {
-      if (content_params.contained.send_user_info)
-      {
+      if (content_params.contained.send_user_info) {
         return this.ws.contentLoad(content_params.id, user_info);
       } else {
         return this.ws.contentLoad(content_params.id);
