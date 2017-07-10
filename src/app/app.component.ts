@@ -42,7 +42,10 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents) {
     this.resetPages();
     platform.ready().then(() => {
+      var userLang = navigator.language.split('-')[0];
       this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
+      //console.log("language: "+userLang);
+      this.translate.use(userLang);
       return storage.ready();
     }).then(() => {
       this.display('not-authenticated');

@@ -30,6 +30,12 @@
   </div>
 
   <ng-container *ngIf="mode == 'unsubscribed'">
+
+    <div class="empty_message" *ngIf="applications[mode].length == 0 && !this.list_searching">
+      <ion-icon name="sad"></ion-icon>
+      <h2 class="card-title">{{'NO_NOTIFICATIONS'|translate}}</h2>
+    </div>
+
     <ion-card *ngFor="let application of applications[mode]">
       <ion-card-header>
         {{application.description}}

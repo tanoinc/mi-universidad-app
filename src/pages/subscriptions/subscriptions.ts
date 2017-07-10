@@ -43,6 +43,11 @@ export class SubscriptionsPage extends GenericDynamicListPage {
     return this.mode_method[this.mode](this.search_text, this.page);
   }
 
+  ionViewDidLoad() {
+    this.list_searching = true;
+    super.update();
+  }
+
   update() {
     return super.update().then(() => {
       this.applications[this.mode] = this.list;
@@ -51,6 +56,7 @@ export class SubscriptionsPage extends GenericDynamicListPage {
 
   segmentChanged(event) {
     if (this.applications[this.mode] == null) {
+      this.list_searching = true;
       this.update();
     }
   }

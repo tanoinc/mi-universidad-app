@@ -32,12 +32,33 @@
   }
 }
 
+.spinner-container {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
 .scroll-content {
   background-color: white;
 }
 
 p.alert {
     color: red;
+}
+
+.empty_message {
+    position: relative;
+    text-align: center;
+    color: dimgray;
+    background-color: white; 
+    height: 100%;       
+}
+.empty_message * {
+    vertical-align: middle;
+}
+.empty_message ion-icon {
+    font-size: 4.0em;
+    color: dimgray;
 }
 
 @import "app.custom";

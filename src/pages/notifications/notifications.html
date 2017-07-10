@@ -11,7 +11,11 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div class="empty_message" *ngIf="list.length == 0">
+  <div *ngIf="this.list_searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div class="empty_message" *ngIf="list.length == 0 && !this.list_searching">
     <ion-icon name="sad"></ion-icon>
     <h2 class="card-title">{{'NO_NOTIFICATIONS'|translate}}</h2>
   </div>
