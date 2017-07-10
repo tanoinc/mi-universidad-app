@@ -30,5 +30,6 @@
     "APP_SUBSCRIBED":"Suscriptas",
     "EMAIL_OR_USERNAME":"Correo electrónico o usuario",
     "PASSWORD":"Contraseña",
-    "REGISTER": "Registrarse"
+    "REGISTER": "Registrarse",
+    "REMOVE_APPLICATION": "Eliminar"
 }

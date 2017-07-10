@@ -20,6 +20,7 @@ $signup-form-top-padding: 0;
 $signup-form-padding: 0;
 $signup-background: none;
 $signup-background-bottom: none;
+$item-md-detail-push-show: true;
 
 @import "variables.custom.scss";
 
@@ -83,3 +84,4 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+

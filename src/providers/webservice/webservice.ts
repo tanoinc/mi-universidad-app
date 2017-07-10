@@ -197,4 +197,9 @@ export class Webservice {
   userAddApplication(application_name:string, auth?: Auth) {
     return this.post('mobile/api/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
   }
+  
+  userRemoveApplication(application_name:string, auth?: Auth) {
+    return this.delete('mobile/api/v1/application/subscription/'+application_name, this.headersFromAuth(auth));
+  }
+
 }

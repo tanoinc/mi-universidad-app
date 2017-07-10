@@ -26,7 +26,7 @@
   <ion-content>
     <ion-list id="sidenav">
       <ng-container *ngFor="let p of displayed_pages">
-        <button ion-item [menuClose]="p.subpages" (click)="openPage(p)">
+        <button ion-item detail-none [menuClose]="p.subpages" (click)="openPage(p)">
           <ion-icon item-right name="{{p.icon}}"></ion-icon>
           {{p.title|translate}}
         </button>

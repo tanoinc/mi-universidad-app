@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
+import { ActionSheetController } from 'ionic-angular';
 
 /*
   Generated class for the Calendar page.
@@ -25,7 +26,7 @@ export class CalendarPage extends GenericPage {
     queryMode: 'remote'
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, public action_sheet: ActionSheetController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
   }
 
@@ -97,11 +98,33 @@ export class CalendarPage extends GenericPage {
     });
   }
 
+  presentActionSheet(event) {
+    let sheet = this.action_sheet.create({
+      title: event.title,
+      buttons: [
+        {
+          text: 'Guardar',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        }, {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        }
+      ]
+    });
+    sheet.present();
+  }
+
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
   onEventSelected(event) {
     console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    this.presentActionSheet(event);
   }
 
   today() {
