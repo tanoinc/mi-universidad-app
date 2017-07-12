@@ -29,6 +29,7 @@ import { CalendarPage } from "../pages/calendar/calendar";
 import { BrowserModule } from '@angular/platform-browser';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TextPage } from "../pages/text/text";
+import { NotificationDetailPage } from "../pages/notification-detail/notification-detail";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -67,7 +68,8 @@ const cloudSettings: CloudSettings = {
     SubscriptionsContextPage,
     GoogleMapPage,
     CalendarPage,
-    TextPage
+    TextPage,
+    NotificationDetailPage
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,8 @@ const cloudSettings: CloudSettings = {
     SubscriptionsContextPage,
     GoogleMapPage,
     CalendarPage,
-    TextPage
+    TextPage,
+    NotificationDetailPage
   ],
   providers: [
     StatusBar,

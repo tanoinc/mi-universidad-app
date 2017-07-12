@@ -1,0 +1,31 @@
+<!--
+  Generated template for the NotificationDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{type|translate}}</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <h1>{{title}}</h1>
+  <ng-container *ngIf="type == 'calendar'">
+    <p>{{"EVENT_DATE"|translate}}: {{this.notification.event_date}}</p>
+    <p>{{"EVENT_DURATION"|translate}}: {{this.notification.event_duration}}</p>
+  </ng-container>
+  <ng-container *ngIf="type == 'newsfeed'">
+    <p>{{this.notification.content}}</p>
+  </ng-container>
+</ion-content>

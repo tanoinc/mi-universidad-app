@@ -23,6 +23,11 @@ export class SubscriptionsContextPage extends GenericDynamicListPage {
     this.list_searching = false;
   }
 
+  ionViewDidLoad() {
+    this.list_searching = true;
+    this.update();
+  }
+
   protected getSelectedApplication() {
     return this.navParams.get('application');
   }

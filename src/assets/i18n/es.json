@@ -31,5 +31,10 @@
     "EMAIL_OR_USERNAME":"Correo electrónico o usuario",
     "PASSWORD":"Contraseña",
     "REGISTER": "Registrarse",
-    "REMOVE_APPLICATION": "Eliminar"
+    "REMOVE_APPLICATION": "Eliminar",
+    "calendar":"Calendario",
+    "newsfeed": "Noticia",
+    "EVENT_DATE": "Fecha del evento",
+    "EVENT_DURATION": "Duración del evento",
+    "NO_APPLICATIONS": "Sin aplicaciones"
 }
