@@ -31,5 +31,10 @@
     "EMAIL_OR_USERNAME":"E-mail or username",
     "PASSWORD":"Password",
     "REGISTER": "Register",
-    "REMOVE_APPLICATION": "Remove"
+    "REMOVE_APPLICATION": "Remove",
+    "calendar":"Calendar",
+    "newsfeed": "News",
+    "EVENT_DATE": "Event date",
+    "EVENT_DURATION": "Event duration",
+    "NO_APPLICATIONS": "No applications"
 }

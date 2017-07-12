@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events, ModalController } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-list";
+import { NotificationDetailPage } from "../notification-detail/notification-detail";
 
 
 @Component({
@@ -10,7 +11,7 @@ import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-
 })
 export class NotificationsPage extends GenericDynamicListPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected modalCtrl: ModalController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.full_screen = false;
     this.list_searching = true;
@@ -61,4 +62,12 @@ export class NotificationsPage extends GenericDynamicListPage {
       return notification.notifiable.title;
     }
   }
+
+  open(notification) {
+    //this.navCtrl.parent.select(0);
+    let profileModal = this.modalCtrl.create(NotificationDetailPage, { notification: notification.notifiable, type: this.type(notification) });
+    profileModal.present();
+    console.log(this.type(notification));
+  }
+
 }

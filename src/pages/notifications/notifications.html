@@ -21,11 +21,11 @@
   </div>
 
   <ion-list *ngIf="list.length > 0">
-    <ion-item *ngFor="let notification of list">
+    <button ion-item detail-none (click)="open(notification)" *ngFor="let notification of list">
       <ion-icon item-left name="{{icon(notification)}}"></ion-icon>
       {{title(notification)}}
       <p>{{notification.created_at}}</p>
-    </ion-item>
+    </button>
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
