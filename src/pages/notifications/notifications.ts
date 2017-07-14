@@ -67,7 +67,6 @@ export class NotificationsPage extends GenericDynamicListPage {
     //this.navCtrl.parent.select(0);
     let profileModal = this.modalCtrl.create(NotificationDetailPage, { notification: notification.notifiable, type: this.type(notification) });
     profileModal.present();
-    console.log(this.type(notification));
   }
 
 }

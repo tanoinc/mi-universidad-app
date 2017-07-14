@@ -30,6 +30,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TextPage } from "../pages/text/text";
 import { NotificationDetailPage } from "../pages/notification-detail/notification-detail";
+import { MemoryCache } from "../providers/cache/MemoryCache";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -112,6 +113,7 @@ const cloudSettings: CloudSettings = {
     Geolocation,
     ApplicationContents,
     InAppBrowser,
+    MemoryCache,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: "es-AR" }
   ]

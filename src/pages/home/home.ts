@@ -17,12 +17,11 @@ export class HomePage extends GenericPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth, public events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.newsfeed = [];
-    this.resetPage();
-    this.updateNewsfeed();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
+  ionViewWillLoad() {
+    this.resetPage();
+    this.updateNewsfeed();
   }
 
   doRefresh(refresher) {

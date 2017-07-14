@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CONFIG } from "../../config/config";
 import { Auth } from "../auth";
+import { MemoryCache } from "../cache/MemoryCache";
 
 /*
   Generated class for the Webservice provider.
@@ -15,7 +16,7 @@ export class Webservice {
   private host_url: string;
   private auth: Auth;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, protected cache: MemoryCache) {
     this.host_url = CONFIG.API_URL;
     //console.log('Hello Webservice Provider');
   }
@@ -29,16 +30,22 @@ export class Webservice {
         local_action = action;
       }
       console.log("Por cargar (get): " + action);
-      this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
-        (data) => {
-          console.log('webservice: get(' + action + '). Response:'); console.log(data);
-          resolve(data);
-        },
-        err => {
-          console.log('webservice: get(' + action + '): Error.');
-          reject(err);
-        }
-      );
+
+      if (this.cache.has(local_action)) {
+        resolve(this.cache.get(local_action));
+      } else {
+        this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
+          (data) => {
+            console.log('webservice: get(' + action + '). Response:'); console.log(data);
+            this.cache.set(local_action, data, 0);
+            resolve(data);
+          },
+          err => {
+            console.log('webservice: get(' + action + '): Error.');
+            reject(err);
+          }
+        );
+      }
     });
   }
 

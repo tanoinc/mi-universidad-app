@@ -46,7 +46,7 @@ export class SignupPage extends GenericPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+
   }
 
   register() {

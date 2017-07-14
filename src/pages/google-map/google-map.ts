@@ -42,12 +42,10 @@ export class GoogleMapPage extends GenericPage {
         this.showAlert('Error ' + error.code, 'No se pudo obtener la posición actual en el mapa: ' + error.message);
       })
       .then((geo_data) => {
-        console.log('MAP: Geolocation loaded: ' + JSON.stringify(geo_data));
         this.current_geolocation = this.convertToPosition(geo_data);
         return this.content.contentLoad(this.content_params, this.current_geolocation);
       })
       .then((data) => {
-        console.log('MAP: Content loaded: ' + JSON.stringify(data));
         return this.loadMap(data);
       })
       .then(() => {
