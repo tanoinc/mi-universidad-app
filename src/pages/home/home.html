@@ -10,7 +10,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let news of newsfeed">
+  <ion-card *ngFor="let news of list">
     <ion-item>
       <h2>{{news.title}}</h2>
       <p>{{news.created_at}}</p>

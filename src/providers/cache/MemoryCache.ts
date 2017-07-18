@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { CONFIG } from "../../config/config";
-import { Auth } from "../auth";
 
 /*
   Generated class for the MemoryCache provider.
@@ -30,7 +27,7 @@ export class MemoryCache {
     delete this.storage[key];
   }
 
-  set(key: string, value: any, ttl: number = null): void {
+  set(key: string, value: any, ttl: number = 0): void {
     let cache_value = { value: value, ttl: Date.now() + ttl };
     this.storage[key] = cache_value;
     console.log("cache set: "+key+" ttl: "+this.storage[key].ttl);

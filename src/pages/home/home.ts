@@ -1,57 +1,32 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events, ModalController } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import 'rxjs/add/operator/map';
-import { Auth } from "../../providers/auth";
-import { GenericPage } from "../generic/generic";
+import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-list";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
   providers: []
 })
-export class HomePage extends GenericPage {
+export class HomePage extends GenericDynamicListPage  {
 
-  newsfeed: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public auth: Auth, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected modalCtrl: ModalController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
-    this.newsfeed = [];
+    this.full_screen = false;
+    this.list_searching = true;
   }
 
-  ionViewWillLoad() {
-    this.resetPage();
-    this.updateNewsfeed();
+  ionViewDidLoad() {
+    this.list_searching = true;
+    super.ionViewDidLoad();
   }
 
-  doRefresh(refresher) {
-    this.updateNewsfeed()
-    .then((news: any) => {
-      refresher.complete();
-    }).catch((error) => {
-      this.showAlert("Error", error);
-      refresher.complete();
-    });
+  protected getUpdatePromise(force_load: boolean = false): Promise<any> {
+    return this.ws.userNewsfeeds(0, null, force_load);
   }
 
-  updateNewsfeed() {
-    return this.ws.userNewsfeeds().then((news: any) => {
-      this.setPaginationData(news);
-      this.newsfeed = news.data;
-      this.resetPage();
-    });
+  protected getLoadMorePromise(): Promise<any> {
+    return this.ws.userNewsfeeds(this.page);
   }
-
-  loadMoreNewsfeed(){
-    this.nextPage();
-    return this.ws.userNewsfeeds(this.page).then((news: any) => {
-      this.setPaginationData(news);
-      this.newsfeed = this.newsfeed.concat(news.data);
-    });
-  }
-
-  doInfinite():Promise<any> {
-    return this.loadMoreNewsfeed();
-  }
-
 }
