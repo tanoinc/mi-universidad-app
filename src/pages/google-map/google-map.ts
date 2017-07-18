@@ -131,7 +131,6 @@ export class GoogleMapPage extends GenericPage {
 
     this.map = this.google_map.create(this.map_element.nativeElement);
     this.eventoMapaMenu(this.map);
-    this.map.clear();
 
     return this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
@@ -142,6 +141,7 @@ export class GoogleMapPage extends GenericPage {
             tilt: 0
           };
         }
+        this.map.clear();        
         this.centerMap(center_pos);
         this.add_polylines(this.map, polylines_data);
         this.add_markers(this.map, markers_data);
