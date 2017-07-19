@@ -31,7 +31,7 @@ export class CalendarPage extends GenericPage {
   }
 
   doRefresh(refresher) {
-    this.loadCalendar()
+    this.loadCalendar(true, true)
       .then(() => {
         refresher.complete();
       }).catch((error) => {
@@ -47,12 +47,12 @@ export class CalendarPage extends GenericPage {
     this.showAlert('Error', 'No pudo cargarse el calendario: ' + error.message);
   }
 
-  loadCalendar(show_loader: boolean = true) {
+  loadCalendar(show_loader: boolean = true, force_reload: boolean = false) {
     if (show_loader) {
       this.showLoader('Cargando');
     }
     return this
-      .loadFromWs(this.current_start_date, this.current_end_date)
+      .loadFromWs(this.current_start_date, this.current_end_date, force_reload)
       .then((ws_events) => this.setEventSource(ws_events))
       .then(() => {
         if (show_loader) {
@@ -80,8 +80,8 @@ export class CalendarPage extends GenericPage {
     return { name: name, start_date: start, end_date: end, is_all_day: is_all_day };
   }
 
-  loadFromWs(start: Date, end: Date): Promise<any> {
-    return this.ws.userCalendarEventsBetweenDates(start, end).then((ws_events: any) => {
+  loadFromWs(start: Date, end: Date, force_reload: boolean = false): Promise<any> {
+    return this.ws.userCalendarEventsBetweenDates(start, end, null, force_reload).then((ws_events: any) => {
       let events: Array<any> = [];
       if (ws_events.data.length > 0) {
         events = ws_events.data.map((ws_event) => {

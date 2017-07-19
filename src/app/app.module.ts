@@ -31,6 +31,7 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TextPage } from "../pages/text/text";
 import { NotificationDetailPage } from "../pages/notification-detail/notification-detail";
 import { MemoryCache } from "../providers/cache/MemoryCache";
+import { DatePipe } from "@angular/common";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -114,6 +115,7 @@ const cloudSettings: CloudSettings = {
     ApplicationContents,
     InAppBrowser,
     MemoryCache,
+    DatePipe,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: "es-AR" }
   ]
