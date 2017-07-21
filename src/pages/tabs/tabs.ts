@@ -44,8 +44,10 @@ export class TabsPage {
 
   }
 
-  ionViewDidEnter() {
-    this.tabRef.select(0);
+  ionViewDidLoad() {
+    if (!this.tabs_hidden) {
+      this.tabRef.select(0);
+    }
   }
   display(mode: string, defaultTab?: number) {
     if (defaultTab != null) {
