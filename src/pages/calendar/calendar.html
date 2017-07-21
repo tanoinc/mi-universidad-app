@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>calendar</ion-title>
+    <ion-title>{{'CALENDAR'|translate}}</ion-title>
     <ion-buttons end>
       <button ion-button [disabled]="isToday" (click)="today()">Today</button>
     </ion-buttons>
@@ -17,6 +17,12 @@
 
 
 <ion-content padding>
+  <ion-toolbar>
+    <ion-title id="view_title" start>{{view_title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button [disabled]="isToday" (click)="today()">{{'TODAY'|translate}}</button>
+    </ion-buttons>
+  </ion-toolbar>
 
   <ion-segment [(ngModel)]="calendar.mode" color="primary">
     <ion-segment-button value="month">
@@ -27,7 +33,7 @@
     </ion-segment-button>
     <ion-segment-button value="day">
       {{'DAY'|translate}}
-    </ion-segment-button>    
+    </ion-segment-button>
   </ion-segment>
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -35,8 +41,9 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
+  <calendar [eventSource]="event_source" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onCurrentDateChanged)="onCurrentDateChanged($event)"
     (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)"
-    [queryMode]="calendar.queryMode" (onRangeChanged)="onRangeChanged($event)" step="30" noEventsLabel="{{'NO_EVENTS'|translate}}">
+    [queryMode]="calendar.queryMode" (onRangeChanged)="onRangeChanged($event)" step="30" noEventsLabel="{{'NO_EVENTS'|translate}}"
+    allDayLabel="{{'ALL_DAY'|translate}}" formatWeekTitle="MMMM yyyy, '{{'WEEK'|translate}}' $n">
   </calendar>
 </ion-content>

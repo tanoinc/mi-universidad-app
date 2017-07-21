@@ -31,7 +31,6 @@ export class TextPage extends GenericPage {
   }
 
   load() {
-    console.log(this.content_params);
     let text = marked(this.content_params.contained.text);
     this.text = text;
   }

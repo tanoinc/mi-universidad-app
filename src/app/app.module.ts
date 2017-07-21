@@ -30,6 +30,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { TextPage } from "../pages/text/text";
 import { NotificationDetailPage } from "../pages/notification-detail/notification-detail";
+import { MemoryCache } from "../providers/cache/MemoryCache";
+import { DatePipe } from "@angular/common";
+import { PreferencesPage } from "../pages/preferences/preferences";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -69,7 +72,8 @@ const cloudSettings: CloudSettings = {
     GoogleMapPage,
     CalendarPage,
     TextPage,
-    NotificationDetailPage
+    NotificationDetailPage,
+    PreferencesPage
   ],
   imports: [
     BrowserModule,
@@ -101,7 +105,8 @@ const cloudSettings: CloudSettings = {
     GoogleMapPage,
     CalendarPage,
     TextPage,
-    NotificationDetailPage
+    NotificationDetailPage,
+    PreferencesPage
   ],
   providers: [
     StatusBar,
@@ -112,6 +117,8 @@ const cloudSettings: CloudSettings = {
     Geolocation,
     ApplicationContents,
     InAppBrowser,
+    MemoryCache,
+    DatePipe,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: "es-AR" }
   ]

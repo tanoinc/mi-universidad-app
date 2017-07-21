@@ -22,10 +22,13 @@
 <ion-content padding>
   <h1>{{title}}</h1>
   <ng-container *ngIf="type == 'calendar'">
-    <p>{{"EVENT_DATE"|translate}}: {{this.notification.event_date}}</p>
+    <p>{{"EVENT_DATE"|translate}}: {{this.notification.event_date|date:'medium'}}</p>
     <p>{{"EVENT_DURATION"|translate}}: {{this.notification.event_duration}}</p>
+    <p>{{this.notification.event_location}}</p>
+    <p>{{this.notification.event_description}}</p>
   </ng-container>
   <ng-container *ngIf="type == 'newsfeed'">
     <p>{{this.notification.content}}</p>
+    <p>{{this.notification.created_at|date:'medium'}}</p>
   </ng-container>
 </ion-content>

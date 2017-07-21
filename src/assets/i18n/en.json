@@ -3,7 +3,8 @@
     "HOME": "Home",
     "NOTIFICATIONS": "Notifications",
     "LOGIN": "Log-in",
-    "CREATE_ACCOUNT": "Create account",
+    "SIGN_IN": "Sign in",
+    "CREATE_ACCOUNT": "Sign up",
     "CONTACT": "Contact",
     "SUBSCRIPTIONS": "Subscriptions",
     "LOADING": "Loading",
@@ -36,5 +37,7 @@
     "newsfeed": "News",
     "EVENT_DATE": "Event date",
     "EVENT_DURATION": "Event duration",
-    "NO_APPLICATIONS": "No applications"
+    "NO_APPLICATIONS": "No applications",
+    "TODAY": "Today",
+    "ALL_DAY":"All day"
 }

@@ -10,10 +10,10 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let news of newsfeed">
+  <ion-card *ngFor="let news of list">
     <ion-item>
       <h2>{{news.title}}</h2>
-      <p>{{news.created_at}}</p>
+      <p>{{news.created_at|date:'longDate'}} {{news.created_at|date:'shortTime'}}</p>
       <ion-icon *ngIf="news.global == 1" name="globe" item-right></ion-icon>
       <ion-icon *ngIf="news.context_name" name="pricetag" item-right></ion-icon>
     </ion-item>

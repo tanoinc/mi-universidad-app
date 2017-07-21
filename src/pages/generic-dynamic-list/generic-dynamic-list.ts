@@ -24,11 +24,11 @@ export class GenericDynamicListPage extends GenericPage {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     this.update();
   }
 
-  protected getUpdatePromise(): Promise<any> {
+  protected getUpdatePromise(force_load: boolean = false): Promise<any> {
     return Promise.resolve({});
   }
 
@@ -36,8 +36,8 @@ export class GenericDynamicListPage extends GenericPage {
     return Promise.resolve({});
   }
 
-  update() {
-    return this.getUpdatePromise().then((data: any) => {
+  update(force_load:boolean = false) {
+    return this.getUpdatePromise(force_load).then((data: any) => {
       this.setPaginationData(data);
       this.list = data.data;
       this.resetPage();
@@ -46,7 +46,7 @@ export class GenericDynamicListPage extends GenericPage {
   }
 
   doRefresh(refresher) {
-    this.update()
+    this.update(true)
       .then((data: any) => {
         refresher.complete();
       }).catch((error) => {

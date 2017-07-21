@@ -42,12 +42,10 @@ export class GoogleMapPage extends GenericPage {
         this.showAlert('Error ' + error.code, 'No se pudo obtener la posición actual en el mapa: ' + error.message);
       })
       .then((geo_data) => {
-        console.log('MAP: Geolocation loaded: ' + JSON.stringify(geo_data));
         this.current_geolocation = this.convertToPosition(geo_data);
         return this.content.contentLoad(this.content_params, this.current_geolocation);
       })
       .then((data) => {
-        console.log('MAP: Content loaded: ' + JSON.stringify(data));
         return this.loadMap(data);
       })
       .then(() => {
@@ -133,7 +131,6 @@ export class GoogleMapPage extends GenericPage {
 
     this.map = this.google_map.create(this.map_element.nativeElement);
     this.eventoMapaMenu(this.map);
-    this.map.clear();
 
     return this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
@@ -144,6 +141,7 @@ export class GoogleMapPage extends GenericPage {
             tilt: 0
           };
         }
+        this.map.clear();        
         this.centerMap(center_pos);
         this.add_polylines(this.map, polylines_data);
         this.add_markers(this.map, markers_data);

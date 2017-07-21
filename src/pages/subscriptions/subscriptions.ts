@@ -119,7 +119,6 @@ export class SubscriptionsPage extends GenericDynamicListPage {
             browser.executeScript({ code: "localStorage.getItem('" + application_name + "_status');" })
               .then((status) => {
                 let p_status = status[0];
-                console.log(JSON.stringify(p_status));
                 if (p_status == "CONNECTED") {
                   clearInterval(interval);
                   browser.close();

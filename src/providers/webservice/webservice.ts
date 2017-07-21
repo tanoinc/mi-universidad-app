@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CONFIG } from "../../config/config";
 import { Auth } from "../auth";
+import { MemoryCache } from "../cache/MemoryCache";
 
 /*
   Generated class for the Webservice provider.
@@ -15,12 +16,12 @@ export class Webservice {
   private host_url: string;
   private auth: Auth;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, protected cache: MemoryCache) {
     this.host_url = CONFIG.API_URL;
     //console.log('Hello Webservice Provider');
   }
 
-  private fetch(action: string, header?: Headers, external_url: boolean = false) {
+  private fetch(action: string, header?: Headers, external_url: boolean = false, force_load: boolean = false) {
     return new Promise((resolve, reject) => {
       let local_action = "";
       if (!external_url) {
@@ -29,16 +30,22 @@ export class Webservice {
         local_action = action;
       }
       console.log("Por cargar (get): " + action);
-      this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
-        (data) => {
-          console.log('webservice: get(' + action + '). Response:'); console.log(data);
-          resolve(data);
-        },
-        err => {
-          console.log('webservice: get(' + action + '): Error.');
-          reject(err);
-        }
-      );
+
+      if (this.cache.has(local_action) && !force_load) {
+        resolve(this.cache.get(local_action));
+      } else {
+        this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
+          (data) => {
+            console.log('webservice: get(' + action + '). Response:'); console.log(data);
+            this.cache.set(local_action, data, CONFIG.MEMORY_CACHE_DEFAULT_TTL*1000);
+            resolve(data);
+          },
+          err => {
+            console.log('webservice: get(' + action + '): Error.');
+            reject(err);
+          }
+        );
+      }
     });
   }
 
@@ -118,8 +125,8 @@ export class Webservice {
     this.auth = auth;
   }
 
-  userNewsfeeds(page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/newsfeed?page=' + page, this.headersFromAuth(auth));
+  userNewsfeeds(page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/newsfeed?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
   userData(auth?: Auth) {
@@ -134,20 +141,20 @@ export class Webservice {
     return headers;
   }
 
-  userApplicationsAvailable(search: string = "", page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  userApplicationsAvailable(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
-  userApplicationsSubscribed(search: string = "", page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/application?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  userApplicationsSubscribed(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/application?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
-  userNotifications(page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/notification?page=' + page, this.headersFromAuth(auth));
+  userNotifications(page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/notification?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
-  applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userSubscribeContext(application_name: string, context_name: string, auth?: Auth) {
@@ -158,12 +165,12 @@ export class Webservice {
     return this.delete('mobile/api/v1/context/subscription/' + application_name + '/' + context_name, this.headersFromAuth(auth));
   }
 
-  userContextSubscriptions(search: string = "", page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/context/subscriptions?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  userContextSubscriptions(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/context/subscriptions?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
-  userApplicationContextSubscriptions(application_name: string, search: string = "", page: number = 0, auth?: Auth) {
-    return this.fetch('mobile/api/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth));
+  userApplicationContextSubscriptions(application_name: string, search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userRegisterPushToken(token: string, type: string, auth?: Auth) {
@@ -174,24 +181,24 @@ export class Webservice {
     return this.delete('mobile/api/v1/user/push_token/' + type + '/' + token, this.headersFromAuth(auth));
   }
 
-  userApplicationContents(auth?: Auth) {
-    return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth));
+  userApplicationContents(auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth), false, force_load);
   }
 
-  contentLoadExternal(url: string) {
-    return this.fetch(url, null, true);
+  contentLoadExternal(url: string, force_load: boolean = false) {
+    return this.fetch(url, null, true, force_load);
   }
 
   contentLoad(content_id: number, data: any = null, auth?: Auth) {
     return this.post('mobile/api/v1/content/data_url/' + content_id, data, this.headersFromAuth(auth));
   }
 
-  userCalendarEvents(auth?: Auth) {
-    return this.fetch('mobile/api/v1/calendar_event', this.headersFromAuth(auth));
+  userCalendarEvents(auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/calendar_event', this.headersFromAuth(auth), false, force_load);
   }
 
-  userCalendarEventsBetweenDates(start: Date, end: Date, auth?: Auth) {
-    return this.fetch('mobile/api/v1/calendar_event/between_dates/'+start.toISOString().split('T')[0]+'/'+end.toISOString().split('T')[0], this.headersFromAuth(auth));
+  userCalendarEventsBetweenDates(start: Date, end: Date, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/api/v1/calendar_event/between_dates/'+start.toISOString().split('T')[0]+'/'+end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
   }
 
   userAddApplication(application_name:string, auth?: Auth) {

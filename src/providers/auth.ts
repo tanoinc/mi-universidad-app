@@ -95,6 +95,12 @@ export class Auth {
       });
   }
 
+  protected clearPushToken() {
+    return this.storage.set('Auth.push_token', null).then(()=>{
+      this.push_token = null;
+    });
+  }
+
   private initAuthData(clear_auth_data: boolean = false) {
     return this.storage.get('Auth.auth_data').then((auth_data) => {
       if (clear_auth_data) {
@@ -165,6 +171,8 @@ export class Auth {
     return this.unregisterPushToken().catch(() => {
     }).then(() => {
       return this.ws.userLogout();
+    }).then(() => {
+      return this.clearPushToken();
     }).then(() => {
       this.setAuthData(null, true);
       this.events.publish('user:unauthenticated', this);
