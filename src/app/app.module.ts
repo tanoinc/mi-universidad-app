@@ -33,6 +33,8 @@ import { NotificationDetailPage } from "../pages/notification-detail/notificatio
 import { MemoryCache } from "../providers/cache/MemoryCache";
 import { DatePipe } from "@angular/common";
 import { PreferencesPage } from "../pages/preferences/preferences";
+import { Calendar } from '@ionic-native/calendar';
+
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -119,6 +121,7 @@ const cloudSettings: CloudSettings = {
     InAppBrowser,
     MemoryCache,
     DatePipe,
+    Calendar,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: "es-AR" }
   ]
