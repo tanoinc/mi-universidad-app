@@ -3,6 +3,8 @@ import { NavController, NavParams, LoadingController, AlertController, Events } 
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
 import { ActionSheetController } from 'ionic-angular';
+import { Calendar } from "@ionic-native/calendar";
+import { ToastController } from 'ionic-angular';
 
 /*
   Generated class for the Calendar page.
@@ -27,7 +29,7 @@ export class CalendarPage extends GenericPage {
     queryMode: 'remote'
   };
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, public action_sheet: ActionSheetController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, public action_sheet: ActionSheetController, public device_calendar: Calendar, protected toastCtrl: ToastController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
   }
 
@@ -78,7 +80,7 @@ export class CalendarPage extends GenericPage {
     if (ws_event.context_id) {
       name = ws_event.context_description + ": " + name;
     }
-    return { name: name, start_date: start, end_date: end, is_all_day: is_all_day };
+    return { name: name, start_date: start, end_date: end, is_all_day: is_all_day, description: ws_event.description, location: ws_event.location };
   }
 
   loadFromWs(start: Date, end: Date, force_reload: boolean = false): Promise<any> {
@@ -91,11 +93,44 @@ export class CalendarPage extends GenericPage {
             title: calendar_dates.name,
             startTime: calendar_dates.start_date,
             endTime: calendar_dates.end_date,
-            allDay: calendar_dates.is_all_day
+            allDay: calendar_dates.is_all_day,
+            location: calendar_dates.location,
+            description: calendar_dates.description,
           };
         });
       }
       return Promise.resolve(events);
+    });
+  }
+
+  protected addEvent(title, location, notes, start_date, end_date) {
+    let saved_event = this.device_calendar.createEvent(title, location, notes, start_date, end_date);
+    this.toast('Evento guardado!');
+    return saved_event;
+  }
+
+  protected toast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  saveEvent(event) {
+    console.log('Saving event...');
+    this.device_calendar.hasReadWritePermission().then((result) => {
+      if (result === false) {
+        this.device_calendar.requestReadWritePermission().then((v) => {
+          this.addEvent(event.title, event.location, event.description, event.startTime, event.endTime);
+        }, (r) => {
+          console.log("Rejected");
+        })
+      }
+      else {
+        this.addEvent(event.title, event.location, event.description, event.startTime, event.endTime);
+      }
     });
   }
 
@@ -106,7 +141,7 @@ export class CalendarPage extends GenericPage {
         {
           text: 'Guardar',
           handler: () => {
-            console.log('Archive clicked');
+            this.saveEvent(event);
           }
         }, {
           text: 'Cancelar',
