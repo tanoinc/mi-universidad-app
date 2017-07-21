@@ -17,8 +17,9 @@ import { ActionSheetController } from 'ionic-angular';
 export class CalendarPage extends GenericPage {
   current_start_date: Date;
   current_end_date: Date;
-  eventSource;
-  viewTitle;
+  title_date: Date;
+  event_source;
+  view_title;
   isToday: boolean;
   calendar = {
     mode: 'month',
@@ -40,7 +41,7 @@ export class CalendarPage extends GenericPage {
   }
 
   setEventSource(ws_events) {
-    this.eventSource = ws_events;
+    this.event_source = ws_events;
   }
 
   calendarError(error) {
@@ -120,7 +121,7 @@ export class CalendarPage extends GenericPage {
   }
 
   onViewTitleChanged(title) {
-    this.viewTitle = title;
+    this.view_title = title;
   }
   onEventSelected(event) {
     console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
@@ -131,6 +132,7 @@ export class CalendarPage extends GenericPage {
     this.calendar.currentDate = new Date();
   }
   onTimeSelected(ev) {
+    this.title_date = ev.selectedTime;
     console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
       (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
   }
@@ -143,6 +145,9 @@ export class CalendarPage extends GenericPage {
   onRangeChanged(ev) {
     this.current_start_date = ev.startTime;
     this.current_end_date = ev.endTime;
+    if (this.calendar.mode == "month") {
+
+    }
     this.loadCalendar();
     console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
   }

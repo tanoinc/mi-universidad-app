@@ -14,6 +14,7 @@ import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { TranslateService } from "@ngx-translate/core";
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { ApplicationContents } from "../providers/application-contents";
+import { PreferencesPage } from "../pages/preferences/preferences";
 
 @Component({
   templateUrl: 'app.html'
@@ -36,7 +37,7 @@ export class MyApp {
   display_modes = ['not-authenticated', 'authenticated',];
 
   user_profile_pages = [
-    { title: "PREFERENCES", root: SubscriptionsPage, icon: "options" },
+    { title: "PREFERENCES", root: PreferencesPage, icon: "options" },
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents) {
