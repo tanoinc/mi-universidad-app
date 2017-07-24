@@ -39,5 +39,11 @@
     "EVENT_DURATION": "Duración del evento",
     "NO_APPLICATIONS": "Sin aplicaciones",
     "TODAY": "Hoy",
-    "ALL_DAY":"Todo el día"
+    "ALL_DAY":"Todo el día",
+    "SIGNUP_NAME": "Nombre",
+    "SIGNUP_SURNAME": "Apellido",
+    "SIGNUP_USERNAME": "Nombre de usuario",
+    "SIGNUP_EMAIL": "E-mail",
+    "SIGNUP_PASSWORD": "Contraseña",
+    "SIGNUP_REPEAT_PASSWORD": "Repetí la contraseña"
 }

@@ -21,7 +21,7 @@
                     <ion-label>
                         <ion-icon name="person"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="name" placeholder="Nombre" type="text"></ion-input>
+                    <ion-input formControlName="name" placeholder="{{'SIGNUP_NAME'|translate}}" type="text"></ion-input>
                 </ion-item>
                 <ng-container *ngIf="errorData.name || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
                     <ng-container *ngFor="let error of errorData.name">
@@ -36,7 +36,7 @@
                     <ion-label>
                         <ion-icon name="person"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="surname" placeholder="Apellido" type="text"></ion-input>
+                    <ion-input formControlName="surname" placeholder="{{'SIGNUP_SURNAME'|translate}}" type="text"></ion-input>
                 </ion-item>
                 <ng-container *ngIf="errorData.surname || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
                     <ng-container *ngFor="let error of errorData.surname">
@@ -52,7 +52,7 @@
                     <ion-label>
                         <ion-icon name="person"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="username" placeholder="Nombre de usuario" type="text"></ion-input>
+                    <ion-input formControlName="username" placeholder="{{'SIGNUP_USERNAME'|translate}}" type="text"></ion-input>
                 </ion-item>
                 <ng-container *ngIf="errorData.username || (signupForm.controls.username.errors && signupForm.controls.username.dirty)">
                     <ng-container *ngFor="let error of errorData.username">
@@ -67,7 +67,7 @@
                     <ion-label>
                         <ion-icon name="mail"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="email" placeholder="E-mail" type="email"></ion-input>
+                    <ion-input formControlName="email" placeholder="{{'SIGNUP_EMAIL'|translate}}" type="email"></ion-input>
                 </ion-item>
                 <ng-container *ngIf="errorData.email || (signupForm.controls.email.errors && signupForm.controls.email.dirty)">
                     <ng-container *ngFor="let error of errorData.email">
@@ -82,13 +82,13 @@
                     <ion-label>
                         <ion-icon name="lock"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="password" placeholder="Contraseña" type="password"></ion-input>
+                    <ion-input formControlName="password" placeholder="{{'SIGNUP_PASSWORD'|translate}}" type="password"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>
                         <ion-icon name="lock"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="passwordRepeat" placeholder="Repetí la contraseña" type="password"></ion-input>
+                    <ion-input formControlName="passwordRepeat" placeholder="{{'SIGNUP_REPEAT_PASSWORD'|translate}}" type="password"></ion-input>
                 </ion-item>
                 <ng-container *ngIf="errorData.password || (signupForm.controls.password.errors && signupForm.controls.password.dirty)">
                     <ng-container *ngFor="let error of errorData.password">

@@ -209,4 +209,7 @@ export class Webservice {
     return this.delete('mobile/api/v1/application/subscription/'+application_name, this.headersFromAuth(auth));
   }
 
+  registerLocation(data: any = null, auth?: Auth) {
+    return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
+  }
 }

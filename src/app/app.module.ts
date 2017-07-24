@@ -24,7 +24,7 @@ import { ApplicationContents } from "../providers/application-contents";
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { GoogleMapPage } from "../pages/google-map/google-map";
 import { Geolocation } from '@ionic-native/geolocation';
-import { NgCalendarModule  } from 'ionic2-calendar';
+import { NgCalendarModule } from 'ionic2-calendar';
 import { CalendarPage } from "../pages/calendar/calendar";
 import { BrowserModule } from '@angular/platform-browser';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
@@ -34,6 +34,7 @@ import { MemoryCache } from "../providers/cache/MemoryCache";
 import { DatePipe } from "@angular/common";
 import { PreferencesPage } from "../pages/preferences/preferences";
 import { Calendar } from '@ionic-native/calendar';
+import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 
 
 const cloudSettings: CloudSettings = {
@@ -44,7 +45,7 @@ const cloudSettings: CloudSettings = {
     'facebook': {
       'scope': ['email', 'public_profile']
     }
-  },  
+  },
   'push': {
     'sender_id': CONFIG.FIREBASE_SENDER_ID,
     'pluginConfig': {
@@ -123,11 +124,17 @@ const cloudSettings: CloudSettings = {
     DatePipe,
     Calendar,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: LOCALE_ID, useValue: "es-AR" }
+    { provide: LOCALE_ID, useValue: getLang() }, 
+    LocationTrackerProvider
   ]
 })
 export class AppModule { }
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function getLang() {
+  let lang = navigator.language.split('-')[0];
+  return (lang ? lang : CONFIG.DEFAULT_LANG);
 }

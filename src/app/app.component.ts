@@ -15,6 +15,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { ApplicationContents } from "../providers/application-contents";
 import { PreferencesPage } from "../pages/preferences/preferences";
+import { getLang } from "./app.module";
+import { LocationTrackerProvider } from "../providers/location-tracker/location-tracker";
 
 @Component({
   templateUrl: 'app.html'
@@ -40,10 +42,10 @@ export class MyApp {
     { title: "PREFERENCES", root: PreferencesPage, icon: "options" },
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents, protected location: LocationTrackerProvider) {
     this.resetPages();
     platform.ready().then(() => {
-      var userLang = navigator.language.split('-')[0];
+      var userLang = getLang();
       this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
       //console.log("language: "+userLang);
       this.translate.use(userLang);
@@ -181,6 +183,7 @@ export class MyApp {
     });
   }
   pruebaNotificacion() {
+    console.log(JSON.stringify(this.location.getLastPosition()));
     this.events.publish('notification:push', { 'msg': "prueba" });
   }
 }
