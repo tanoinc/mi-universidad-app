@@ -35,17 +35,19 @@ import { DatePipe } from "@angular/common";
 import { PreferencesPage } from "../pages/preferences/preferences";
 import { Calendar } from '@ionic-native/calendar';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
-
+import { Facebook } from '@ionic-native/facebook';
 
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': CONFIG.FIREBASE_APP_ID,
   },
+  /*
   'auth': {
     'facebook': {
       'scope': ['email', 'public_profile']
     }
   },
+  */
   'push': {
     'sender_id': CONFIG.FIREBASE_SENDER_ID,
     'pluginConfig': {
@@ -125,7 +127,8 @@ const cloudSettings: CloudSettings = {
     Calendar,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: getLang() }, 
-    LocationTrackerProvider
+    LocationTrackerProvider,
+    Facebook
   ]
 })
 export class AppModule { }

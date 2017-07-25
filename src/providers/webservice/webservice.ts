@@ -212,4 +212,8 @@ export class Webservice {
   registerLocation(data: any = null, auth?: Auth) {
     return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
   }
+
+  facebookLogin(fb_info: any) {
+    return this.post('api/v1/auth/facebook', fb_info);
+  }
 }

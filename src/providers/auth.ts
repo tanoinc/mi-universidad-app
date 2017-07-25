@@ -5,8 +5,8 @@ import { Webservice } from "./webservice/webservice";
 import { Storage } from '@ionic/storage';
 import { Events } from "ionic-angular";
 import { PushToken } from '@ionic/cloud-angular';
-import { FacebookAuth, User } from '@ionic/cloud-angular';
 import { JwtHelper } from "angular2-jwt";
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 /*
   Generated class for the Auth provider.
@@ -26,7 +26,7 @@ export class Auth {
   private push_token: PushToken;
   private jwt_helper: JwtHelper;
 
-  constructor(public http: Http, private ws: Webservice, private storage: Storage, public events: Events, public facebookAuth: FacebookAuth, protected user: User) {
+  constructor(public http: Http, private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook) {
     this.setClientId(null);
     this.setClientSecret(null);
     this.loaded = false;
@@ -96,7 +96,7 @@ export class Auth {
   }
 
   protected clearPushToken() {
-    return this.storage.set('Auth.push_token', null).then(()=>{
+    return this.storage.set('Auth.push_token', null).then(() => {
       this.push_token = null;
     });
   }
@@ -162,9 +162,12 @@ export class Auth {
   }
 
   facebookLogin() {
-    return this.facebookAuth.login().then((fb_data) => {
-      //console.log("FB data: " + JSON.stringify(fb_data) + " user: " + JSON.stringify(this.user.social.facebook.data.raw_data));
-    });
+    return this.fb.login(['public_profile', 'email','user_friends'])
+      .then((res: FacebookLoginResponse) => {
+        console.log("Logged in FB: "+ JSON.stringify(res));
+        return this.ws.facebookLogin(res);
+      })
+      .catch(e => console.log('Error logging into Facebook ' +  JSON.stringify(e)));
   }
 
   logout() {
@@ -180,7 +183,7 @@ export class Auth {
   }
 
   facebookLogout() {
-    return this.facebookAuth.logout();
+    return this.fb.logout();
   }
 
   setUser(user) {
