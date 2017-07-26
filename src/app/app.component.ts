@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, LoadingController, Events } from 'ionic-angular';
+import { Platform, MenuController, Nav, LoadingController, Events, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -36,39 +36,44 @@ export class MyApp {
 
   available_pages = [];
   displayed_pages = [];
+
   display_modes = ['not-authenticated', 'authenticated',];
 
   user_profile_pages = [
     { title: "PREFERENCES", root: PreferencesPage, icon: "options" },
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents, protected location: LocationTrackerProvider) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
+    private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events,
+    public translate: TranslateService, public push: Push, public app_contents: ApplicationContents,
+    protected location: LocationTrackerProvider, public alertCtrl: AlertController) {
+
     this.resetPages();
     platform.ready()
-      .then(() => this.ws.available())
-      .catch(()=>{ alert('Servicio no disponible momentaneamente'); })
+      .then(() => storage.ready())
+      .then(() => this.ws.available()).catch(() => this.errorLoadingService())
       .then(() => {
-        var userLang = getLang();
-        this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
-        this.translate.use(userLang);
-        return storage.ready();
-      }).then(() => {
+        this.initTranslation();
         this.display('not-authenticated');
         return auth.loadStoredData().catch(() => { });
-      }).then(() => {
+      })
+      .then(() => {
         statusBar.styleDefault();
-        splashScreen.hide();
+        setTimeout(() => {
+          splashScreen.hide();
+        }, 100);
+        //splashScreen.hide();
       });
 
     this.initEventSubscriptions();
-
   }
 
-  private resetPages() {
-    this.available_pages = this.static_pages;
+  protected initTranslation() {
+    this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
+    this.translate.use(getLang());
   }
 
-  private initPush() {
+  protected initPush() {
     return this.push.register()
       .then((t: PushToken) => {
         return this.push.saveToken(t);
@@ -77,19 +82,7 @@ export class MyApp {
       });
   }
 
-  addAvailablePages(pages: any[]) {
-    this.available_pages = this.available_pages.concat(pages);
-  }
-
-  private updateContentPages() {
-    return this.app_contents.load().then(() => {
-      this.resetPages();
-      this.addAvailablePages(this.app_contents.getPages());
-      this.updateDisplay();
-    });
-  }
-
-  private initEventSubscriptions() {
+  protected initEventSubscriptions() {
     this.events.subscribe('application:subscription_changed', () => {
       this.updateContentPages();
     });
@@ -122,8 +115,33 @@ export class MyApp {
       });
   }
 
+  protected errorLoadingService() {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'No se ha podido establecer la conexión con el servicio. Intente nuevamente más tarde.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  protected resetPages() {
+    this.available_pages = this.static_pages;
+  }
+
+  protected updateContentPages() {
+    return this.app_contents.load().then(() => {
+      this.resetPages();
+      this.addAvailablePages(this.app_contents.getPages());
+      this.updateDisplay();
+    });
+  }
+
   protected updateDisplay() {
     this.displayed_pages = this.available_pages.filter(val => (val.display.find(val_mode => val_mode == this.current_display_mode)));
+  }
+
+  addAvailablePages(pages: any[]) {
+    this.available_pages = this.available_pages.concat(pages);
   }
 
   display(mode: string) {

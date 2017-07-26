@@ -54,8 +54,4 @@ export class LoginPage extends GenericPage {
     });
   }
 
-  facebookLogout() {
-    this.auth.facebookLogout();
-  }
-
 }

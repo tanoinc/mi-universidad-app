@@ -228,7 +228,12 @@ export class Webservice {
     return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
   }
 
-  facebookLogin(fb_info: any) {
-    return this.post('api/v1/auth/facebook', fb_info);
+  facebookLogin(client_id: string, fb_info: any) {
+    let data = {
+      'grant_type': 'facebook',
+      'client_id': client_id,
+      'payload': fb_info,
+    };
+    return this.post('api/v1/auth/facebook', data);
   }
 }

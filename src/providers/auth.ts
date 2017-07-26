@@ -144,45 +144,68 @@ export class Auth {
       .then(() => { return this.ws.userData(); })
       .then((user) => { this.setUser(user); });
   }
+  /*
+    login(username: string, password: string) {
+      let user_login = null;
+      if (this.ready()) {
+        user_login = this.ws.userLogin(username, password, this.client_id, this.client_secret);
+      } else {
+        user_login = this.init(true).then(() => {
+          return this.ws.userLogin(username, password, this.client_id, this.client_secret);
+        });
+      }
+      return this.doAfterLogin(user_login);
+    }
+    */
 
   login(username: string, password: string) {
-    let user_login = null;
-    if (this.ready()) {
-      user_login = this.ws.userLogin(username, password, this.client_id, this.client_secret);
-    } else {
-      user_login = this.init(true).then(() => {
-        return this.ws.userLogin(username, password, this.client_id, this.client_secret);
-      });
-    }
-    return user_login
+    let user_login = this.whenReady()
+      .then(() => this.ws.userLogin(username, password, this.client_id, this.client_secret));
+    return this.doBeforeLogin(user_login);
+  }
+
+  protected doBeforeLogin(login_promise: Promise<any>) {
+    return login_promise
       .then((data) => { this.setAuthData(data) })
       .then(() => { return this.ws.userData(); })
       .then((user) => { this.setUser(user); });
   }
 
+  protected whenReady() {
+    if (this.ready()) {
+      return Promise.resolve();
+    } else {
+      return this.init(true);
+    }
+  }
+
   facebookLogin() {
-    return this.fb.login(['public_profile', 'email','user_friends'])
+    return this.fb.login(['public_profile', 'email', 'user_friends'])
       .then((res: FacebookLoginResponse) => {
-        console.log("Logged in FB: "+ JSON.stringify(res));
-        return this.ws.facebookLogin(res);
+        console.log("Logged in FB: " + JSON.stringify(res));
+
+        return this.doBeforeLogin(this.whenReady().then(() => this.ws.facebookLogin(this.client_id, res)));
       })
-      .catch(e => console.log('Error logging into Facebook ' +  JSON.stringify(e)));
+      .catch(e => console.log('Error logging into Facebook ' + JSON.stringify(e)));
+  }
+
+  protected doBeforeLogout(logout_promise: Promise<any>) {
+    return logout_promise
+      .then(() => this.unregisterPushToken().catch(() => { }))
+      .then(() => this.ws.userLogout())
+      .then(() => this.clearPushToken())
+      .then(() => {
+        this.setAuthData(null, true);
+        this.events.publish('user:unauthenticated', this);
+      });
   }
 
   logout() {
-    return this.unregisterPushToken().catch(() => {
-    }).then(() => {
-      return this.ws.userLogout();
-    }).then(() => {
-      return this.clearPushToken();
-    }).then(() => {
-      this.setAuthData(null, true);
-      this.events.publish('user:unauthenticated', this);
-    });
+    return this.doBeforeLogout(Promise.resolve());
   }
 
   facebookLogout() {
-    return this.fb.logout();
+    return this.doBeforeLogout(this.fb.logout());
   }
 
   setUser(user) {

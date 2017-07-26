@@ -45,5 +45,6 @@
     "SIGNUP_USERNAME": "Username",
     "SIGNUP_EMAIL": "E-mail address",
     "SIGNUP_PASSWORD": "Password",
-    "SIGNUP_REPEAT_PASSWORD": "Repeat your password"
+    "SIGNUP_REPEAT_PASSWORD": "Repeat your password",
+    "NO_NEWSFEED":"No news"
 }
