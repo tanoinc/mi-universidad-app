@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
 import { Storage } from '@ionic/storage';
@@ -26,7 +25,7 @@ export class Auth {
   private push_token: PushToken;
   private jwt_helper: JwtHelper;
 
-  constructor(public http: Http, private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook) {
+  constructor(private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook) {
     this.setClientId(null);
     this.setClientSecret(null);
     this.loaded = false;

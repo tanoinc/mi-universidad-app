@@ -44,19 +44,21 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents, protected location: LocationTrackerProvider) {
     this.resetPages();
-    platform.ready().then(() => {
-      var userLang = getLang();
-      this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
-      //console.log("language: "+userLang);
-      this.translate.use(userLang);
-      return storage.ready();
-    }).then(() => {
-      this.display('not-authenticated');
-      return auth.loadStoredData().catch(() => { });
-    }).then(() => {
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+    platform.ready()
+      .then(() => this.ws.available())
+      .catch(()=>{ alert('Servicio no disponible momentaneamente'); })
+      .then(() => {
+        var userLang = getLang();
+        this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
+        this.translate.use(userLang);
+        return storage.ready();
+      }).then(() => {
+        this.display('not-authenticated');
+        return auth.loadStoredData().catch(() => { });
+      }).then(() => {
+        statusBar.styleDefault();
+        splashScreen.hide();
+      });
 
     this.initEventSubscriptions();
 
@@ -95,6 +97,7 @@ export class MyApp {
     this.events.subscribe('user:authenticated', (auth: Auth) => {
       this.user = auth.getUser();
       this.initPush().catch(() => { });
+      this.location.startInterval();
       this.updateContentPages().then(() => {
         this.display('authenticated');
       });

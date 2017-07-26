@@ -30,7 +30,7 @@ export class LocationTrackerProvider {
       frequency: this.frequency,
       enableHighAccuracy: true
     };
-    this.startInterval();
+    //this.startInterval();
   }
 
   public startInterval() {
