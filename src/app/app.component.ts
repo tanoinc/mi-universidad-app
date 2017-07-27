@@ -17,6 +17,7 @@ import { ApplicationContents } from "../providers/application-contents";
 import { PreferencesPage } from "../pages/preferences/preferences";
 import { getLang } from "./app.module";
 import { LocationTrackerProvider } from "../providers/location-tracker/location-tracker";
+import { UserModel } from "./models/user-model";
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,7 @@ export class MyApp {
   rootPage = TabsPage;
   @ViewChild(Nav) nav: Nav;
   public loading;
-  public user = null;
+  public user: UserModel = null;
   public full_screen: boolean = false;
   public current_display_mode = null;
 
@@ -198,7 +199,7 @@ export class MyApp {
 
   logout() {
     this.showLoader('Saliendo');
-    this.auth.logout().then(() => {
+    this.user.logout().then(() => {
       this.user = null;
       this.hideLoader();
     });

@@ -6,6 +6,8 @@ import { Events } from "ionic-angular";
 import { PushToken } from '@ionic/cloud-angular';
 import { JwtHelper } from "angular2-jwt";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { UserModel } from "../app/models/user-model";
+import { FactoryUserModel } from "../app/models/factory-user-model";
 
 /*
   Generated class for the Auth provider.
@@ -21,7 +23,7 @@ export class Auth {
   private auth_data: any;
   private authenticated: boolean;
   private init_promise: Promise<any>;
-  private auth_custom_user: any;
+  private auth_custom_user: UserModel;
   private push_token: PushToken;
   private jwt_helper: JwtHelper;
 
@@ -141,26 +143,17 @@ export class Auth {
 
   loadStoredData() {
     return this.init()
-      .then(() => { return this.ws.userData(); })
-      .then((user) => { this.setUser(user); });
+      .then(() => {
+        if (this.getAuthData()) {
+          return this.ws.userData()
+            .then((user) => { this.setUser(FactoryUserModel.create(user, this)); });
+        }
+      });
   }
-  /*
-    login(username: string, password: string) {
-      let user_login = null;
-      if (this.ready()) {
-        user_login = this.ws.userLogin(username, password, this.client_id, this.client_secret);
-      } else {
-        user_login = this.init(true).then(() => {
-          return this.ws.userLogin(username, password, this.client_id, this.client_secret);
-        });
-      }
-      return this.doAfterLogin(user_login);
-    }
-    */
 
   login(username: string, password: string) {
     let user_login = this.whenReady()
-      .then(() => this.ws.userLogin(username, password, this.client_id, this.client_secret));
+      .then(() => this.ws.login(username, password, this.client_id, this.client_secret));
     return this.doBeforeLogin(user_login);
   }
 
@@ -168,7 +161,7 @@ export class Auth {
     return login_promise
       .then((data) => { this.setAuthData(data) })
       .then(() => { return this.ws.userData(); })
-      .then((user) => { this.setUser(user); });
+      .then((user) => { this.setUser(FactoryUserModel.create(user, this)); });
   }
 
   protected whenReady() {
@@ -179,12 +172,12 @@ export class Auth {
     }
   }
 
-  facebookLogin() {
+  loginFacebook() {
     return this.fb.login(['public_profile', 'email', 'user_friends'])
       .then((res: FacebookLoginResponse) => {
         console.log("Logged in FB: " + JSON.stringify(res));
 
-        return this.doBeforeLogin(this.whenReady().then(() => this.ws.facebookLogin(this.client_id, res)));
+        return this.doBeforeLogin(this.whenReady().then(() => this.ws.loginFacebook(this.client_id, res)));
       })
       .catch(e => console.log('Error logging into Facebook ' + JSON.stringify(e)));
   }
@@ -204,17 +197,21 @@ export class Auth {
     return this.doBeforeLogout(Promise.resolve());
   }
 
-  facebookLogout() {
+  logoutFacebook() {
     return this.doBeforeLogout(this.fb.logout());
   }
 
-  setUser(user) {
+  setUser(user: UserModel) {
     this.auth_custom_user = user;
     this.events.publish('user:authenticated', this);
   }
 
-  getUser() {
+  getUser(): UserModel {
     return this.auth_custom_user;
+  }
+
+  getFacebook(): Facebook {
+    return this.fb;
   }
 
   registerPushToken(t: PushToken) {

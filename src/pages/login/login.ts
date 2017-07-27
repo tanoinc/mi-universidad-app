@@ -46,7 +46,7 @@ export class LoginPage extends GenericPage {
   }
 
   facebookLogin() {
-    this.auth.facebookLogin().then(() => {
+    this.auth.loginFacebook().then(() => {
       this.loading.dismiss();
     }).catch((error) => {
       this.loading.dismiss();

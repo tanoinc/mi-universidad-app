@@ -120,7 +120,7 @@ export class Webservice {
     return this.post('api/v1/user', { 'email': email, 'password': password, 'username': username, 'name': name, 'surname': surname });
   }
 
-  userLogin(username: string, password: string, client_id: string, client_secret: string) {
+  login(username: string, password: string, client_id: string, client_secret: string) {
     let data = {
       'username': username,
       'password': password,
@@ -129,7 +129,23 @@ export class Webservice {
       'client_secret': client_secret,
       'scope': '',
     };
-    return this.post('oauth/token', data);
+    return this.post('oauth/token', data).then((auth_data: any) => {
+      auth_data.grant_type = "password";
+      return auth_data;
+    });
+  }
+
+  loginFacebook(client_id: string, fb_info: any) {
+    let data = {
+      'grant_type': 'facebook',
+      'client_id': client_id,
+      'payload': fb_info,
+    };
+    return this.post('api/v1/auth/facebook', data).then((auth_data: any) => {
+      auth_data.grant_type = "facebook";
+      auth_data.facebook_data = fb_info;
+      return auth_data;
+    });
   }
 
   userLogout(auth?: Auth) {
@@ -226,14 +242,5 @@ export class Webservice {
 
   registerLocation(data: any = null, auth?: Auth) {
     return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
-  }
-
-  facebookLogin(client_id: string, fb_info: any) {
-    let data = {
-      'grant_type': 'facebook',
-      'client_id': client_id,
-      'payload': fb_info,
-    };
-    return this.post('api/v1/auth/facebook', data);
   }
 }
