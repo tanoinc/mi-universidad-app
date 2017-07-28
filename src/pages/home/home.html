@@ -10,6 +10,11 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <div class="empty_message" *ngIf="list.length == 0 && !this.list_searching">
+    <ion-icon name="information-circle"></ion-icon>
+    <h2 class="card-title">{{'NO_NEWSFEED'|translate}}</h2>
+  </div>
+
   <ion-card *ngFor="let news of list">
     <ion-item>
       <h2>{{news.title}}</h2>

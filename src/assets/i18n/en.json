@@ -39,5 +39,12 @@
     "EVENT_DURATION": "Event duration",
     "NO_APPLICATIONS": "No applications",
     "TODAY": "Today",
-    "ALL_DAY":"All day"
+    "ALL_DAY":"All day",
+    "SIGNUP_NAME": "Name",
+    "SIGNUP_SURNAME": "Surname",
+    "SIGNUP_USERNAME": "Username",
+    "SIGNUP_EMAIL": "E-mail address",
+    "SIGNUP_PASSWORD": "Password",
+    "SIGNUP_REPEAT_PASSWORD": "Repeat your password",
+    "NO_NEWSFEED":"No news"
 }

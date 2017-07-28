@@ -34,11 +34,10 @@ export class LoginPage extends GenericPage {
   login(credentials) {
     this.showLoader('Validando');
     this.auth.login(credentials.username, credentials.password).then(() => {
-      //this.events.publish('user:authenticated', this.auth);
       this.loading.dismiss();
     }).catch((error) => {
       this.loading.dismiss();
-      this.showAlert("Error", "Usuario o clave incorrectos. " + (!CONFIG.PRODUCTION ? error : ''));
+      this.showAlert("Error", "Usuario o clave incorrectos.");
     });
   }
 
@@ -47,11 +46,11 @@ export class LoginPage extends GenericPage {
   }
 
   facebookLogin() {
-    this.auth.facebookLogin().then(() => {
+    this.auth.loginFacebook().then(() => {
       this.loading.dismiss();
     }).catch((error) => {
       this.loading.dismiss();
-      this.showAlert("Error", "Ocurró un error al intentar ingresar. " + (!CONFIG.PRODUCTION ? error : ''));
+      this.showAlert("Error", "Ocurró un error al intentar ingresar.");
     });
   }
 

@@ -21,6 +21,7 @@
         "@angular/platform-server": "4.1.3",
         "@ionic-native/calendar": "^4.1.0",
         "@ionic-native/core": "3.12.1",
+        "@ionic-native/facebook": "^4.1.0",
         "@ionic-native/geolocation": "^3.12.1",
         "@ionic-native/google-maps": "^3.12.1",
         "@ionic-native/in-app-browser": "^3.12.1",

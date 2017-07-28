@@ -46,10 +46,13 @@
 
 <ion-menu *ngIf="user" side="right" [content]="nav">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        <ion-icon name="contact"></ion-icon> {{user.name}} {{user.surname}}</ion-title>
-    </ion-toolbar>
+    <ion-item no-lines>
+      <ion-avatar item-left *ngIf="user.hasProfilePicture()">
+        <img src="{{user.getProfilePicture()}}">
+      </ion-avatar>
+      <ion-icon item-left name="contact" *ngIf="!user.hasProfilePicture()"></ion-icon>
+      <ion-title>{{user.getName()}} {{user.getSurname()}}</ion-title>
+    </ion-item>
   </ion-header>
 
   <ion-content>

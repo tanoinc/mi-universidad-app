@@ -37,7 +37,7 @@ export class Webservice {
         this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
           (data) => {
             console.log('webservice: get(' + action + '). Response:'); console.log(data);
-            this.cache.set(local_action, data, CONFIG.MEMORY_CACHE_DEFAULT_TTL*1000);
+            this.cache.set(local_action, data, CONFIG.MEMORY_CACHE_DEFAULT_TTL * 1000);
             resolve(data);
           },
           err => {
@@ -97,6 +97,21 @@ export class Webservice {
     });
   }
 
+  serviceStatus() {
+    return this.fetch('api/v1/config/service_status');
+  }
+
+  available() {
+    return this.serviceStatus().then((status: { http: boolean, db: boolean, app: boolean }) => {
+      if (status.http && status.db && status.app) {
+        Promise.resolve();
+      } else {
+        Promise.reject(status);
+      }
+
+    });
+  }
+
   init() {
     return this.fetch('api/v1/config/init');
   }
@@ -105,7 +120,7 @@ export class Webservice {
     return this.post('api/v1/user', { 'email': email, 'password': password, 'username': username, 'name': name, 'surname': surname });
   }
 
-  userLogin(username: string, password: string, client_id: string, client_secret: string) {
+  login(username: string, password: string, client_id: string, client_secret: string) {
     let data = {
       'username': username,
       'password': password,
@@ -114,7 +129,23 @@ export class Webservice {
       'client_secret': client_secret,
       'scope': '',
     };
-    return this.post('oauth/token', data);
+    return this.post('oauth/token', data).then((auth_data: any) => {
+      auth_data.grant_type = "password";
+      return auth_data;
+    });
+  }
+
+  loginFacebook(client_id: string, fb_info: any) {
+    let data = {
+      'grant_type': 'facebook',
+      'client_id': client_id,
+      'payload': fb_info,
+    };
+    return this.post('api/v1/auth/facebook', data).then((auth_data: any) => {
+      auth_data.grant_type = "facebook";
+      auth_data.facebook_data = fb_info;
+      return auth_data;
+    });
   }
 
   userLogout(auth?: Auth) {
@@ -198,15 +229,18 @@ export class Webservice {
   }
 
   userCalendarEventsBetweenDates(start: Date, end: Date, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/calendar_event/between_dates/'+start.toISOString().split('T')[0]+'/'+end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/api/v1/calendar_event/between_dates/' + start.toISOString().split('T')[0] + '/' + end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
   }
 
-  userAddApplication(application_name:string, auth?: Auth) {
+  userAddApplication(application_name: string, auth?: Auth) {
     return this.post('mobile/api/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
   }
-  
-  userRemoveApplication(application_name:string, auth?: Auth) {
-    return this.delete('mobile/api/v1/application/subscription/'+application_name, this.headersFromAuth(auth));
+
+  userRemoveApplication(application_name: string, auth?: Auth) {
+    return this.delete('mobile/api/v1/application/subscription/' + application_name, this.headersFromAuth(auth));
   }
 
+  registerLocation(data: any = null, auth?: Auth) {
+    return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
+  }
 }

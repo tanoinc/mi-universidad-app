@@ -12,10 +12,16 @@ import { DatePipe } from "@angular/common";
 })
 export class NotificationsPage extends GenericDynamicListPage {
 
+  protected unread: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected modalCtrl: ModalController, protected datePipe: DatePipe) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.full_screen = false;
     this.list_searching = true;
+
+    this.events.subscribe('notification:push', (msg) => {
+      this.unread = true;
+    });
   }
 
   ionViewDidLoad() {
@@ -25,6 +31,14 @@ export class NotificationsPage extends GenericDynamicListPage {
 
   ionViewDidLeave() {
     this.events.publish('notification:read');
+  }
+
+  ionViewDidEnter() {
+    if (this.unread) {
+      this.list_searching = true;
+      this.update(true);
+      this.unread = false;
+    }
   }
 
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {

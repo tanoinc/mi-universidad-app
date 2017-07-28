@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, LoadingController, Events } from 'ionic-angular';
+import { Platform, MenuController, Nav, LoadingController, Events, AlertController, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,6 +15,9 @@ import { TranslateService } from "@ngx-translate/core";
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { ApplicationContents } from "../providers/application-contents";
 import { PreferencesPage } from "../pages/preferences/preferences";
+import { getLang } from "./app.module";
+import { LocationTrackerProvider } from "../providers/location-tracker/location-tracker";
+import { UserModel } from "./models/user-model";
 
 @Component({
   templateUrl: 'app.html'
@@ -23,48 +26,55 @@ export class MyApp {
   rootPage = TabsPage;
   @ViewChild(Nav) nav: Nav;
   public loading;
-  public user = null;
+  public user: UserModel = null;
   public full_screen: boolean = false;
   public current_display_mode = null;
 
   readonly static_pages = [
     { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
-    { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
+    //{ title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
 
   available_pages = [];
   displayed_pages = [];
+
   display_modes = ['not-authenticated', 'authenticated',];
 
   user_profile_pages = [
     { title: "PREFERENCES", root: PreferencesPage, icon: "options" },
   ];
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth, private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events, public translate: TranslateService, public push: Push, public app_contents: ApplicationContents) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
+    private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events,
+    public translate: TranslateService, public push: Push, public app_contents: ApplicationContents,
+    protected location: LocationTrackerProvider, public alertCtrl: AlertController,  protected modalCtrl: ModalController) {
+
     this.resetPages();
-    platform.ready().then(() => {
-      var userLang = navigator.language.split('-')[0];
-      this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
-      //console.log("language: "+userLang);
-      this.translate.use(userLang);
-      return storage.ready();
-    }).then(() => {
-      this.display('not-authenticated');
-      return auth.loadStoredData().catch(() => { });
-    }).then(() => {
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
+    platform.ready()
+      .then(() => storage.ready())
+      .then(() => this.ws.available()).catch(() => this.errorLoadingService())
+      .then(() => {
+        this.initTranslation();
+        this.display('not-authenticated');
+        return auth.loadStoredData().catch(() => { });
+      })
+      .then(() => {
+        statusBar.styleDefault();
+        setTimeout(() => {
+          splashScreen.hide();
+        }, 200);
+        //splashScreen.hide();
+      });
 
     this.initEventSubscriptions();
-
   }
 
-  private resetPages() {
-    this.available_pages = this.static_pages;
+  protected initTranslation() {
+    this.translate.setDefaultLang(CONFIG.DEFAULT_LANG);
+    this.translate.use(getLang());
   }
 
-  private initPush() {
+  protected initPush() {
     return this.push.register()
       .then((t: PushToken) => {
         return this.push.saveToken(t);
@@ -73,19 +83,7 @@ export class MyApp {
       });
   }
 
-  addAvailablePages(pages: any[]) {
-    this.available_pages = this.available_pages.concat(pages);
-  }
-
-  private updateContentPages() {
-    return this.app_contents.load().then(() => {
-      this.resetPages();
-      this.addAvailablePages(this.app_contents.getPages());
-      this.updateDisplay();
-    });
-  }
-
-  private initEventSubscriptions() {
+  protected initEventSubscriptions() {
     this.events.subscribe('application:subscription_changed', () => {
       this.updateContentPages();
     });
@@ -93,6 +91,7 @@ export class MyApp {
     this.events.subscribe('user:authenticated', (auth: Auth) => {
       this.user = auth.getUser();
       this.initPush().catch(() => { });
+      this.location.startInterval();
       this.updateContentPages().then(() => {
         this.display('authenticated');
       });
@@ -110,15 +109,40 @@ export class MyApp {
     this.events.subscribe('app:full_screen_off', () => {
       this.fullScreenOff();
     });
-
     this.push.rx.notification()
-      .subscribe((msg) => {
-        this.events.publish('notification:push', msg);
+      .subscribe((notification) => {
+        console.log("New notification! "+JSON.stringify(notification));
+        this.events.publish('notification:push', notification.raw);
       });
+  }
+
+  protected errorLoadingService() {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'No se ha podido establecer la conexión con el servicio. Intente nuevamente más tarde.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  protected resetPages() {
+    this.available_pages = this.static_pages;
+  }
+
+  protected updateContentPages() {
+    return this.app_contents.load().then(() => {
+      this.resetPages();
+      this.addAvailablePages(this.app_contents.getPages());
+      this.updateDisplay();
+    });
   }
 
   protected updateDisplay() {
     this.displayed_pages = this.available_pages.filter(val => (val.display.find(val_mode => val_mode == this.current_display_mode)));
+  }
+
+  addAvailablePages(pages: any[]) {
+    this.available_pages = this.available_pages.concat(pages);
   }
 
   display(mode: string) {
@@ -175,7 +199,7 @@ export class MyApp {
 
   logout() {
     this.showLoader('Saliendo');
-    this.auth.logout().then(() => {
+    this.user.logout().then(() => {
       this.user = null;
       this.hideLoader();
     });

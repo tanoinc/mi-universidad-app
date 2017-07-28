@@ -3,8 +3,8 @@ import { NavController, NavParams, LoadingController, AlertController, Events } 
 import { GenericPage } from "../generic/generic";
 import { Webservice } from "../../providers/webservice/webservice";
 import { GoogleMap, GoogleMaps, MarkerOptions, PolylineOptions, CameraPosition, LatLng, GoogleMapsEvent } from "@ionic-native/google-maps";
-import { Geolocation } from '@ionic-native/geolocation';
 import { ApplicationContents } from "../../providers/application-contents";
+import { LocationTrackerProvider } from "../../providers/location-tracker/location-tracker";
 
 /*
   Generated class for the GoogleMap page.
@@ -26,7 +26,7 @@ export class GoogleMapPage extends GenericPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController,
     public alertCtrl: AlertController, protected events: Events, protected google_map: GoogleMaps, public params: NavParams,
-    @Inject(forwardRef(() => ApplicationContents)) protected content, protected geolocation: Geolocation
+    @Inject(forwardRef(() => ApplicationContents)) protected content, protected location: LocationTrackerProvider
   ) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.content_params = this.navParams.get('data');
@@ -35,19 +35,20 @@ export class GoogleMapPage extends GenericPage {
 
   load() {
     this.showLoader('Cargando ' + this.content_params.name);
-    let options = { timeout: 10000, enableHighAccuracy: true };
-    this.geolocation.getCurrentPosition(options)
+    this.location.getCurrentPosition()
       .catch((error) => {
         this.loading.dismiss();
         this.showAlert('Error ' + error.code, 'No se pudo obtener la posición actual en el mapa: ' + error.message);
       })
       .then((geo_data) => {
-        this.current_geolocation = this.convertToPosition(geo_data);
+        if (geo_data) {
+          this.current_geolocation = geo_data;
+        } else {
+          this.current_geolocation = {};
+        }
         return this.content.contentLoad(this.content_params, this.current_geolocation);
       })
-      .then((data) => {
-        return this.loadMap(data);
-      })
+      .then((data) => this.loadMap(data))
       .then(() => {
         this.loading.dismiss();
       })
@@ -59,41 +60,6 @@ export class GoogleMapPage extends GenericPage {
 
   ionViewDidLoad() {
 
-  }
-
-  convertToPosition(position: any) {
-    var positionObject: any = {};
-
-    if ('coords' in position) {
-      positionObject.coords = {};
-
-      if ('latitude' in position.coords) {
-        positionObject.coords.latitude = position.coords.latitude;
-      }
-      if ('longitude' in position.coords) {
-        positionObject.coords.longitude = position.coords.longitude;
-      }
-      if ('accuracy' in position.coords) {
-        positionObject.coords.accuracy = position.coords.accuracy;
-      }
-      if ('altitude' in position.coords) {
-        positionObject.coords.altitude = position.coords.altitude;
-      }
-      if ('altitudeAccuracy' in position.coords) {
-        positionObject.coords.altitudeAccuracy = position.coords.altitudeAccuracy;
-      }
-      if ('heading' in position.coords) {
-        positionObject.coords.heading = position.coords.heading;
-      }
-      if ('speed' in position.coords) {
-        positionObject.coords.speed = position.coords.speed;
-      }
-    }
-    if ('timestamp' in position) {
-      positionObject.timestamp = position.timestamp;
-    }
-
-    return positionObject;
   }
 
   private add_markers(map, markers_data: MarkerOptions[]) {
@@ -141,7 +107,7 @@ export class GoogleMapPage extends GenericPage {
             tilt: 0
           };
         }
-        this.map.clear();        
+        this.map.clear();
         this.centerMap(center_pos);
         this.add_polylines(this.map, polylines_data);
         this.add_markers(this.map, markers_data);

@@ -15,6 +15,7 @@ export class TabsPage {
   @ViewChild('menu_tabs') tabRef: Tabs;
 
   tabs_hidden: boolean = false;
+  current_mode: string;
   available_tabs = [
     { title: "HOME", root: HomePage, icon: "home", display: ['authenticated'] },
     { title: "NOTIFICATIONS", root: NotificationsPage, icon: "notifications", display: ['authenticated'] },
@@ -37,6 +38,9 @@ export class TabsPage {
 
     this.events.subscribe('notification:push', (msg) => {
       this.tabs_badge["NOTIFICATIONS"] += 1;
+      if ((!msg.additionalData.foreground) && this.current_mode == 'authenticated') {
+        this.tabRef.select(1);
+      }
     });
     this.events.subscribe('notification:read', (msg) => {
       this.tabs_badge["NOTIFICATIONS"] = 0;
@@ -54,6 +58,7 @@ export class TabsPage {
       this.tabRef.select(defaultTab);
     }
     this.displayed_tabs = this.available_tabs.filter(val => (val.display.find(val_mode => val_mode == mode)));
+    this.current_mode = mode;
     if (mode == 'not-authenticated') {
       this.tabs_hidden = CONFIG.NOT_AUTHENTICATED_TABS_HIDDEN;
     } else {
