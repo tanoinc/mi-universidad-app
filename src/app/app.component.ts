@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav, LoadingController, Events, AlertController } from 'ionic-angular';
+import { Platform, MenuController, Nav, LoadingController, Events, AlertController, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -32,7 +32,7 @@ export class MyApp {
 
   readonly static_pages = [
     { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
-    { title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
+    //{ title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
 
   available_pages = [];
@@ -47,7 +47,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
     private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events,
     public translate: TranslateService, public push: Push, public app_contents: ApplicationContents,
-    protected location: LocationTrackerProvider, public alertCtrl: AlertController) {
+    protected location: LocationTrackerProvider, public alertCtrl: AlertController,  protected modalCtrl: ModalController) {
 
     this.resetPages();
     platform.ready()
@@ -62,7 +62,7 @@ export class MyApp {
         statusBar.styleDefault();
         setTimeout(() => {
           splashScreen.hide();
-        }, 100);
+        }, 200);
         //splashScreen.hide();
       });
 
@@ -109,10 +109,10 @@ export class MyApp {
     this.events.subscribe('app:full_screen_off', () => {
       this.fullScreenOff();
     });
-
     this.push.rx.notification()
-      .subscribe((msg) => {
-        this.events.publish('notification:push', msg);
+      .subscribe((notification) => {
+        console.log("New notification! "+JSON.stringify(notification));
+        this.events.publish('notification:push', notification.raw);
       });
   }
 
@@ -205,7 +205,6 @@ export class MyApp {
     });
   }
   pruebaNotificacion() {
-    console.log(JSON.stringify(this.location.getLastPosition()));
     this.events.publish('notification:push', { 'msg': "prueba" });
   }
 }

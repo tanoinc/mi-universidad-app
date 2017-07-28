@@ -44,8 +44,8 @@ export class LocationTrackerProvider {
 
   protected updatePostition(position) {
     this.current_geolocation = this.convertToPosition(position);
-    this.ws.registerLocation(position);
-    console.log(JSON.stringify(this.current_geolocation));
+    this.ws.registerLocation(this.current_geolocation);
+    //console.log(JSON.stringify(this.current_geolocation));
   }
 
   public start() {
@@ -73,6 +73,8 @@ export class LocationTrackerProvider {
       .then((geo_data) => {
         this.updatePostition(geo_data);
         Promise.resolve(this.current_geolocation);
+      }).catch((e) => {
+        console.log(JSON.stringify(e));
       });
   }
 

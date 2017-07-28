@@ -56,7 +56,7 @@ const cloudSettings: CloudSettings = {
         'sound': true
       },
       'android': {
-        'iconColor': '#343434'
+        'iconColor': CONFIG.ANDROID_PUSH_ICON_COLOR
       }
     }
   }
