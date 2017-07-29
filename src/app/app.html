@@ -6,7 +6,6 @@
     <ion-buttons *ngIf="user" end>
       <button ion-button icon-right large outline (click)="toggleUserMenu()">
         {{user.name}} {{user.surname}}
-
         <ion-icon name="contact"></ion-icon>
       </button>
     </ion-buttons>
@@ -43,17 +42,16 @@
 </ion-menu>
 
 <ion-menu *ngIf="user" side="right" [content]="nav">
-  <ion-header>
-    <ion-item no-lines>
+  <ion-content>
+    <div id="user_profile">
       <ion-avatar item-left *ngIf="user.hasProfilePicture()">
         <img src="{{user.getProfilePicture()}}">
       </ion-avatar>
-      <ion-icon item-left name="contact" *ngIf="!user.hasProfilePicture()"></ion-icon>
+      <ion-avatar *ngIf="!user.hasProfilePicture()">
+        <img src="assets/img/avatar_default.jpg">
+      </ion-avatar>
       <ion-title>{{user.getName()}} {{user.getSurname()}}</ion-title>
-    </ion-item>
-  </ion-header>
-
-  <ion-content>
+    </div>
     <ion-list>
       <button ion-item menuClose="right" *ngFor="let p of user_profile_pages" (click)="openPage(p)">
         <ion-icon item-right name="{{p.icon}}"></ion-icon>

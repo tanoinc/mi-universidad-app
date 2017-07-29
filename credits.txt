@@ -1,0 +1,2 @@
+
+avatar_default.jpg: https://commons.wikimedia.org/wiki/File:Default-avatar.jpg
