@@ -61,5 +61,18 @@ p.alert {
     font-size: 4.0em;
     color: dimgray;
 }
-
+#user_profile {
+    text-align: center;
+    padding-top: $user-profile-padding;
+    padding-bottom: $user-profile-padding;
+    background-color: $toolbar-background;
+}
+#user_profile ion-avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    width: $user-profile-image-size;
+    height: $user-profile-image-size;
+    display: inline-block;
+    margin-bottom: 10px;
+}
 @import "app.custom";
