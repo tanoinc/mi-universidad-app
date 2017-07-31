@@ -172,14 +172,22 @@ export class Auth {
     }
   }
 
-  loginFacebook() {
+  loginFacebook(fn_fb_post_login = null) {
     return this.fb.login(['public_profile', 'email', 'user_friends'])
       .then((res: FacebookLoginResponse) => {
         console.log("Logged in FB: " + JSON.stringify(res));
+        if (fn_fb_post_login) {
+          fn_fb_post_login();
+        }
 
         return this.doBeforeLogin(this.whenReady().then(() => this.ws.loginFacebook(this.client_id, res)));
       })
-      .catch(e => console.log('Error logging into Facebook ' + JSON.stringify(e)));
+      .catch(e => () => {
+        console.log('Error logging into Facebook ' + JSON.stringify(e));
+        if (fn_fb_post_login) {
+          fn_fb_post_login();
+        }
+      });
   }
 
   protected doBeforeLogout(logout_promise: Promise<any>) {

@@ -22,9 +22,11 @@
 
   <ion-list *ngIf="list.length > 0">
     <button ion-item detail-none (click)="open(notification)" *ngFor="let notification of list">
-      <ion-icon item-left name="{{icon(notification)}}"></ion-icon>
+      <ion-icon item-left name="{{icon(notification)}}" [class.read]="notification.read_date"></ion-icon>
       {{title(notification)}}
       <p>{{notification.created_at|date:'short'}}</p>
+      <!--ion-icon item-right *ngIf="notification.read_date" name="square-outline"></ion-icon-->
+      <!--ion-icon item-right *ngIf="!notification.read_date" name="radio-button-on"></ion-icon-->
     </button>
   </ion-list>
 
