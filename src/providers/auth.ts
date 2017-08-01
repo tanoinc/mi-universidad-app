@@ -191,7 +191,9 @@ export class Auth {
   }
 
   protected doBeforeLogout(logout_promise: Promise<any>) {
-    return logout_promise
+    return logout_promise.catch((e) => { 
+        console.log("Logout promise error: "+JSON.stringify(e));
+      })
       .then(() => this.unregisterPushToken().catch(() => { }))
       .then(() => this.ws.userLogout())
       .then(() => this.clearPushToken())
