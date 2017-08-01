@@ -6,9 +6,10 @@
     </ion-title>
 
     <ion-buttons *ngIf="user" end>
-      <button ion-button icon-right large outline (click)="toggleUserMenu()">
-        {{user.name}} {{user.surname}}
-        <ion-icon name="contact"></ion-icon>
+      <button ion-button large outline (click)="toggleUserMenu()">
+        <div class="profile_button">
+        {{user.name}}
+        </div>
       </button>
     </ion-buttons>
 
@@ -46,7 +47,7 @@
 <ion-menu *ngIf="user" side="right" [content]="nav">
   <ion-content>
     <div id="user_profile">
-      <ion-avatar item-left *ngIf="user.hasProfilePicture()">
+      <ion-avatar *ngIf="user.hasProfilePicture()">
         <img src="{{user.getProfilePicture()}}">
       </ion-avatar>
       <ion-avatar *ngIf="!user.hasProfilePicture()">
