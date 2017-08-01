@@ -21,6 +21,7 @@ export class NotificationsPage extends GenericDynamicListPage {
 
     this.events.subscribe('notification:push', (msg) => {
       this.unread = true;
+      this.refresh();
     });
   }
 
@@ -29,15 +30,19 @@ export class NotificationsPage extends GenericDynamicListPage {
     super.ionViewDidLoad();
   }
 
+  protected refresh() {
+    this.list_searching = true;
+    this.update(true);
+    this.unread = false;
+  }
+
   ionViewDidLeave() {
     this.events.publish('notification:read');
   }
 
   ionViewDidEnter() {
     if (this.unread) {
-      this.list_searching = true;
-      this.update(true);
-      this.unread = false;
+      this.refresh();
     }
   }
 
@@ -84,6 +89,7 @@ export class NotificationsPage extends GenericDynamicListPage {
 
   open(notification) {
     //this.navCtrl.parent.select(0);
+    notification.read_date = new Date();
     let profileModal = this.modalCtrl.create(NotificationDetailPage, { notification: notification.notifiable, type: this.type(notification) });
     profileModal.present();
   }

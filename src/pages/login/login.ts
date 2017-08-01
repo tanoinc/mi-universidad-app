@@ -46,10 +46,14 @@ export class LoginPage extends GenericPage {
   }
 
   facebookLogin() {
-    this.auth.loginFacebook().then(() => {
+    this.auth.loginFacebook(() => {
+      this.showLoader('Ingresando');
+    }).then(() => {
       this.loading.dismiss();
     }).catch((error) => {
-      this.loading.dismiss();
+      if (this.loading) {
+        this.loading.dismiss();
+      }
       this.showAlert("Error", "Ocurró un error al intentar ingresar.");
     });
   }
