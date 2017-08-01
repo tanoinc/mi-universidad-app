@@ -89,7 +89,10 @@ export class NotificationsPage extends GenericDynamicListPage {
 
   open(notification) {
     //this.navCtrl.parent.select(0);
-    notification.read_date = new Date();
+    if (!notification.read_date) {
+      notification.read_date = new Date();
+      this.ws.userNotificationRead(notification.notifiable_type, notification.notifiable.id);
+    }
     let profileModal = this.modalCtrl.create(NotificationDetailPage, { notification: notification.notifiable, type: this.type(notification) });
     profileModal.present();
   }

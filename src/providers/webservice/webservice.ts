@@ -243,4 +243,9 @@ export class Webservice {
   registerLocation(data: any = null, auth?: Auth) {
     return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
   }
+
+  userNotificationRead(notifiable_type, notifiable_id, auth?: Auth) {
+    return this.post('mobile/api/v1/notification/read', { notifiable_type: notifiable_type, notifiable_id: notifiable_id }, this.headersFromAuth(auth));
+  }
+  
 }
