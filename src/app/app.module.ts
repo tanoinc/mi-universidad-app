@@ -36,6 +36,8 @@ import { PreferencesPage } from "../pages/preferences/preferences";
 import { Calendar } from '@ionic-native/calendar';
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
 import { Facebook } from '@ionic-native/facebook';
+import { GenericPage } from "../pages/generic/generic";
+import { GenericDynamicListPage } from "../pages/generic-dynamic-list/generic-dynamic-list";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -78,7 +80,9 @@ const cloudSettings: CloudSettings = {
     CalendarPage,
     TextPage,
     NotificationDetailPage,
-    PreferencesPage
+    PreferencesPage,
+    GenericPage,
+    GenericDynamicListPage
   ],
   imports: [
     BrowserModule,
@@ -111,7 +115,9 @@ const cloudSettings: CloudSettings = {
     CalendarPage,
     TextPage,
     NotificationDetailPage,
-    PreferencesPage
+    PreferencesPage,
+    GenericPage,
+    GenericDynamicListPage
   ],
   providers: [
     StatusBar,
@@ -126,7 +132,7 @@ const cloudSettings: CloudSettings = {
     DatePipe,
     Calendar,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: LOCALE_ID, useValue: getLang() }, 
+    { provide: LOCALE_ID, useValue: getLang }, 
     LocationTrackerProvider,
     Facebook
   ]

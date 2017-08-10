@@ -7,7 +7,6 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-notification-detail',
   templateUrl: 'notification-detail.html',

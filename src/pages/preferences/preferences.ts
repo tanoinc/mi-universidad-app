@@ -9,7 +9,6 @@ import { Webservice } from "../../providers/webservice/webservice";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-preferences',
   templateUrl: 'preferences.html',
