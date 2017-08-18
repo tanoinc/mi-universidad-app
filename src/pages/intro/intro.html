@@ -1,0 +1,35 @@
+<!--
+  Generated template for the IntroPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content>
+
+  <ion-slides pager="true">
+
+    <ion-slide padding *ngFor="let s of slides">
+      <ng-container *ngIf="s.IMAGE">
+        <img src="assets/img/{{s.IMAGE|translate}}" />
+      </ng-container>
+      <h1>{{s.TITLE|translate}}</h1>
+      <p>{{s.DESCRIPTION|translate}}</p>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-row>
+        <ion-col>
+          <img src="assets/img/{{'slide_ending.png'|translate}}" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="light" (click)="startUsingApp()">{{'START_USING_APP'|translate}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-slide>
+
+  </ion-slides>
+
+</ion-content>

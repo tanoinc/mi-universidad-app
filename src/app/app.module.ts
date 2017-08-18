@@ -38,6 +38,7 @@ import { LocationTrackerProvider } from '../providers/location-tracker/location-
 import { Facebook } from '@ionic-native/facebook';
 import { GenericPage } from "../pages/generic/generic";
 import { GenericDynamicListPage } from "../pages/generic-dynamic-list/generic-dynamic-list";
+import { IntroPage } from "../pages/intro/intro";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -82,7 +83,8 @@ const cloudSettings: CloudSettings = {
     NotificationDetailPage,
     PreferencesPage,
     GenericPage,
-    GenericDynamicListPage
+    GenericDynamicListPage,
+    IntroPage
   ],
   imports: [
     BrowserModule,
@@ -117,7 +119,8 @@ const cloudSettings: CloudSettings = {
     NotificationDetailPage,
     PreferencesPage,
     GenericPage,
-    GenericDynamicListPage
+    GenericDynamicListPage,
+    IntroPage
   ],
   providers: [
     StatusBar,

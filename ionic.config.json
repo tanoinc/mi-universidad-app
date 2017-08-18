@@ -1,5 +1,8 @@
 {
   "name": "mi-universidad-app",
   "app_id": "9a72ee71",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }
