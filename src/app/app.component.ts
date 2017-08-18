@@ -18,6 +18,7 @@ import { PreferencesPage } from "../pages/preferences/preferences";
 import { getLang } from "./app.module";
 import { LocationTrackerProvider } from "../providers/location-tracker/location-tracker";
 import { UserModel } from "./models/user-model";
+import { IntroPage } from "../pages/intro/intro";
 
 @Component({
   templateUrl: 'app.html'
@@ -47,17 +48,18 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
     private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events,
     public translate: TranslateService, public push: Push, public app_contents: ApplicationContents,
-    protected location: LocationTrackerProvider, public alertCtrl: AlertController,  protected modalCtrl: ModalController) {
+    protected location: LocationTrackerProvider, public alertCtrl: AlertController, protected modalCtrl: ModalController) {
 
+//    this.setRoot(IntroPage);
     this.resetPages();
     platform.ready()
       .then(() => storage.ready())
-      .then(() => this.ws.available()).catch(() => this.errorLoadingService())
-      .then(() => {
-        this.initTranslation();
-        this.display('not-authenticated');
-        return auth.loadStoredData().catch(() => { });
-      })
+      .then(() => Promise.all([
+        this.ws.available().catch(() => this.errorLoadingService()),
+        auth.loadStoredData().catch(() => { }),
+        this.initMisc()
+      ])
+      )
       .then(() => {
         statusBar.styleDefault();
         setTimeout(() => {
@@ -67,6 +69,22 @@ export class MyApp {
       });
 
     this.initEventSubscriptions();
+  }
+
+  public showIntro() {
+    let profileModal = this.modalCtrl.create(IntroPage);
+    profileModal.present();
+  }
+
+  protected initMisc() {
+    this.initTranslation();
+    this.display('not-authenticated');
+    this.auth.isFirstTime().then((first)=>{
+      if (first) {
+        this.showIntro();
+      }
+    });
+    return Promise.resolve();
   }
 
   protected initTranslation() {
@@ -111,7 +129,7 @@ export class MyApp {
     });
     this.push.rx.notification()
       .subscribe((notification) => {
-        console.log("New notification! "+JSON.stringify(notification));
+        console.log("New notification! " + JSON.stringify(notification));
         this.events.publish('notification:push', notification.raw);
       });
   }
@@ -125,6 +143,9 @@ export class MyApp {
     alert.present();
   }
 
+  public setRoot(page) {
+    this.rootPage = page;
+  }
   protected resetPages() {
     this.available_pages = this.static_pages;
   }

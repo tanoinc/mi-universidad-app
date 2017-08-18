@@ -10,4 +10,9 @@ export const CONFIG_ENV = {
     NOT_AUTHENTICATED_FULL_SCREEN: true,
     MEMORY_CACHE_DEFAULT_TTL: 30, // Seconds
     GEOLOCATION_UPDATE_INTERVAL: 150, // Seconds
+    INTRO_SLIDES: [ 
+        { TITLE: "Slide 1", DESCRIPTION: "algo 1", IMAGE:"s1.png" },
+        { TITLE: "Slide 2", DESCRIPTION: "algo 2", IMAGE:"s2.png" },
+        { TITLE: "Slide 3", DESCRIPTION: "algo 2" } // IMAGE optional
+    ]
 }

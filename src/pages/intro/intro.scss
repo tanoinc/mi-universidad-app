@@ -1,0 +1,17 @@
+.ios, .md {
+
+    page-intro {
+
+        ion-slide {
+            background-color: $toolbar-background;
+            color: $toolbar-md-title-text-color;
+        }
+
+        ion-slide img {
+            height: 70vh !important;
+            width: auto !important;
+        }
+
+    }
+
+}

@@ -23,8 +23,8 @@
                     </ion-label>
                     <ion-input formControlName="name" placeholder="{{'SIGNUP_NAME'|translate}}" type="text"></ion-input>
                 </ion-item>
-                <ng-container *ngIf="errorData.name || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
-                    <ng-container *ngFor="let error of errorData.name">
+                <ng-container *ngIf="error_data.name || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
+                    <ng-container *ngFor="let error of error_data.name">
                         <p class="alert">{{error}}</p>
                     </ng-container>
                     <ng-container *ngIf="signupForm.controls.name.errors && signupForm.controls.name.dirty">
@@ -38,8 +38,8 @@
                     </ion-label>
                     <ion-input formControlName="surname" placeholder="{{'SIGNUP_SURNAME'|translate}}" type="text"></ion-input>
                 </ion-item>
-                <ng-container *ngIf="errorData.surname || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
-                    <ng-container *ngFor="let error of errorData.surname">
+                <ng-container *ngIf="error_data.surname || (signupForm.controls.name.errors && signupForm.controls.name.dirty) || (signupForm.controls.surname.errors && signupForm.controls.surname.dirty)">
+                    <ng-container *ngFor="let error of error_data.surname">
                         <p class="alert">{{error}}</p>
                     </ng-container>
                     <ng-container *ngIf="signupForm.controls.surname.errors && signupForm.controls.surname.dirty">
@@ -54,8 +54,8 @@
                     </ion-label>
                     <ion-input formControlName="username" placeholder="{{'SIGNUP_USERNAME'|translate}}" type="text"></ion-input>
                 </ion-item>
-                <ng-container *ngIf="errorData.username || (signupForm.controls.username.errors && signupForm.controls.username.dirty)">
-                    <ng-container *ngFor="let error of errorData.username">
+                <ng-container *ngIf="error_data.username || (signupForm.controls.username.errors && signupForm.controls.username.dirty)">
+                    <ng-container *ngFor="let error of error_data.username">
                         <p class="alert">{{error}}</p>
                     </ng-container>
                     <ng-container *ngIf="signupForm.controls.username.errors && signupForm.controls.username.dirty">
@@ -69,8 +69,8 @@
                     </ion-label>
                     <ion-input formControlName="email" placeholder="{{'SIGNUP_EMAIL'|translate}}" type="email"></ion-input>
                 </ion-item>
-                <ng-container *ngIf="errorData.email || (signupForm.controls.email.errors && signupForm.controls.email.dirty)">
-                    <ng-container *ngFor="let error of errorData.email">
+                <ng-container *ngIf="error_data.email || (signupForm.controls.email.errors && signupForm.controls.email.dirty)">
+                    <ng-container *ngFor="let error of error_data.email">
                         <p class="alert">{{error}}</p>
                     </ng-container>
                     <ng-container *ngIf="signupForm.controls.email.errors && signupForm.controls.email.dirty">
@@ -88,14 +88,14 @@
                     <ion-label>
                         <ion-icon name="lock"></ion-icon>
                     </ion-label>
-                    <ion-input formControlName="passwordRepeat" placeholder="{{'SIGNUP_REPEAT_PASSWORD'|translate}}" type="password"></ion-input>
+                    <ion-input formControlName="password_repeat" placeholder="{{'SIGNUP_REPEAT_PASSWORD'|translate}}" type="password"></ion-input>
                 </ion-item>
-                <ng-container *ngIf="errorData.password || (signupForm.controls.password.errors && signupForm.controls.password.dirty)">
-                    <ng-container *ngFor="let error of errorData.password">
+                <ng-container *ngIf="error_data.password || (signupForm.controls.password.errors && signupForm.controls.password.dirty)">
+                    <ng-container *ngFor="let error of error_data.password">
                         <p class="alert">{{error}}</p>
                     </ng-container>
                     <ng-container *ngIf="signupForm.controls.password.errors && signupForm.controls.password.dirty">
-                        <p class="alert">Las contraseñas son obligatorias y deben coincidir.</p>
+                        <p class="alert">Las contraseñas son obligatorias, deben coincidir y tener al menos {{password_min_length}} caracteres.</p>
                     </ng-container>
                 </ng-container>
 

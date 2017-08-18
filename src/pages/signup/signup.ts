@@ -25,23 +25,24 @@ export class SignupPage extends GenericPage {
   public username: string;
   public email: string;
   public password: string;
-  public passwordRepeat: string;
-  public errorData: any;
+  public password_repeat: string;
+  public error_data: any;
+  public password_min_length: number = 8;
 
   public signupForm: FormGroup;
   protected full_screen = CONFIG.NOT_AUTHENTICATED_FULL_SCREEN;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
-    this.errorData = {};
+    this.error_data = {};
     this.signupForm = new FormGroup({
       'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'surname': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'username': new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_-]+$') ]),
       'email': new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$') ]),
-      'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
-      'passwordRepeat': new FormControl('', [Validators.required, Validators.minLength(8)]),
-    }, this.matchingPasswords('password', 'passwordRepeat'));
+      'password': new FormControl('', [Validators.required, Validators.minLength(this.password_min_length)]),
+      'password_repeat': new FormControl('', [Validators.required, Validators.minLength(this.password_min_length)]),
+    }, this.matchingPasswords('password', 'password_repeat'));
 
   }
 
@@ -58,7 +59,7 @@ export class SignupPage extends GenericPage {
       this.navCtrl.push(LoginPage);
     }, (err) => {
       this.loading.dismiss();
-      this.errorData = err.data;
+      this.error_data = err.data;
       this.showAlert('Error', err.message);
     });
   }
@@ -74,7 +75,7 @@ export class SignupPage extends GenericPage {
     this.username = "";
     this.email = "";
     this.password = "";
-    this.passwordRepeat = "";
+    this.password_repeat = "";
   }
 
   matchingPasswords(field1: string, field2: string): any {

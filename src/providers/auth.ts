@@ -239,4 +239,14 @@ export class Auth {
     }
   }
 
+  public isFirstTime() {
+    return this.storage.get('Auth.first_time').then((data) => {
+      if(!data){
+        this.storage.set('Auth.first_time', true);
+        return true;
+      }
+      return false;
+    });
+  }
+
 }
