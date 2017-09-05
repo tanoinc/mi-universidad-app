@@ -42,7 +42,8 @@ export class MyApp {
   display_modes = ['not-authenticated', 'authenticated',];
 
   user_profile_pages = [
-    { title: "PREFERENCES", root: PreferencesPage, icon: "options" },
+    //{ title: "PREFERENCES", root: PreferencesPage, icon: "options" },
+    { title: "VIEW_INTRO", root: IntroPage, icon: "help-circle" },
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
@@ -80,7 +81,7 @@ export class MyApp {
     this.initTranslation();
     this.display('not-authenticated');
     this.auth.isFirstTime().then((first)=>{
-      if (first) {
+      if (first || CONFIG.ALWAYS_SHOW_INTRO) {
         this.showIntro();
       }
     });

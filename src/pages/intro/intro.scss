@@ -1,17 +1,17 @@
-.ios, .md {
+page-intro {
 
-    page-intro {
-
-        ion-slide {
-            background-color: $toolbar-background;
-            color: $toolbar-md-title-text-color;
-        }
-
-        ion-slide img {
-            height: 70vh !important;
-            width: auto !important;
-        }
-
+    ion-slide {
+        background-color: $toolbar-background;
+        color: $toolbar-md-title-text-color;
     }
 
+    ion-slide img {
+        max-height: 70vh !important;
+        width: auto !important;
+    }
+    /*
+    button.fab {
+        border-radius: 2px;
+    }
+*/
 }

@@ -6,15 +6,17 @@
 -->
 
 <ion-content>
-
+  <ion-fab top right>
+    <button ion-fab mini color="light" (click)="close()" title="{{'SKIP'|translate}}"><ion-icon name="close"></ion-icon></button>
+  </ion-fab>
   <ion-slides pager="true">
-
     <ion-slide padding *ngFor="let s of slides">
       <ng-container *ngIf="s.IMAGE">
         <img src="assets/img/{{s.IMAGE|translate}}" />
       </ng-container>
       <h1>{{s.TITLE|translate}}</h1>
       <p>{{s.DESCRIPTION|translate}}</p>
+
     </ion-slide>
 
     <ion-slide>
