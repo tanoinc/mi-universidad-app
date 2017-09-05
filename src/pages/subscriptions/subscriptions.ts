@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events, ToastController, ItemSliding, Item, ItemOptions } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
 import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-list";
 import { SubscriptionsContextPage } from "../subscriptions-context/subscriptions-context";
@@ -21,8 +21,9 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   mode: string = "unsubscribed";
   mode_method: { subscribed: (s, p?) => Promise<any>; unsubscribed: (s, p?) => Promise<any>; };
   applications: { subscribed: any[]; unsubscribed: any[]; }
+  activeItemSliding: ItemSliding = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected iab: InAppBrowser) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected iab: InAppBrowser, protected toastCtrl: ToastController) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.list_searching = true;
     this.mode_method = {
@@ -68,6 +69,16 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   protected applicationAdded(application) {
     this.move(application, 'unsubscribed', 'subscribed');
     this.events.publish('application:subscription_changed');
+    this.toast("Servicio añadido correctamente!");
+  }
+
+  protected toast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'center'
+    });
+    toast.present();
   }
 
   addApplication(application) {
@@ -99,6 +110,7 @@ export class SubscriptionsPage extends GenericDynamicListPage {
   protected applicationRemoved(application) {
     this.move(application, 'subscribed', 'unsubscribed');
     this.events.publish('application:subscription_changed');
+    this.toast('Se ha eliminado el servicio.');
   }
 
   removeApplication(application) {
@@ -136,5 +148,34 @@ export class SubscriptionsPage extends GenericDynamicListPage {
       });
 
     });
+  }
+
+
+  openOption(itemSlide: ItemSliding, item: Item, options: ItemOptions) {
+    //@TODO: Cambiar para abrir menu de opciones sobre el elemento al presionar (por ahora solo eliminar). Comportamiento de android
+    // snippet from: https://gist.github.com/ihsanberahim/b48f2bf659aafc55f629dac6c32dd52a#file-_ionic3_ionitemsliding_click_event-md
+    if (this.activeItemSliding !== null) //use this if only one active sliding item allowed
+      this.closeOption();
+
+    this.activeItemSliding = itemSlide;
+
+    let swipeAmount = 100;
+
+    itemSlide.startSliding(swipeAmount);
+    itemSlide.moveSliding(swipeAmount);
+
+    itemSlide.setElementClass('active-options-right', true);
+    itemSlide.setElementClass('active-swipe-right', true);
+
+    item.setElementStyle('transition', null);
+    item.setElementStyle('transform', 'translate3d(-' + swipeAmount + 'px, 0px, 0px)');
+  }
+
+  closeOption() {
+    // snippet from: https://gist.github.com/ihsanberahim/b48f2bf659aafc55f629dac6c32dd52a#file-_ionic3_ionitemsliding_click_event-md
+    if (this.activeItemSliding) {
+      this.activeItemSliding.close();
+      this.activeItemSliding = null;
+    }
   }
 }

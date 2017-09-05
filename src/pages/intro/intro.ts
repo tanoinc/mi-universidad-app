@@ -17,11 +17,23 @@ import { CONFIG } from "../../config/config";
 })
 export class IntroPage {
   protected slides;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public events: Events) {
     this.slides = CONFIG.INTRO_SLIDES;
+  }
+
+  close() {
+    this.startUsingApp();
   }
 
   startUsingApp() {
     this.viewCtrl.dismiss();
   }
+
+  ionViewWillEnter() {
+    this.events.publish('app:full_screen_on');
+  }
+
+  ionViewWillLeave() {
+    this.events.publish('app:full_screen_off');
+  }  
 }

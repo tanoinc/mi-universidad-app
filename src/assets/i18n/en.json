@@ -47,5 +47,8 @@
     "SIGNUP_PASSWORD": "Password",
     "SIGNUP_REPEAT_PASSWORD": "Repeat your password",
     "NO_NEWSFEED":"No news",
-    "START_USING_APP":"Start using app!"
+    "START_USING_APP":"Start using app!",
+    "SKIP":"Skip",
+    "VIEW_INTRO":"View intro",
+    "NO_CONTEXTS":"No context available"
 }

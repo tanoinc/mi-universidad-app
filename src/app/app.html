@@ -54,7 +54,7 @@
       <ion-title>{{user.getName()}} {{user.getSurname()}}</ion-title>
     </div>
     <ion-list>
-      <button ion-item menuClose="right" *ngFor="let p of user_profile_pages" (click)="openPage(p)">
+      <button ion-item detail-none menuClose="right" *ngFor="let p of user_profile_pages" (click)="openPage(p)">
         <ion-icon item-right name="{{p.icon}}"></ion-icon>
         {{p.title|translate}}
       </button>

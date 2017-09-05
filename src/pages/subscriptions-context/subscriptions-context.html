@@ -1,11 +1,11 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{'CONTEXTS'|translate}}</ion-title>
+    <ion-title>{{'CONTEXTS'|translate}}: {{this.getSelectedApplication().name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
 
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -14,11 +14,8 @@
   </ion-refresher>
 
   <ion-card>
-    <ion-card-header>
-      {{this.getSelectedApplication().description}}
-    </ion-card-header>
     <ion-card-content>
-      {{this.getSelectedApplication().name}}
+      {{this.getSelectedApplication().description}}
     </ion-card-content>
   </ion-card>
 
@@ -27,6 +24,11 @@
 
   <div *ngIf="this.list_searching" class="spinner-container">
     <ion-spinner></ion-spinner>
+  </div>
+
+  <div class="empty_message" *ngIf="list.length == 0 && !this.list_searching">
+    <ion-icon name="information-circle"></ion-icon>
+    <h2 class="card-title">{{'NO_CONTEXTS'|translate}}</h2>
   </div>
 
   <ion-list>
@@ -44,7 +46,7 @@
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
-    <ion-infinite-scroll-content loadingText="{{'LOADING'|translate}}...">></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingText="{{'LOADING'|translate}}..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
 </ion-content>

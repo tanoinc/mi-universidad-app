@@ -8,8 +8,9 @@ export const CONFIG_ENV = {
     ANDROID_PUSH_ICON_COLOR: "#343434",
     NOT_AUTHENTICATED_TABS_HIDDEN: false,
     NOT_AUTHENTICATED_FULL_SCREEN: true,
-    MEMORY_CACHE_DEFAULT_TTL: 30, // Seconds
+    MEMORY_CACHE_DEFAULT_TTL: 60, // Seconds
     GEOLOCATION_UPDATE_INTERVAL: 150, // Seconds
+    ALWAYS_SHOW_INTRO: false, // true: For debugging purposes (always show intro slides)
     INTRO_SLIDES: [ 
         { TITLE: "Slide 1", DESCRIPTION: "algo 1", IMAGE:"s1.png" },
         { TITLE: "Slide 2", DESCRIPTION: "algo 2", IMAGE:"s2.png" },
