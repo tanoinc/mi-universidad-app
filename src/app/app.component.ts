@@ -199,7 +199,7 @@ export class MyApp {
     if (page.subpages) {
       page.show_subpages = !page.show_subpages;
     } else {
-      this.nav.push(page.root, { data: page.raw_data });
+      this.nav.push(page.root, { data: page.raw_data, from_menu: true });
     }
   }
 
