@@ -17,8 +17,11 @@ import { CONFIG } from "../../config/config";
 })
 export class IntroPage {
   protected slides;
+  protected from_menu: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public events: Events) {
     this.slides = CONFIG.INTRO_SLIDES;
+    this.from_menu = navParams.get('from_menu');
   }
 
   close() {
@@ -34,6 +37,8 @@ export class IntroPage {
   }
 
   ionViewWillLeave() {
-    this.events.publish('app:full_screen_off');
+    if (this.from_menu) {
+      this.events.publish('app:full_screen_off');
+    }
   }  
 }
