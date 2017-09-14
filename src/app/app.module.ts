@@ -39,6 +39,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { GenericPage } from "../pages/generic/generic";
 import { GenericDynamicListPage } from "../pages/generic-dynamic-list/generic-dynamic-list";
 import { IntroPage } from "../pages/intro/intro";
+import { LoginForgotPasswordPage } from "../pages/login-forgot-password/login-forgot-password";
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -84,7 +85,8 @@ const cloudSettings: CloudSettings = {
     PreferencesPage,
     GenericPage,
     GenericDynamicListPage,
-    IntroPage
+    IntroPage,
+    LoginForgotPasswordPage
   ],
   imports: [
     BrowserModule,
@@ -120,7 +122,8 @@ const cloudSettings: CloudSettings = {
     PreferencesPage,
     GenericPage,
     GenericDynamicListPage,
-    IntroPage
+    IntroPage,
+    LoginForgotPasswordPage
   ],
   providers: [
     StatusBar,

@@ -50,5 +50,15 @@
     "START_USING_APP":"Start using app!",
     "SKIP":"Skip",
     "VIEW_INTRO":"View intro",
-    "NO_CONTEXTS":"No context available"
+    "NO_CONTEXTS":"No context available",
+    "FORGOT_PASSWORD":"I forgot my password",
+    "FORGOT_PASSWORD_CODE":"Reset code",
+    "EMAIL":"E-mail",
+    "PASSWORD_REPEAT":"Password repeat",
+    "FORGOT_PASSWORD_SEND":"Send reset code",
+    "RESET_PASSWORD":"Reset password",
+    "FORGOT_PASSWORD_SEND_AGAIN":"Re-send reset code",
+    "STEP":"Step",
+    "FORGOT_PASSWORD_STEP_1_DESCRIPTION": "Enter your email address. We'll send you an email with a 'reset code' (if you are registered). You will need it in the next step",
+    "FORGOT_PASSWORD_STEP_2_DESCRIPTION": "Complete the input with the code you have received in your email. You will also have to input your new password (twice)."
 }
