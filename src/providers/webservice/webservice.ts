@@ -49,6 +49,27 @@ export class Webservice {
     });
   }
 
+  private put(action: string, data: any, header?: Headers) {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.host_url + action, data, { 'headers': header }).map(res => res.json()).subscribe(
+        (data) => {
+          console.log('webservice: put(' + action + '). Response:'); console.log(data);
+          resolve(data);
+        },
+        (err: Response) => {
+          console.log('webservice: put(' + action + '): Error ' + err.status);
+          let return_error = null;
+          if (err.status == 422) {
+            return_error = err.json();
+          } else {
+            return_error = err;
+          }
+          reject(return_error);
+        }
+      );
+    });
+  }  
+
   private post(action: string, data: any, header?: Headers) {
     return new Promise((resolve, reject) => {
       this.http.post(this.host_url + action, data, { 'headers': header }).map(res => res.json()).subscribe(
@@ -247,5 +268,12 @@ export class Webservice {
   userNotificationRead(notifiable_type, notifiable_id, auth?: Auth) {
     return this.post('mobile/api/v1/notification/read', { notifiable_type: notifiable_type, notifiable_id: notifiable_id }, this.headersFromAuth(auth));
   }
-  
+
+  sendForgotPasswordCode(email: String) {
+    return this.post('api/v1/user/password', { email: email});
+  }
+
+  resetForgotPassword(email: String, code: String, password: String) {
+    return this.put('api/v1/user/password', { email: email, code: code, password: password });
+  }    
 }

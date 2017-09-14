@@ -6,6 +6,7 @@ import { Webservice } from "../../providers/webservice/webservice";
 import { GenericPage } from "../generic/generic";
 import { Events } from 'ionic-angular';
 import { CONFIG } from "../../config/config";
+import { LoginForgotPasswordPage } from "../login-forgot-password/login-forgot-password";
 
 /*
   Generated class for the Login page.
@@ -39,6 +40,11 @@ export class LoginPage extends GenericPage {
       this.loading.dismiss();
       this.showAlert("Error", "Usuario o clave incorrectos.");
     });
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(LoginForgotPasswordPage);
+    //this.navCtrl.setRoot(LoginForgotPasswordPage);
   }
 
   register() {

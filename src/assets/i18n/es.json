@@ -50,5 +50,15 @@
     "START_USING_APP":"Comenzar!",
     "SKIP":"Saltear",
     "VIEW_INTRO":"Ver intro",
-    "NO_CONTEXTS":"Sin temas disponibles"
+    "NO_CONTEXTS":"Sin temas disponibles",
+    "FORGOT_PASSWORD":"Olvidé mi contraseña",
+    "FORGOT_PASSWORD_CODE":"Código de recuperación",
+    "EMAIL":"Correo electrónico",
+    "PASSWORD_REPEAT":"Repetí la contraseña",
+    "FORGOT_PASSWORD_SEND":"Enviar código de recuperación",
+    "RESET_PASSWORD":"Reestablecer clave",
+    "FORGOT_PASSWORD_SEND_AGAIN":"Reenviar código de recuperación",
+    "STEP":"Paso",
+    "FORGOT_PASSWORD_STEP_1_DESCRIPTION": "Ingresá tu dirección de correo electrónico y si estás registrado te enviaremos un email con el código de recuperación. Te servirá para utilizarlo en el siguiente paso.",
+    "FORGOT_PASSWORD_STEP_2_DESCRIPTION": "Completá con el código que recibiste por correo electrónico. Ingresá también tu nueva contraseña. Deberás repetirla para asegurarnos que la escribiste correctamente."
 }
