@@ -27,7 +27,7 @@ export class LocationTrackerProvider {
     this.frequency = CONFIG.GEOLOCATION_UPDATE_INTERVAL * 1000;
     this.options = {
       timeout: 10000,
-      frequency: this.frequency,
+      //frequency: this.frequency,
       enableHighAccuracy: true
     };
     //this.startInterval();
@@ -72,7 +72,9 @@ export class LocationTrackerProvider {
     return this.geolocation.getCurrentPosition(this.options)
       .then((geo_data) => {
         this.updatePostition(geo_data);
-        Promise.resolve(this.current_geolocation);
+        //console.log("GEOLOCATION DATA (getCurrentPosition()): " + JSON.stringify(this.current_geolocation));
+        return this.current_geolocation;
+        //Promise.resolve(this.current_geolocation);
       }).catch((e) => {
         console.log(JSON.stringify(e));
       });
@@ -113,7 +115,7 @@ export class LocationTrackerProvider {
     if ('timestamp' in position) {
       positionObject.timestamp = position.timestamp;
     }
-
+    //console.log("GEOLOCATION DATA (convert): " + JSON.stringify(positionObject));
     return positionObject;
   }
 }

@@ -72,6 +72,9 @@ export class Webservice {
 
   private post(action: string, data: any, header?: Headers) {
     return new Promise((resolve, reject) => {
+      if (data == undefined) {
+        data = {};
+      }
       this.http.post(this.host_url + action, data, { 'headers': header }).map(res => res.json()).subscribe(
         (data) => {
           console.log('webservice: post(' + action + '). Response:'); console.log(data);

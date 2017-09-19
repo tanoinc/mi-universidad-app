@@ -2,9 +2,10 @@ import { Component, ElementRef, ViewChild, Inject, forwardRef } from '@angular/c
 import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { GenericPage } from "../generic/generic";
 import { Webservice } from "../../providers/webservice/webservice";
-import { GoogleMap, GoogleMaps, MarkerOptions, PolylineOptions, CameraPosition, LatLng, GoogleMapsEvent } from "@ionic-native/google-maps";
+import { GoogleMap, GoogleMaps, MarkerOptions, PolylineOptions, CameraPosition, LatLng, GoogleMapsEvent, Marker, GoogleMapsAnimation } from "@ionic-native/google-maps";
 import { ApplicationContents } from "../../providers/application-contents";
 import { LocationTrackerProvider } from "../../providers/location-tracker/location-tracker";
+import { GoogleMapsMarkerOptions } from "@ionic/cloud-angular/node_modules/ionic-native/dist/es5";
 
 /*
   Generated class for the GoogleMap page.
@@ -41,10 +42,11 @@ export class GoogleMapPage extends GenericPage {
         this.showAlert('Error ' + error.code, 'No se pudo obtener la posición actual en el mapa: ' + error.message);
       })
       .then((geo_data) => {
+        //console.log("Geo data: "+JSON.stringify(geo_data));
         if (geo_data) {
           this.current_geolocation = geo_data;
         } else {
-          this.current_geolocation = {};
+          this.current_geolocation = undefined;
         }
         return this.content.contentLoad(this.content_params, this.current_geolocation);
       })
@@ -52,7 +54,8 @@ export class GoogleMapPage extends GenericPage {
       .then(() => {
         this.loading.dismiss();
       })
-      .catch(() => {
+      .catch(error => {
+        console.log(error);
         this.loading.dismiss();
         this.showAlert('Error', 'No se pudieron obtener los datos del mapa.');
       });
@@ -62,22 +65,38 @@ export class GoogleMapPage extends GenericPage {
 
   }
 
-  private add_markers(map, markers_data: MarkerOptions[]) {
+  private addCurrentPosition() {
+    console.log("addCurrentPosition > init");
+    if (this.current_geolocation != undefined) {
+      console.log("addCurrentPosition > existe posicion" + JSON.stringify(this.current_geolocation));
+      let marker_options: GoogleMapsMarkerOptions = {
+        position: new LatLng(this.current_geolocation.coords.latitude, this.current_geolocation.coords.longitude),
+        title: 'Estas aquí',
+        icon: {
+          url: 'www/assets/img/marker.png',
+          size: {
+            width: 32,
+            height: 32
+          }
+        },
+        animation: GoogleMapsAnimation.BOUNCE
+      };
+      this.map.addMarker(marker_options);
+    }
+  }
+
+  private addMarkers(markers_data: MarkerOptions[]) {
     if ((markers_data != null) && (markers_data.length > 0)) {
       for (var _i = 0; _i < markers_data.length; _i++) {
-        map.addMarker(markers_data[_i]);
+        this.map.addMarker(markers_data[_i]);
       }
     }
   }
 
-  private add_polylines(map, polylines_data: PolylineOptions) {
+  private addPolylines(polylines_data: PolylineOptions) {
     if (polylines_data != null) {
-      map.addPolyline(polylines_data);
+      this.map.addPolyline(polylines_data);
     }
-  }
-
-  private eventoMapaMenu(map: GoogleMap) {
-
   }
 
   loadMap(data) {
@@ -96,11 +115,10 @@ export class GoogleMapPage extends GenericPage {
     }
 
     this.map = this.google_map.create(this.map_element.nativeElement);
-    this.eventoMapaMenu(this.map);
 
     return this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
-        if (!center_pos) {
+        if (!center_pos && this.current_geolocation != undefined) {
           center_pos = {
             target: new LatLng(this.current_geolocation.coords.latitude, this.current_geolocation.coords.longitude),
             zoom: 15,
@@ -109,8 +127,9 @@ export class GoogleMapPage extends GenericPage {
         }
         this.map.clear();
         this.centerMap(center_pos);
-        this.add_polylines(this.map, polylines_data);
-        this.add_markers(this.map, markers_data);
+        this.addPolylines(polylines_data);
+        this.addMarkers(markers_data);
+        this.addCurrentPosition();
       });
   }
 

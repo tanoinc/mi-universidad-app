@@ -35,7 +35,7 @@ export class ApplicationContents {
 
   protected loadFromWS() {
     if (this.auth.isAuthenticated()) {
-      return this.ws.userApplicationContents()
+      return this.ws.userApplicationContents(this.auth, true)
         .then((app_contents) => {
           this.setContents(app_contents);
           this.loaded = true;
