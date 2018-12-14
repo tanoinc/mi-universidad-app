@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CONFIG } from "../../config/config";
 import { Auth } from "../auth";
 import { MemoryCache } from "../cache/MemoryCache";
+import { HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 
 /*
   Generated class for the Webservice provider.
@@ -16,12 +16,12 @@ export class Webservice {
   private host_url: string;
   private auth: Auth;
 
-  constructor(private http: Http, protected cache: MemoryCache) {
+  constructor(private http: HttpClient, protected cache: MemoryCache) {
     this.host_url = CONFIG.API_URL;
     //console.log('Hello Webservice Provider');
   }
 
-  private fetch(action: string, header?: Headers, external_url: boolean = false, force_load: boolean = false) {
+  private fetch(action: string, header?: HttpHeaders, external_url: boolean = false, force_load: boolean = false) {
     return new Promise((resolve, reject) => {
       let local_action = "";
       if (!external_url) {
@@ -34,7 +34,7 @@ export class Webservice {
       if (this.cache.has(local_action) && !force_load) {
         resolve(this.cache.get(local_action));
       } else {
-        this.http.get(local_action, { 'headers': header }).map(res => res.json()).subscribe(
+        this.http.get(local_action, { 'headers': header }).subscribe(
           (data) => {
             console.log('webservice: get(' + action + '). Response:'); console.log(data);
             this.cache.set(local_action, data, CONFIG.MEMORY_CACHE_DEFAULT_TTL * 1000);
@@ -49,18 +49,18 @@ export class Webservice {
     });
   }
 
-  private put(action: string, data: any, header?: Headers) {
+  private put(action: string, data: any, header?: HttpHeaders) {
     return new Promise((resolve, reject) => {
-      this.http.put(this.host_url + action, data, { 'headers': header }).map(res => res.json()).subscribe(
+      this.http.put(this.host_url + action, data, { 'headers': header }).subscribe(
         (data) => {
           console.log('webservice: put(' + action + '). Response:'); console.log(data);
           resolve(data);
         },
-        (err: Response) => {
+        (err: HttpResponse<any>) => {
           console.log('webservice: put(' + action + '): Error ' + err.status);
           let return_error = null;
           if (err.status == 422) {
-            return_error = err.json();
+            return_error = err;
           } else {
             return_error = err;
           }
@@ -70,21 +70,21 @@ export class Webservice {
     });
   }  
 
-  private post(action: string, data: any, header?: Headers) {
+  private post(action: string, data: any, header?: HttpHeaders) {
     return new Promise((resolve, reject) => {
       if (data == undefined) {
         data = {};
       }
-      this.http.post(this.host_url + action, data, { 'headers': header }).map(res => res.json()).subscribe(
+      this.http.post(this.host_url + action, data, { 'headers': header }).subscribe(
         (data) => {
           console.log('webservice: post(' + action + '). Response:'); console.log(data);
           resolve(data);
         },
-        (err: Response) => {
+        (err: HttpResponse<any>) => {
           console.log('webservice: post(' + action + '): Error ' + err.status);
           let return_error = null;
           if (err.status == 422) {
-            return_error = err.json();
+            return_error = err;
           } else {
             return_error = err;
           }
@@ -94,11 +94,11 @@ export class Webservice {
     });
   }
 
-  private delete(action: string, header?: Headers) {
+  private delete(action: string, header?: HttpHeaders) {
     return new Promise((resolve, reject) => {
       this.http.delete(this.host_url + action, { 'headers': header }).map(res => {
         try {
-          return res.json();
+          return res;
         } catch (ex) {
           return null;
         }
@@ -107,11 +107,11 @@ export class Webservice {
           console.log('webservice: delete (' + action + '). Response:'); console.log(data);
           resolve(data);
         },
-        (err: Response) => {
+        (err: HttpResponse<any>) => {
           console.log('webservice: delete (' + action + '): Error ' + err.status);
           let return_error = null;
           if (err.status == 422) {
-            return_error = err.json();
+            return_error = err;
           } else {
             return_error = err;
           }
@@ -188,11 +188,11 @@ export class Webservice {
     return this.fetch('mobile/api/v1/user', this.headersFromAuth(auth));
   }
 
-  private headersFromAuth(auth?: Auth): Headers {
+  private headersFromAuth(auth?: Auth): HttpHeaders {
     if (!auth) {
       auth = this.auth;
     }
-    let headers = new Headers({ 'Authorization': 'Bearer ' + auth.getAccessToken() });
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + auth.getAccessToken() });
     return headers;
   }
 

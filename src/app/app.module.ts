@@ -7,7 +7,6 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpModule, Http } from '@angular/http';
 import { Webservice } from "../providers/webservice/webservice";
 import { Auth } from '../providers/auth';
 import { SignupPage } from '../pages/signup/signup';
@@ -18,7 +17,6 @@ import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscriptions-context";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { CONFIG } from "../config/config";
 import { ApplicationContents } from "../providers/application-contents";
 import { GoogleMaps } from "@ionic-native/google-maps";
@@ -40,18 +38,15 @@ import { GenericPage } from "../pages/generic/generic";
 import { GenericDynamicListPage } from "../pages/generic-dynamic-list/generic-dynamic-list";
 import { IntroPage } from "../pages/intro/intro";
 import { LoginForgotPasswordPage } from "../pages/login-forgot-password/login-forgot-password";
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 
+/*
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': CONFIG.FIREBASE_APP_ID,
   },
-  /*
-  'auth': {
-    'facebook': {
-      'scope': ['email', 'public_profile']
-    }
-  },
-  */
   'push': {
     'sender_id': CONFIG.FIREBASE_SENDER_ID,
     'pluginConfig': {
@@ -65,6 +60,9 @@ const cloudSettings: CloudSettings = {
     }
   }
 };
+*/
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -90,17 +88,16 @@ const cloudSettings: CloudSettings = {
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [Http]
+        deps: [HttpClient]
       }
     }),
-    CloudModule.forRoot(cloudSettings),
     NgCalendarModule
   ],
   bootstrap: [IonicApp],
@@ -138,14 +135,14 @@ const cloudSettings: CloudSettings = {
     DatePipe,
     Calendar,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: LOCALE_ID, useValue: getLang }, 
+    { provide: LOCALE_ID, useValue: getLang() },
     LocationTrackerProvider,
     Facebook
   ]
 })
 export class AppModule { }
 
-export function createTranslateLoader(http: Http) {
+export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
