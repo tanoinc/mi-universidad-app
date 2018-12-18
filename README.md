@@ -3,6 +3,18 @@
 
 Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
+## Instalacion
+
+Requiere tener instalado npm
+
+* npm install
+
+* Renombrar config.xml.template a config.xml
+
+* Reemplazar los valores encerrados con %
+
+* Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
+
 ## TO DO
 
 * Agregar información de los permisos al agregar servicios que no requieren autenticación.
