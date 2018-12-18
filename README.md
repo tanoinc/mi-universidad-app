@@ -9,7 +9,7 @@ Requiere tener instalado npm
 
 1. Renombrar config.xml.template a config.xml
 
-2. eemplazar los valores encerrados con %
+2. Reemplazar los valores encerrados con %
 
 3. Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
 
