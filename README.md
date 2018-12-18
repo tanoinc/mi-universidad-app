@@ -3,17 +3,17 @@
 
 Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
-## Instalacion
+## Instalación
 
 Requiere tener instalado npm
 
-* npm install
+1. Renombrar config.xml.template a config.xml
 
-* Renombrar config.xml.template a config.xml
+2. eemplazar los valores encerrados con %
 
-* Reemplazar los valores encerrados con %
+3. Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
 
-* Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
+4. npm install
 
 ## TO DO
 
