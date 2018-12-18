@@ -3,7 +3,6 @@ import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
 import { Storage } from '@ionic/storage';
 import { Events } from "ionic-angular";
-//import { PushToken } from '@ionic/cloud-angular';
 import { JwtHelper } from "angular2-jwt";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { UserModel } from "../app/models/user-model";
@@ -24,7 +23,7 @@ export class Auth {
   private authenticated: boolean;
   private init_promise: Promise<any>;
   private auth_custom_user: UserModel;
-  //private push_token: PushToken;
+  private push_token: string;
   private jwt_helper: JwtHelper;
 
   constructor(private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook) {
@@ -92,13 +91,13 @@ export class Auth {
   private initPushToken() {
     return this.storage.get('Auth.push_token')
       .then((push_token) => {
-        //this.push_token = push_token;
+        this.push_token = push_token;
       });
   }
 
   protected clearPushToken() {
     return this.storage.set('Auth.push_token', null).then(() => {
-      //this.push_token = null;
+      this.push_token = null;
     });
   }
 
@@ -194,9 +193,9 @@ export class Auth {
     return logout_promise.catch((e) => { 
         console.log("Logout promise error: "+JSON.stringify(e));
       })
-      //.then(() => this.unregisterPushToken().catch(() => { }))
+      .then(() => this.unregisterPushToken().catch(() => { }))
       .then(() => this.ws.userLogout())
-      //.then(() => this.clearPushToken())
+      .then(() => this.clearPushToken())
       .then(() => {
         this.setAuthData(null, true);
         this.events.publish('user:unauthenticated', this);
@@ -223,22 +222,22 @@ export class Auth {
   getFacebook(): Facebook {
     return this.fb;
   }
-/*
-  registerPushToken(t: PushToken) {
+
+  registerPushToken(t: string, platform: string = 'android') {
     this.push_token = t;
     this.storage.set('Auth.push_token', t);
-    return this.ws.userRegisterPushToken(t.token, t.type);
+    return this.ws.userRegisterPushToken(t, platform);
   }
 
-  unregisterPushToken() {
+  unregisterPushToken(platform: string = 'android') {
     if (this.push_token) {
-      return this.ws.userUnregisterPushToken(this.push_token.token, this.push_token.type);
+      return this.ws.userUnregisterPushToken(this.push_token, platform);
     } else {
       // Para pruebas desde el browser (sin push)
       return Promise.resolve();
     }
   }
-*/
+
   public isFirstTime() {
     return this.storage.get('Auth.first_time').then((data) => {
       if(!data){

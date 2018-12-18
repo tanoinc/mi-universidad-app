@@ -40,7 +40,9 @@ import { IntroPage } from "../pages/intro/intro";
 import { LoginForgotPasswordPage } from "../pages/login-forgot-password/login-forgot-password";
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
+import { Firebase } from '@ionic-native/firebase';
 import localeEs from '@angular/common/locales/es';
+import { FcmProvider } from '../providers/fcm/fcm';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -134,10 +136,13 @@ registerLocaleData(localeEs);
     MemoryCache,
     DatePipe,
     Calendar,
+    Firebase,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: LOCALE_ID, useValue: getLang() },
     LocationTrackerProvider,
-    Facebook
+    Facebook,
+    FcmProvider,
+    FcmProvider
   ]
 })
 export class AppModule { }

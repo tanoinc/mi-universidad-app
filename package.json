@@ -22,6 +22,7 @@
         "@ionic-native/calendar": "~4.17.0",
         "@ionic-native/core": "~4.17.0",
         "@ionic-native/facebook": "~4.17.0",
+        "@ionic-native/firebase": "^4.18.0",
         "@ionic-native/geolocation": "~4.17.0",
         "@ionic-native/google-maps": "^4.15.1",
         "@ionic-native/in-app-browser": "~4.17.0",
@@ -40,6 +41,7 @@
         "cordova-plugin-console": "1.1.0",
         "cordova-plugin-device": "2.0.2",
         "cordova-plugin-facebook4": "^3.2.0",
+        "cordova-plugin-firebase": "2.0.5",
         "cordova-plugin-geolocation": "^4.0.1",
         "cordova-plugin-googlemaps": "^2.4.6",
         "cordova-plugin-inappbrowser": "^3.0.0",
@@ -92,7 +94,8 @@
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-calendar": {
                 "CALENDAR_USAGE_DESCRIPTION": " "
-            }
+            },
+            "cordova-plugin-firebase": {}
         },
         "platforms": [
             "android"
