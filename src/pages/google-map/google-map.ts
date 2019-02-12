@@ -2,10 +2,9 @@ import { Component, ElementRef, ViewChild, Inject, forwardRef } from '@angular/c
 import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { GenericPage } from "../generic/generic";
 import { Webservice } from "../../providers/webservice/webservice";
-import { GoogleMap, GoogleMaps, MarkerOptions, PolylineOptions, CameraPosition, LatLng, GoogleMapsEvent, Marker, GoogleMapsAnimation } from "@ionic-native/google-maps";
+import { GoogleMap, GoogleMaps, MarkerOptions, PolylineOptions, CameraPosition, LatLng, GoogleMapsEvent, GoogleMapsAnimation } from "@ionic-native/google-maps";
 import { ApplicationContents } from "../../providers/application-contents";
 import { LocationTrackerProvider } from "../../providers/location-tracker/location-tracker";
-import { GoogleMapsMarkerOptions } from "@ionic/cloud-angular/node_modules/ionic-native/dist/es5";
 
 /*
   Generated class for the GoogleMap page.
@@ -69,7 +68,7 @@ export class GoogleMapPage extends GenericPage {
     console.log("addCurrentPosition > init");
     if (this.current_geolocation != undefined) {
       console.log("addCurrentPosition > existe posicion" + JSON.stringify(this.current_geolocation));
-      let marker_options: GoogleMapsMarkerOptions = {
+      let marker_options: any = {
         position: new LatLng(this.current_geolocation.coords.latitude, this.current_geolocation.coords.longitude),
         title: 'Estas aquí',
         icon: {
@@ -102,7 +101,7 @@ export class GoogleMapPage extends GenericPage {
   loadMap(data) {
     let polylines_data = null;
     let markers_data = null;
-    let center_pos: CameraPosition = null;
+    let center_pos: CameraPosition<any> = null;
 
     if (data.hasOwnProperty('polylines')) {
       polylines_data = data.polylines;

@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, Events, ViewController } from 'ionic-angular';
-import { GenericPage } from "../generic/generic";
-import { Webservice } from "../../providers/webservice/webservice";
-import { TabsPage } from "../tabs/tabs";
+import { NavController, NavParams, Events, ViewController } from 'ionic-angular';
 import { CONFIG } from "../../config/config";
 
 /**

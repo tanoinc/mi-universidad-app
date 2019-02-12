@@ -3,7 +3,6 @@ import { CONFIG } from "../../config/config";
 import { HomePage } from '../home/home';
 import { SignupPage } from "../signup/signup";
 import { LoginPage } from "../login/login";
-import { Auth } from "../../providers/auth";
 import { Events, NavController, Tabs, NavParams } from 'ionic-angular';
 import { NotificationsPage } from "../notifications/notifications";
 import { CalendarPage } from "../calendar/calendar";
@@ -27,7 +26,7 @@ export class TabsPage {
   displayed_tabs = [];
   display_modes = ['not-authenticated', 'authenticated',];
 
-  constructor(private auth: Auth, public events: Events, public navCtrl: NavController, public params: NavParams) {
+  constructor(public events: Events, public navCtrl: NavController, public params: NavParams) {
     this.display((params.get('mode') ? params.get('mode') : 'not-authenticated'));
     this.events.subscribe('user:authenticated', (auth) => {
       this.navCtrl.setRoot(TabsPage, { mode: 'authenticated' });
