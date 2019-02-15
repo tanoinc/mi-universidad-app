@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CONFIG } from "../../config/config";
 import { HomePage } from '../home/home';
 import { SignupPage } from "../signup/signup";
@@ -26,24 +26,35 @@ export class TabsPage {
   displayed_tabs = [];
   display_modes = ['not-authenticated', 'authenticated',];
 
-  constructor(public events: Events, public navCtrl: NavController, public params: NavParams) {
+  constructor(public events: Events, public navCtrl: NavController, public detectorRef: ChangeDetectorRef, public params: NavParams) {
+    
     this.display((params.get('mode') ? params.get('mode') : 'not-authenticated'));
+
     this.events.subscribe('user:authenticated', (auth) => {
       this.navCtrl.setRoot(TabsPage, { mode: 'authenticated' });
     });
+
     this.events.subscribe('user:unauthenticated', (auth) => {
       this.navCtrl.setRoot(TabsPage, { mode: 'not-authenticated' });
     });
 
-    this.events.subscribe('notification:push', (msg) => {
-      this.tabs_badge["NOTIFICATIONS"] += 1;
-      if ((!msg.additionalData.foreground) && this.current_mode == 'authenticated') {
-        this.tabRef.select(1);
-      }
-    });
-    this.events.subscribe('notification:read', (msg) => {
-      this.tabs_badge["NOTIFICATIONS"] = 0;
-    });
+    if (this.current_mode == 'authenticated') {
+      this.events.subscribe('notification:push', (msg) => {
+        console.log('notification:push -> tabs.' + this.current_mode);
+        this.tabs_badge["NOTIFICATIONS"] += 1;
+        this.detectorRef.detectChanges();
+        if ((msg.tap) && this.current_mode == 'authenticated') {
+          this.tabRef.select(1);
+        }
+      });
+
+      this.events.subscribe('notification:read', (msg) => {
+        this.tabs_badge["NOTIFICATIONS"] = 0;
+        this.detectorRef.detectChanges();
+      });      
+    }
+
+
 
   }
 

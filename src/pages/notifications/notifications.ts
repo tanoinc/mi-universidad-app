@@ -40,12 +40,13 @@ export class NotificationsPage extends GenericDynamicListPage {
     this.events.publish('notification:read');
   }
 
+  /*
   ionViewDidEnter() {
     if (this.unread) {
       this.refresh();
     }
   }
-
+*/
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {
     this.events.publish('notification:read');
     return this.ws.userNotifications(0, null, force_load);

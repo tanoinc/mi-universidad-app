@@ -76,7 +76,7 @@ export class LocationTrackerProvider {
         return this.current_geolocation;
         //Promise.resolve(this.current_geolocation);
       }).catch((e) => {
-        console.log(JSON.stringify(e));
+        console.log("Error en getCurrentPosition(): "+JSON.stringify(e));
       });
   }
 
