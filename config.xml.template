@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.%APP_VENDOR%.%APP_NAME%" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>%APP_NAME_FULL%</name>
+    <description>%APP_NAME_DESCRIPTION%</description>
+    <author email="coggiola.luciano@gmail.com" href="https://github.com/tanoinc">Luciano Coggiola</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-navigation href="http://ionic.local/*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
+        <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
+        <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
+        <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="resources/android/icon/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="resources/android/icon/drawable-xxxhdpi-icon.png" />
+        <splash density="land-ldpi" src="resources/android/splash/drawable-land-ldpi-screen.png" />
+        <splash density="land-mdpi" src="resources/android/splash/drawable-land-mdpi-screen.png" />
+        <splash density="land-hdpi" src="resources/android/splash/drawable-land-hdpi-screen.png" />
+        <splash density="land-xhdpi" src="resources/android/splash/drawable-land-xhdpi-screen.png" />
+        <splash density="land-xxhdpi" src="resources/android/splash/drawable-land-xxhdpi-screen.png" />
+        <splash density="land-xxxhdpi" src="resources/android/splash/drawable-land-xxxhdpi-screen.png" />
+        <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+        <splash density="port-mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png" />
+        <splash density="port-hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png" />
+        <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
+        <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
+        <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <preference name="loadUrlTimeoutValue" value="700000" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <icon height="57" src="resources/ios/icon/icon.png" width="57" />
+        <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
+        <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
+        <icon height="80" src="resources/ios/icon/icon-40@2x.png" width="80" />
+        <icon height="120" src="resources/ios/icon/icon-40@3x.png" width="120" />
+        <icon height="50" src="resources/ios/icon/icon-50.png" width="50" />
+        <icon height="100" src="resources/ios/icon/icon-50@2x.png" width="100" />
+        <icon height="60" src="resources/ios/icon/icon-60.png" width="60" />
+        <icon height="120" src="resources/ios/icon/icon-60@2x.png" width="120" />
+        <icon height="180" src="resources/ios/icon/icon-60@3x.png" width="180" />
+        <icon height="72" src="resources/ios/icon/icon-72.png" width="72" />
+        <icon height="144" src="resources/ios/icon/icon-72@2x.png" width="144" />
+        <icon height="76" src="resources/ios/icon/icon-76.png" width="76" />
+        <icon height="152" src="resources/ios/icon/icon-76@2x.png" width="152" />
+        <icon height="167" src="resources/ios/icon/icon-83.5@2x.png" width="167" />
+        <icon height="29" src="resources/ios/icon/icon-small.png" width="29" />
+        <icon height="58" src="resources/ios/icon/icon-small@2x.png" width="58" />
+        <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87" />
+        <splash height="1136" src="resources/ios/splash/Default-568h@2x~iphone.png" width="640" />
+        <splash height="1334" src="resources/ios/splash/Default-667h.png" width="750" />
+        <splash height="2208" src="resources/ios/splash/Default-736h.png" width="1242" />
+        <splash height="1242" src="resources/ios/splash/Default-Landscape-736h.png" width="2208" />
+        <splash height="1536" src="resources/ios/splash/Default-Landscape@2x~ipad.png" width="2048" />
+        <splash height="768" src="resources/ios/splash/Default-Landscape~ipad.png" width="1024" />
+        <splash height="2048" src="resources/ios/splash/Default-Portrait@2x~ipad.png" width="1536" />
+        <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
+        <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
+        <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+    </platform>
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreenDelay" value="30000" />
+    <preference name="FadeSplashScreenDuration" value="1000" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <plugin name="cordova-android-play-services-gradle-release" spec="~2.0.0">
+        <variable name="PLAY_SERVICES_VERSION" value="+" />
+    </plugin>
+    <plugin name="cordova-plugin-calendar" spec="^5.1.3">
+        <variable name="CALENDAR_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-console" spec="~1.1.0" />
+    <plugin name="cordova-plugin-device" spec="~2.0.2" />
+    <plugin name="cordova-plugin-facebook4" spec="^3.2.0">
+        <variable name="APP_ID" value="%FACEBOOK_APP_ID%" />
+        <variable name="APP_NAME" value="%FACEBOOK_APP_NAME%" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.38.1" />
+    </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.4.6">
+        <variable name="API_KEY_FOR_ANDROID" value="%API_KEY_FOR_ANDROID%" />
+        <variable name="API_KEY_FOR_IOS" value="%API_KEY_FOR_IOS%" />
+        <variable name="PLAY_SERVICES_VERSION" value="+" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
+    <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.4.2" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.3.3" />
+    <plugin name="cordova-sqlite-storage" spec="~2.5.2" />
+    <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <plugin name="phonegap-plugin-push" spec="^2.2.3">
+        <variable name="SENDER_ID" value="" />
+        <variable name="ANDROID_SUPPORT_V13_VERSION" value="27.+" />
+        <variable name="FCM_VERSION" value="11.6.2" />
+    </plugin>
+    <plugin name="cordova-plugin-firebase" spec="~2.0.5">
+        <variable name="FIREBASE_VERSION" value="+" />
+    </plugin>
+    <engine name="android" spec="7.1.4" />
+</widget>
