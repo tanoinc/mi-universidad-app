@@ -3,7 +3,6 @@ import 'rxjs/add/operator/map';
 import { Webservice } from "./webservice/webservice";
 import { Storage } from '@ionic/storage';
 import { Events } from "ionic-angular";
-import { PushToken } from '@ionic/cloud-angular';
 import { JwtHelper } from "angular2-jwt";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { UserModel } from "../app/models/user-model";
@@ -24,7 +23,7 @@ export class Auth {
   private authenticated: boolean;
   private init_promise: Promise<any>;
   private auth_custom_user: UserModel;
-  private push_token: PushToken;
+  private push_token: string;
   private jwt_helper: JwtHelper;
 
   constructor(private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook) {
@@ -224,15 +223,15 @@ export class Auth {
     return this.fb;
   }
 
-  registerPushToken(t: PushToken) {
+  registerPushToken(t: string, platform: string = 'android') {
     this.push_token = t;
     this.storage.set('Auth.push_token', t);
-    return this.ws.userRegisterPushToken(t.token, t.type);
+    return this.ws.userRegisterPushToken(t, platform);
   }
 
-  unregisterPushToken() {
+  unregisterPushToken(platform: string = 'android') {
     if (this.push_token) {
-      return this.ws.userUnregisterPushToken(this.push_token.token, this.push_token.type);
+      return this.ws.userUnregisterPushToken(this.push_token, platform);
     } else {
       // Para pruebas desde el browser (sin push)
       return Promise.resolve();

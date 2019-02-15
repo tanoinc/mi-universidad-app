@@ -1,3 +1,5 @@
+import { FcmProvider } from './../providers/fcm/fcm';
+import { tap } from 'rxjs/operators';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, MenuController, Nav, LoadingController, Events, AlertController, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -9,12 +11,9 @@ import { Auth } from "../providers/auth";
 import { Webservice } from "../providers/webservice/webservice";
 import { Storage } from '@ionic/storage';
 import { CONFIG } from "../config/config";
-import { ContactPage } from "../pages/contact/contact";
 import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { TranslateService } from "@ngx-translate/core";
-import { Push, PushToken } from '@ionic/cloud-angular';
 import { ApplicationContents } from "../providers/application-contents";
-import { PreferencesPage } from "../pages/preferences/preferences";
 import { getLang } from "./app.module";
 import { LocationTrackerProvider } from "../providers/location-tracker/location-tracker";
 import { UserModel } from "./models/user-model";
@@ -33,7 +32,6 @@ export class MyApp {
 
   readonly static_pages = [
     { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
-    //{ title: "CONTACT", root: ContactPage, icon: "contacts", display: ['authenticated', 'not-authenticated'] },
   ];
 
   available_pages = [];
@@ -42,13 +40,12 @@ export class MyApp {
   display_modes = ['not-authenticated', 'authenticated',];
 
   user_profile_pages = [
-    //{ title: "PREFERENCES", root: PreferencesPage, icon: "options" },
     { title: "VIEW_INTRO", root: IntroPage, icon: "help-circle" },
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
     private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events,
-    public translate: TranslateService, public push: Push, public app_contents: ApplicationContents,
+    public translate: TranslateService, public fcm: FcmProvider, public app_contents: ApplicationContents,
     protected location: LocationTrackerProvider, public alertCtrl: AlertController, protected modalCtrl: ModalController) {
 
 //    this.setRoot(IntroPage);
@@ -94,12 +91,7 @@ export class MyApp {
   }
 
   protected initPush() {
-    return this.push.register()
-      .then((t: PushToken) => {
-        return this.push.saveToken(t);
-      }).then((t: PushToken) => {
-        return this.auth.registerPushToken(t);
-      });
+    return this.fcm.getToken();
   }
 
   protected initEventSubscriptions() {
@@ -128,11 +120,14 @@ export class MyApp {
     this.events.subscribe('app:full_screen_off', () => {
       this.fullScreenOff();
     });
-    this.push.rx.notification()
-      .subscribe((notification) => {
-        console.log("New notification! " + JSON.stringify(notification));
-        this.events.publish('notification:push', notification.raw);
-      });
+
+    this.fcm.listenToNotifications().pipe(
+      tap(msg => {
+        console.log("New notification! " + JSON.stringify(msg));
+        this.events.publish('notification:push', msg);
+      })
+    )
+    .subscribe();
   }
 
   protected errorLoadingService() {
