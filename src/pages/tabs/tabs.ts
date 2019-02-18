@@ -6,6 +6,7 @@ import { LoginPage } from "../login/login";
 import { Events, NavController, Tabs, NavParams } from 'ionic-angular';
 import { NotificationsPage } from "../notifications/notifications";
 import { CalendarPage } from "../calendar/calendar";
+import { NotificationProvider } from '../../providers/notification/notification';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -22,11 +23,12 @@ export class TabsPage {
     { title: "CREATE_ACCOUNT", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
     { title: "CALENDAR", root: CalendarPage, icon: "calendar", display: ['authenticated'] },
   ];
-  tabs_badge = { "NOTIFICATIONS": 0 }
+  tabs_badge = { "NOTIFICATIONS": null }
   displayed_tabs = [];
   display_modes = ['not-authenticated', 'authenticated',];
 
-  constructor(public events: Events, public navCtrl: NavController, public detectorRef: ChangeDetectorRef, public params: NavParams) {
+  constructor(public events: Events, public navCtrl: NavController, public detectorRef: ChangeDetectorRef, public params: NavParams, 
+    protected notifications: NotificationProvider) {
     
     this.display((params.get('mode') ? params.get('mode') : 'not-authenticated'));
 
@@ -39,23 +41,9 @@ export class TabsPage {
     });
 
     if (this.current_mode == 'authenticated') {
-      this.events.subscribe('notification:push', (msg) => {
-        console.log('notification:push -> tabs.' + this.current_mode);
-        this.tabs_badge["NOTIFICATIONS"] += 1;
-        this.detectorRef.detectChanges();
-        if ((msg.tap) && this.current_mode == 'authenticated') {
-          this.tabRef.select(1);
-        }
-      });
-
-      this.events.subscribe('notification:read', (msg) => {
-        this.tabs_badge["NOTIFICATIONS"] = 0;
-        this.detectorRef.detectChanges();
-      });      
+      this.tabs_badge["NOTIFICATIONS"] = this.notifications;
     }
-
-
-
+    
   }
 
   ionViewDidLoad() {

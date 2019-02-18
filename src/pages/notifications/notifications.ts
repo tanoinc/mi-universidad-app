@@ -48,7 +48,6 @@ export class NotificationsPage extends GenericDynamicListPage {
   }
 */
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {
-    this.events.publish('notification:read');
     return this.ws.userNotifications(0, null, force_load);
   }
 
@@ -93,6 +92,7 @@ export class NotificationsPage extends GenericDynamicListPage {
     if (!notification.read_date) {
       notification.read_date = new Date();
       this.ws.userNotificationRead(notification.notifiable_type, notification.notifiable.id);
+      this.events.publish('notification:read');
     }
     let profileModal = this.modalCtrl.create(NotificationDetailPage, { notification: notification.notifiable, type: this.type(notification) });
     profileModal.present();
