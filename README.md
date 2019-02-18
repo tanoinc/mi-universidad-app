@@ -17,7 +17,7 @@ Requiere tener instalado npm
 
 5. npm install
 
-## Previo a compilar
+## Previo a compilar (Android)
 
 1. Comentar línea 16 de ./platforms/android/cordova-support-google-services/<APP_NAME>-build.gradle: https://github.com/arnesson/cordova-plugin-firebase/issues/742#issuecomment-398794131 y https://github.com/arnesson/cordova-plugin-firebase/issues/988#issuecomment-455198728
 
