@@ -19,9 +19,13 @@ Requiere tener instalado npm
 
 ## Previo a compilar
 
-1. Para evitar problemas con las versiones de los paquetes de google, realizar los pasos de https://github.com/arnesson/cordova-plugin-firebase/issues/988#issuecomment-455198728
+1. Comentar línea 16 de ./platforms/android/cordova-support-google-services/<APP_NAME>-build.gradle: https://github.com/arnesson/cordova-plugin-firebase/issues/742#issuecomment-398794131 y https://github.com/arnesson/cordova-plugin-firebase/issues/988#issuecomment-455198728
 
-2. Comentar línea 16 de ./platforms/android/cordova-support-google-services/<APP_NAME>-build.gradle: https://github.com/arnesson/cordova-plugin-firebase/issues/742#issuecomment-398794131
+2. Agregar en `platforms/android/app/src/main/res/values/strings.xml`
+```
+        <string name="fb_app_id">%FACEBOOK_APP_ID%</string>
+        <string name="fb_app_name">%FACEBOOK_APP_NAME%</string>
+```
 
 ## TO DO
 
