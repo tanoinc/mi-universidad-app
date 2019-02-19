@@ -13,6 +13,8 @@ export class NotificationProvider {
 
   public quantity: number = 0;
 
+  protected afterNotificationCalls: Array<(data: NotificationProvider) => void> = [];
+
   constructor(public http: HttpClient, public events: Events) {
 
     this.events.subscribe('notification:push', (msg) => {
@@ -38,6 +40,7 @@ export class NotificationProvider {
    */
   public newNotification() {
     this.quantity += 1;
+    this.callAfterNotificationCalls();
   }
 
   /**
@@ -45,6 +48,20 @@ export class NotificationProvider {
    */
   public hasNotifications(): boolean {
     return (this.quantity > 0);
+  }
+
+  /**
+   * addAfterNotificationCall
+   */
+  public addAfterNotificationCall(fn: (data: NotificationProvider) => void) {
+    this.afterNotificationCalls.push(fn);
+  }
+
+
+  protected callAfterNotificationCalls() {
+    this.afterNotificationCalls.forEach(fn => {
+      fn(this);
+    });
   }
 
 }

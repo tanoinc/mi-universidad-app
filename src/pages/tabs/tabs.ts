@@ -42,8 +42,11 @@ export class TabsPage {
 
     if (this.current_mode == 'authenticated') {
       this.tabs_badge["NOTIFICATIONS"] = this.notifications;
+      this.notifications.addAfterNotificationCall( notification => {
+        this.detectorRef.detectChanges();
+      });
     }
-    
+
   }
 
   ionViewDidLoad() {
