@@ -5,7 +5,11 @@ Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
 ## Instalación
 
-Requiere tener instalado npm
+### Pre-requisitos
+
+Requiere tener instalado node, npm, ionic y SDK de Android (con las build-tools instaladas).
+
+### Pasos de instalación
 
 1. Renombrar config.xml.template a config.xml
 
@@ -19,7 +23,13 @@ Requiere tener instalado npm
 
 6. npm install
 
-## Previo a compilar (Android)
+## Compilación
+
+### Android
+
+Antes de generar el APK de Android:
+
+1. `ionic cordova platform add android`
 
 1. Comentar línea 16 de ./platforms/android/cordova-support-google-services/<APP_NAME>-build.gradle: https://github.com/arnesson/cordova-plugin-firebase/issues/742#issuecomment-398794131 y https://github.com/arnesson/cordova-plugin-firebase/issues/988#issuecomment-455198728
 
