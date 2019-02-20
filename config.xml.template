@@ -41,7 +41,7 @@
         <config-file parent="/manifest/application/" target="app/src/main/AndroidManifest.xml">
             <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/notification_icon" />
             <!-- https://github.com/arnesson/cordova-plugin-firebase/issues/53 -->
-            <!--meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="42a8c1" /-->
+            <!--meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/miuniversidad" /-->
         </config-file>
     </platform>
     <platform name="ios">
@@ -89,6 +89,8 @@
     <preference name="FadeSplashScreenDuration" value="1000" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="StatusBarBackgroundColor" value="%MAIN_COLOR%" />
+    <preference name="HeaderColor" value="%MAIN_COLOR%" />    
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
