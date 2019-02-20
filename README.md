@@ -7,7 +7,10 @@ Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
 ### Pre-requisitos
 
-Requiere tener instalado node, npm, ionic y SDK de Android (con las build-tools instaladas).
+* Requiere tener instalado node, npm, ionic y SDK de Android (con las build-tools instaladas).
+* Aplicación en Facebook creada (para %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%).
+* API keys de Google maps (%API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%).
+* App creada en Google Firebase (google-services.json descargado)
 
 ### Pasos de instalación
 
