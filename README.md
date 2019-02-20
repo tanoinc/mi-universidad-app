@@ -39,6 +39,8 @@ Antes de generar el APK de Android:
         <string name="fb_app_name">%FACEBOOK_APP_NAME%</string>
 ```
 
+3. `ionic cordova build android`
+
 ## TO DO
 
 * Agregar información de los permisos al agregar servicios que no requieren autenticación.
