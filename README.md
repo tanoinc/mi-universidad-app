@@ -9,13 +9,15 @@ Requiere tener instalado npm
 
 1. Renombrar config.xml.template a config.xml
 
-2. Reemplazar en config.xml y package.json los valores encerrados con %: %APP_VENDOR%, %APP_NAME%, %APP_NAME_FULL%, %APP_NAME_DESCRIPTION%, %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%, %API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%
+2. Renombrar package.json.template a package.json
 
-3. Copiar src/config/config.example.ts a src/config/config.dev.ts o src/config/config.prod.ts y configurar parámetros.
+3. Reemplazar en config.xml y package.json los valores encerrados con %: %APP_VENDOR%, %APP_NAME%, %APP_NAME_FULL%, %APP_NAME_DESCRIPTION%, %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%, %API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%
 
-4. Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
+4. Copiar src/config/config.example.ts a src/config/config.dev.ts o src/config/config.prod.ts y configurar parámetros.
 
-5. npm install
+5. Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
+
+6. npm install
 
 ## Previo a compilar (Android)
 
