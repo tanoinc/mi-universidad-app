@@ -43,6 +43,7 @@ import { registerLocaleData } from '@angular/common';
 import { Firebase } from '@ionic-native/firebase';
 import localeEs from '@angular/common/locales/es';
 import { FcmProvider } from '../providers/fcm/fcm';
+import { NotificationProvider } from '../providers/notification/notification';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -142,7 +143,8 @@ registerLocaleData(localeEs);
     LocationTrackerProvider,
     Facebook,
     FcmProvider,
-    FcmProvider
+    FcmProvider,
+    NotificationProvider
   ]
 })
 export class AppModule { }

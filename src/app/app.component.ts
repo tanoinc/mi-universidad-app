@@ -222,6 +222,6 @@ export class MyApp {
     });
   }
   pruebaNotificacion() {
-    this.events.publish('notification:push', { 'msg': "prueba" });
+    this.events.publish('notification:push', {"object":"{\"updated_at\":\"2019-02-15 18:27:51\",\"created_at\":\"2019-02-15 18:27:51\",\"global\":0,\"id\":128,\"title\":\"Noticia privadaa\",\"send_notification\":1,\"content\":\"Esto es una prueba de una noticia privada a algunos usuarios. Se envió una notificación.\"}","tap":false,"body":"Esto es una prueba de una noticia privada a algunos usuarios. Se envió una notificación.","type":"App\\Newsfeed","title":"Noticia privadaa"} );
   }
 }
