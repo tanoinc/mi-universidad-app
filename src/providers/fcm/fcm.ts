@@ -19,7 +19,6 @@ export class FcmProvider {
     private platform: Platform,
     private auth: Auth
   ) {
-    console.log('LOG_APP: Antes de platform!');
     if (this.platform.is('android')) {
       this.platformName = 'android';
     } else if (this.platform.is('ios')) {
@@ -27,7 +26,7 @@ export class FcmProvider {
     } else {
       this.platformName = null;
     }
-    console.log('LOG_APP: Despues de platform!');
+    console.log('LOG_APP: Plataforma: '+this.platformName);
 
   }
 
@@ -39,11 +38,13 @@ export class FcmProvider {
     let token;
 
     if (!this.isPlatformSupported()) return Promise.reject();
-
-    token = await this.firebaseNative.getToken();
+    
     if (this.platform.is('ios')) {
+      console.log('Plataforma iOS!s');
       await this.firebaseNative.grantPermission();
     }
+
+    token = await this.firebaseNative.getToken();
 
     this.firebaseNative.onTokenRefresh()
       .subscribe((token: string) => this.saveToken(token, this.platformName) );
