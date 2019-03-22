@@ -75,6 +75,7 @@ export class MyApp {
   }
 
   protected initMisc() {
+    this.initEventSubscriptionsAfterPlatformReady();
     this.initTranslation();
     this.display('not-authenticated');
     this.auth.isFirstTime().then((first)=>{
@@ -93,6 +94,17 @@ export class MyApp {
   protected initPush() {
     return this.fcm.getToken();
   }
+
+  protected initEventSubscriptionsAfterPlatformReady() {
+    this.fcm.listenToNotifications().pipe(
+      tap(msg => {
+        console.log("New notification! " + JSON.stringify(msg));
+        this.events.publish('notification:push', msg);
+      })
+    )
+    .subscribe();
+  }
+
 
   protected initEventSubscriptions() {
     this.events.subscribe('application:subscription_changed', () => {
@@ -121,13 +133,6 @@ export class MyApp {
       this.fullScreenOff();
     });
 
-    this.fcm.listenToNotifications().pipe(
-      tap(msg => {
-        console.log("New notification! " + JSON.stringify(msg));
-        this.events.publish('notification:push', msg);
-      })
-    )
-    .subscribe();
   }
 
   protected errorLoadingService() {
