@@ -7,6 +7,7 @@ import { JwtHelper } from "angular2-jwt";
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { UserModel } from "../app/models/user-model";
 import { FactoryUserModel } from "../app/models/factory-user-model";
+import { RemoteConfigProvider } from './remote-config/remote-config';
 
 /*
   Generated class for the Auth provider.
@@ -26,7 +27,7 @@ export class Auth {
   private push_token: string;
   private jwt_helper: JwtHelper;
 
-  constructor(private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook) {
+  constructor(private ws: Webservice, private storage: Storage, public events: Events, protected fb: Facebook, protected remote_config: RemoteConfigProvider) {
     this.setClientId(null);
     this.setClientSecret(null);
     this.loaded = false;
@@ -129,6 +130,7 @@ export class Auth {
           }).then((result: any) => {
             this.setClientId(result.client_id);
             this.setClientSecret(result.client_secret);
+            this.remote_config.init(result);
             return this.initPushToken();
           }).then(() => {
             this.initReady();
