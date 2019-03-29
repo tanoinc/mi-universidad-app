@@ -7,6 +7,7 @@ import { GenericPage } from "../generic/generic";
 import { Events } from 'ionic-angular';
 import { CONFIG } from "../../config/config";
 import { LoginForgotPasswordPage } from "../login-forgot-password/login-forgot-password";
+import { ContactPage } from '../contact/contact';
 
 /*
   Generated class for the Login page.
@@ -44,7 +45,10 @@ export class LoginPage extends GenericPage {
 
   forgotPassword() {
     this.navCtrl.push(LoginForgotPasswordPage);
-    //this.navCtrl.setRoot(LoginForgotPasswordPage);
+  }
+
+  contact() {
+    this.navCtrl.push(ContactPage);
   }
 
   register() {

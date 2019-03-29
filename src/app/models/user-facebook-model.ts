@@ -26,6 +26,10 @@ export class UserFacebookModel extends UserModel {
         return this.profile_picture_url;
     }
 
+    public getProfileChangePictureURL() {
+        return "https://www.facebook.com/me";
+    }
+
     public logout() {
         return this.auth.logoutFacebook();
     }    

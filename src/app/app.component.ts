@@ -18,6 +18,7 @@ import { getLang } from "./app.module";
 import { LocationTrackerProvider } from "../providers/location-tracker/location-tracker";
 import { UserModel } from "./models/user-model";
 import { IntroPage } from "../pages/intro/intro";
+import { ContactPage } from '../pages/contact/contact';
 
 @Component({
   templateUrl: 'app.html'
@@ -41,6 +42,7 @@ export class MyApp {
 
   user_profile_pages = [
     { title: "VIEW_INTRO", root: IntroPage, icon: "help-circle" },
+    { title: "CONTACT", root: ContactPage, icon: "help-buoy" },
   ];
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
