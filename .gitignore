@@ -32,6 +32,7 @@ $RECYCLE.BIN/
 config.xml
 package.json
 google-services.json
+GoogleService-Info.plist
 
 .DS_Store
 Thumbs.db
