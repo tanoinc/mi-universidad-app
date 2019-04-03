@@ -60,5 +60,6 @@
     "FORGOT_PASSWORD_SEND_AGAIN":"Reenviar código de recuperación",
     "STEP":"Paso",
     "FORGOT_PASSWORD_STEP_1_DESCRIPTION": "Ingresá tu dirección de correo electrónico y si estás registrado te enviaremos un email con el código de recuperación. Te servirá para utilizarlo en el siguiente paso.",
-    "FORGOT_PASSWORD_STEP_2_DESCRIPTION": "Completá con el código que recibiste por correo electrónico. Ingresá también tu nueva contraseña. Deberás repetirla para asegurarnos que la escribiste correctamente."
+    "FORGOT_PASSWORD_STEP_2_DESCRIPTION": "Completá con el código que recibiste por correo electrónico. Ingresá también tu nueva contraseña. Deberás repetirla para asegurarnos que la escribiste correctamente.",
+    "CONTACT_PAGE_DESCRIPTION": "Si tenés alguna duda o detectaste algún problema en la aplicación, contactanos a:"
 }

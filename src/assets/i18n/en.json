@@ -60,5 +60,6 @@
     "FORGOT_PASSWORD_SEND_AGAIN":"Re-send reset code",
     "STEP":"Step",
     "FORGOT_PASSWORD_STEP_1_DESCRIPTION": "Enter your email address. We'll send you an email with a 'reset code' (if you are registered). You will need it in the next step",
-    "FORGOT_PASSWORD_STEP_2_DESCRIPTION": "Complete the input with the code you have received in your email. You will also have to input your new password (twice)."
+    "FORGOT_PASSWORD_STEP_2_DESCRIPTION": "Complete the input with the code you have received in your email. You will also have to input your new password (twice).",
+    "CONTACT_PAGE_DESCRIPTION": "If you have any doubts about this application or if you detect any problem, please contact us at:"
 }

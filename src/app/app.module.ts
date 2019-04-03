@@ -44,6 +44,7 @@ import { Firebase } from '@ionic-native/firebase';
 import localeEs from '@angular/common/locales/es';
 import { FcmProvider } from '../providers/fcm/fcm';
 import { NotificationProvider } from '../providers/notification/notification';
+import { RemoteConfigProvider } from '../providers/remote-config/remote-config';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -143,8 +144,8 @@ registerLocaleData(localeEs);
     LocationTrackerProvider,
     Facebook,
     FcmProvider,
-    FcmProvider,
-    NotificationProvider
+    NotificationProvider,
+    RemoteConfigProvider    
   ]
 })
 export class AppModule { }

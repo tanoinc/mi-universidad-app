@@ -23,25 +23,25 @@ export class Webservice {
 
   private fetch(action: string, header?: HttpHeaders, external_url: boolean = false, force_load: boolean = false) {
     return new Promise((resolve, reject) => {
-      let local_action = "";
+      let url = "";
       if (!external_url) {
-        local_action = this.host_url + action;
+        url = this.host_url + action;
       } else {
-        local_action = action;
+        url = action;
       }
-      console.log("Por cargar (get): " + action);
+      console.log("Por cargar (get): " + url);
 
-      if (this.cache.has(local_action) && !force_load) {
-        resolve(this.cache.get(local_action));
+      if (this.cache.has(url) && !force_load) {
+        resolve(this.cache.get(url));
       } else {
-        this.http.get(local_action, { 'headers': header }).subscribe(
+        this.http.get(url, { 'headers': header }).subscribe(
           (data) => {
-            console.log('webservice: get(' + action + '). Response:'); console.log(data);
-            this.cache.set(local_action, data, CONFIG.MEMORY_CACHE_DEFAULT_TTL * 1000);
+            console.log('webservice: get(' + url + '). Response: '+ JSON.stringify(data));
+            this.cache.set(url, data, CONFIG.MEMORY_CACHE_DEFAULT_TTL * 1000);
             resolve(data);
           },
           err => {
-            console.log('webservice: get(' + action + '): Error.');
+            console.log('webservice: get(' + url + '): Error: ' + JSON.stringify(err));
             reject(err);
           }
         );
@@ -53,18 +53,12 @@ export class Webservice {
     return new Promise((resolve, reject) => {
       this.http.put(this.host_url + action, data, { 'headers': header }).subscribe(
         (data) => {
-          console.log('webservice: put(' + action + '). Response:'); console.log(data);
+          console.log('webservice: put(' + action + '). Response: ' + JSON.stringify(data));
           resolve(data);
         },
         (err: HttpResponse<any>) => {
-          console.log('webservice: put(' + action + '): Error ' + err.status);
-          let return_error = null;
-          if (err.status == 422) {
-            return_error = err;
-          } else {
-            return_error = err;
-          }
-          reject(return_error);
+          console.log('webservice: put(' + action + '): Error ' + err.status + ' ' + JSON.stringify(err));
+          reject(err);
         }
       );
     });
@@ -77,18 +71,12 @@ export class Webservice {
       }
       this.http.post(this.host_url + action, data, { 'headers': header }).subscribe(
         (data) => {
-          console.log('webservice: post(' + action + '). Response:'); console.log(data);
+          console.log('webservice: post(' + action + '). Response: '+ JSON.stringify(data));
           resolve(data);
         },
         (err: HttpResponse<any>) => {
-          console.log('webservice: post(' + action + '): Error ' + err.status);
-          let return_error = null;
-          if (err.status == 422) {
-            return_error = err;
-          } else {
-            return_error = err;
-          }
-          reject(return_error);
+          console.log('webservice: post(' + action + '): Error ' + err.status + ' ' + JSON.stringify(err));
+          reject(err);
         }
       );
     });
@@ -104,18 +92,12 @@ export class Webservice {
         }
       }).subscribe(
         (data) => {
-          console.log('webservice: delete (' + action + '). Response:'); console.log(data);
+          console.log('webservice: delete (' + action + '). Response: ' + JSON.stringify(data));
           resolve(data);
         },
         (err: HttpResponse<any>) => {
-          console.log('webservice: delete (' + action + '): Error ' + err.status);
-          let return_error = null;
-          if (err.status == 422) {
-            return_error = err;
-          } else {
-            return_error = err;
-          }
-          reject(return_error);
+          console.log('webservice: delete (' + action + '): Error ' + err.status + ' ' + JSON.stringify(err));
+          reject(err);
         }
         );
     });

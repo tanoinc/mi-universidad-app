@@ -35,6 +35,10 @@ export abstract class UserModel {
 
     public abstract getProfilePicture();
 
+    public getProfileChangePictureURL() {
+        return null;
+    }
+
     public hasProfilePicture() {
         return (this.getProfilePicture() != null);
     }
