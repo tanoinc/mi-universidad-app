@@ -19,6 +19,7 @@ import { LocationTrackerProvider } from "../providers/location-tracker/location-
 import { UserModel } from "./models/user-model";
 import { IntroPage } from "../pages/intro/intro";
 import { ContactPage } from '../pages/contact/contact';
+import { AppVersion } from '@ionic-native/app-version';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,6 +31,8 @@ export class MyApp {
   public user: UserModel = null;
   public full_screen: boolean = false;
   public current_display_mode = null;
+  public versionNumber: string = null;
+  public enabled: boolean = false;
 
   readonly static_pages = [
     { title: "SUBSCRIPTIONS", root: SubscriptionsPage, icon: "pricetags", display: ['authenticated'] },
@@ -48,15 +51,15 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController, private auth: Auth,
     private ws: Webservice, public loadingCtrl: LoadingController, storage: Storage, public events: Events,
     public translate: TranslateService, public fcm: FcmProvider, public app_contents: ApplicationContents,
-    protected location: LocationTrackerProvider, public alertCtrl: AlertController, protected modalCtrl: ModalController) {
+    protected location: LocationTrackerProvider, public alertCtrl: AlertController, protected modalCtrl: ModalController, protected appVersionProvider: AppVersion) {
 
-//    this.setRoot(IntroPage);
     this.resetPages();
     platform.ready()
       .then(() => storage.ready())
       .then(() => Promise.all([
         this.ws.available().catch(() => this.errorLoadingService()),
         auth.loadStoredData().catch(() => { }),
+        this.checkVersionCompatibility(),
         this.initMisc()
       ])
       )
@@ -80,12 +83,27 @@ export class MyApp {
     this.initEventSubscriptionsAfterPlatformReady();
     this.initTranslation();
     this.display('not-authenticated');
-    this.auth.isFirstTime().then((first)=>{
+    this.auth.isFirstTime().then((first) => {
       if (first || CONFIG.ALWAYS_SHOW_INTRO) {
         this.showIntro();
       }
     });
     return Promise.resolve();
+  }
+
+  protected checkVersionCompatibility() {
+    return this.appVersionProvider.getVersionNumber().then(
+      (versionNumber) => {
+        this.versionNumber = versionNumber;
+        console.log('version '+this.versionNumber);
+        Promise.resolve(this.versionNumber);
+      }).then(() => { 
+        return this.ws.checkVersionCompatibility(this.versionNumber);
+      }).catch((error)=>{
+        console.log(error);
+        this.enabled = false;
+        this.errorVersionCompatible();
+      });
   }
 
   protected initTranslation() {
@@ -145,6 +163,16 @@ export class MyApp {
     });
     alert.present();
   }
+
+  protected errorVersionCompatible() {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'La versión de la aplicación está desactualizada y puede que no funcione correctamente. Actualícela a una versión más reciente.',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 
   public setRoot(page) {
     this.rootPage = page;
@@ -229,6 +257,6 @@ export class MyApp {
     });
   }
   pruebaNotificacion() {
-    this.events.publish('notification:push', {"object":"{\"updated_at\":\"2019-02-15 18:27:51\",\"created_at\":\"2019-02-15 18:27:51\",\"global\":0,\"id\":128,\"title\":\"Noticia privadaa\",\"send_notification\":1,\"content\":\"Esto es una prueba de una noticia privada a algunos usuarios. Se envió una notificación.\"}","tap":false,"body":"Esto es una prueba de una noticia privada a algunos usuarios. Se envió una notificación.","type":"App\\Newsfeed","title":"Noticia privadaa"} );
+    this.events.publish('notification:push', { "object": "{\"updated_at\":\"2019-02-15 18:27:51\",\"created_at\":\"2019-02-15 18:27:51\",\"global\":0,\"id\":128,\"title\":\"Noticia privadaa\",\"send_notification\":1,\"content\":\"Esto es una prueba de una noticia privada a algunos usuarios. Se envió una notificación.\"}", "tap": false, "body": "Esto es una prueba de una noticia privada a algunos usuarios. Se envió una notificación.", "type": "App\\Newsfeed", "title": "Noticia privadaa" });
   }
 }

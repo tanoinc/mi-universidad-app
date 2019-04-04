@@ -29,7 +29,6 @@ export class Webservice {
       } else {
         url = action;
       }
-      console.log("Por cargar (get): " + url);
 
       if (this.cache.has(url) && !force_load) {
         resolve(this.cache.get(url));
@@ -106,6 +105,15 @@ export class Webservice {
   serviceStatus() {
     return this.fetch('api/v1/config/service_status');
   }
+
+  checkVersionCompatibility(version: string) {
+    return this.fetch('api/v1/config/version/'+version+'/compatibility').then((compatible: boolean) => {
+      if (compatible) {
+        return Promise.resolve(version);
+      }
+      return Promise.reject('CLIENT_VERSION_INCOMPATIBLE');
+    });
+  }  
 
   available() {
     return this.serviceStatus().then((status: { http: boolean, db: boolean, app: boolean }) => {

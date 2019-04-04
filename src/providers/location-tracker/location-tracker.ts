@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Webservice } from "../webservice/webservice";
 import { CONFIG } from "../../config/config";
+import { filter } from 'rxjs/operators';
 
 /*
   Generated class for the LocationTrackerProvider provider.
@@ -53,7 +54,8 @@ export class LocationTrackerProvider {
       this.type = this.TYPE_WATCH;
       this.started = true;
       this.position_update_handler = this.geolocation.watchPosition(this.options)
-        .filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
+        .pipe(filter((p: any) => p.code === undefined))
+        .subscribe((position: Geoposition) => {
           this.updatePostition(position);
         });
     }

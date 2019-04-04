@@ -45,6 +45,7 @@ import localeEs from '@angular/common/locales/es';
 import { FcmProvider } from '../providers/fcm/fcm';
 import { NotificationProvider } from '../providers/notification/notification';
 import { RemoteConfigProvider } from '../providers/remote-config/remote-config';
+import { AppVersion } from '@ionic-native/app-version';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -145,7 +146,8 @@ registerLocaleData(localeEs);
     Facebook,
     FcmProvider,
     NotificationProvider,
-    RemoteConfigProvider    
+    RemoteConfigProvider,
+    AppVersion
   ]
 })
 export class AppModule { }
