@@ -46,6 +46,7 @@ import { FcmProvider } from '../providers/fcm/fcm';
 import { NotificationProvider } from '../providers/notification/notification';
 import { RemoteConfigProvider } from '../providers/remote-config/remote-config';
 import { AppVersion } from '@ionic-native/app-version';
+import { SignupConfirmPage } from '../pages/signup-confirm/signup-confirm';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -89,7 +90,8 @@ registerLocaleData(localeEs);
     GenericPage,
     GenericDynamicListPage,
     IntroPage,
-    LoginForgotPasswordPage
+    LoginForgotPasswordPage,
+    SignupConfirmPage
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,8 @@ registerLocaleData(localeEs);
     GenericPage,
     GenericDynamicListPage,
     IntroPage,
-    LoginForgotPasswordPage
+    LoginForgotPasswordPage,
+    SignupConfirmPage
   ],
   providers: [
     StatusBar,

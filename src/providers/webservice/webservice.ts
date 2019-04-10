@@ -103,11 +103,11 @@ export class Webservice {
   }
 
   serviceStatus() {
-    return this.fetch('api/v1/config/service_status');
+    return this.fetch('v1/config/service_status');
   }
 
   checkVersionCompatibility(version: string) {
-    return this.fetch('api/v1/config/version/'+version+'/compatibility').then((compatible: boolean) => {
+    return this.fetch('v1/config/version/'+version+'/compatibility').then((compatible: boolean) => {
       if (compatible) {
         return Promise.resolve(version);
       }
@@ -127,11 +127,11 @@ export class Webservice {
   }
 
   init() {
-    return this.fetch('api/v1/config/init');
+    return this.fetch('v1/config/init');
   }
 
   userRegister(email: string, password: string, username: string, name: string, surname: string) {
-    return this.post('api/v1/user', { 'email': email, 'password': password, 'username': username, 'name': name, 'surname': surname });
+    return this.post('v1/user', { 'email': email, 'password': password, 'username': username, 'name': name, 'surname': surname });
   }
 
   login(username: string, password: string, client_id: string, client_secret: string) {
@@ -155,7 +155,7 @@ export class Webservice {
       'client_id': client_id,
       'payload': fb_info,
     };
-    return this.post('api/v1/auth/facebook', data).then((auth_data: any) => {
+    return this.post('v1/auth/facebook', data).then((auth_data: any) => {
       auth_data.grant_type = "facebook";
       auth_data.facebook_data = fb_info;
       return auth_data;
@@ -171,11 +171,11 @@ export class Webservice {
   }
 
   userNewsfeeds(page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/newsfeed?page=' + page, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/newsfeed?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
   userData(auth?: Auth) {
-    return this.fetch('mobile/api/v1/user', this.headersFromAuth(auth));
+    return this.fetch('mobile/v1/user', this.headersFromAuth(auth));
   }
 
   private headersFromAuth(auth?: Auth): HttpHeaders {
@@ -187,47 +187,47 @@ export class Webservice {
   }
 
   userApplicationsAvailable(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userApplicationsSubscribed(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/application?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/application?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userNotifications(page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/notification?page=' + page, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/notification?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
   applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userSubscribeContext(application_name: string, context_name: string, auth?: Auth) {
-    return this.post('mobile/api/v1/context/subscription', { 'application_name': application_name, 'context_name': context_name }, this.headersFromAuth(auth));
+    return this.post('mobile/v1/context/subscription', { 'application_name': application_name, 'context_name': context_name }, this.headersFromAuth(auth));
   }
 
   userUnsubscribeContext(application_name: string, context_name: string, auth?: Auth) {
-    return this.delete('mobile/api/v1/context/subscription/' + application_name + '/' + context_name, this.headersFromAuth(auth));
+    return this.delete('mobile/v1/context/subscription/' + application_name + '/' + context_name, this.headersFromAuth(auth));
   }
 
   userContextSubscriptions(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/context/subscriptions?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/context/subscriptions?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userApplicationContextSubscriptions(application_name: string, search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
   userRegisterPushToken(token: string, type: string, auth?: Auth) {
-    return this.post('mobile/api/v1/user/push_token', { 'token': token, 'type': type }, this.headersFromAuth(auth));
+    return this.post('mobile/v1/user/push_token', { 'token': token, 'type': type }, this.headersFromAuth(auth));
   }
 
   userUnregisterPushToken(token: string, type: string, auth?: Auth) {
-    return this.delete('mobile/api/v1/user/push_token/' + type + '/' + token, this.headersFromAuth(auth));
+    return this.delete('mobile/v1/user/push_token/' + type + '/' + token, this.headersFromAuth(auth));
   }
 
   userApplicationContents(auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/application/content', this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/application/content', this.headersFromAuth(auth), false, force_load);
   }
 
   contentLoadExternal(url: string, force_load: boolean = false) {
@@ -235,38 +235,44 @@ export class Webservice {
   }
 
   contentLoad(content_id: number, data: any = null, auth?: Auth) {
-    return this.post('mobile/api/v1/content/data_url/' + content_id, data, this.headersFromAuth(auth));
+    return this.post('mobile/v1/content/data_url/' + content_id, data, this.headersFromAuth(auth));
   }
 
   userCalendarEvents(auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/calendar_event', this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/calendar_event', this.headersFromAuth(auth), false, force_load);
   }
 
   userCalendarEventsBetweenDates(start: Date, end: Date, auth?: Auth, force_load: boolean = false) {
-    return this.fetch('mobile/api/v1/calendar_event/between_dates/' + start.toISOString().split('T')[0] + '/' + end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
+    return this.fetch('mobile/v1/calendar_event/between_dates/' + start.toISOString().split('T')[0] + '/' + end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
   }
 
   userAddApplication(application_name: string, auth?: Auth) {
-    return this.post('mobile/api/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
+    return this.post('mobile/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
   }
 
   userRemoveApplication(application_name: string, auth?: Auth) {
-    return this.delete('mobile/api/v1/application/subscription/' + application_name, this.headersFromAuth(auth));
+    return this.delete('mobile/v1/application/subscription/' + application_name, this.headersFromAuth(auth));
   }
 
   registerLocation(data: any = null, auth?: Auth) {
-    return this.post('mobile/api/v1/user/location', data, this.headersFromAuth(auth));
+    return this.post('mobile/v1/user/location', data, this.headersFromAuth(auth));
   }
 
   userNotificationRead(notifiable_type, notifiable_id, auth?: Auth) {
-    return this.post('mobile/api/v1/notification/read', { notifiable_type: notifiable_type, notifiable_id: notifiable_id }, this.headersFromAuth(auth));
+    return this.post('mobile/v1/notification/read', { notifiable_type: notifiable_type, notifiable_id: notifiable_id }, this.headersFromAuth(auth));
   }
 
   sendForgotPasswordCode(email: String) {
-    return this.post('api/v1/user/password', { email: email});
+    return this.post('v1/user/password', { email: email});
   }
 
   resetForgotPassword(email: String, code: String, password: String) {
-    return this.put('api/v1/user/password', { email: email, code: code, password: password });
-  }    
+    return this.put('v1/user/password', { email: email, code: code, password: password });
+  }
+
+  confirmUser(email: String, code: String) {
+    return this.put('v1/user/confirmation', { email: email, code: code });
+  }
+  
+
 }

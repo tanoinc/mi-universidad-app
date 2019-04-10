@@ -20,6 +20,7 @@ import { UserModel } from "./models/user-model";
 import { IntroPage } from "../pages/intro/intro";
 import { ContactPage } from '../pages/contact/contact';
 import { AppVersion } from '@ionic-native/app-version';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -101,8 +102,12 @@ export class MyApp {
         return this.ws.checkVersionCompatibility(this.versionNumber);
       }).catch((error)=>{
         console.log(error);
+        if (error == 'cordova_not_available') {
+          return Promise.resolve();
+        }
         this.enabled = false;
         this.errorVersionCompatible();
+        console.log('incompatible!!');
       });
   }
 
@@ -251,9 +256,14 @@ export class MyApp {
 
   logout() {
     this.showLoader('Saliendo');
+    this.menu.close('right');
     this.user.logout().then(() => {
-      this.user = null;
-      this.hideLoader();
+      setTimeout( () => {
+        this.user = null;
+        this.hideLoader();
+      }, 500 // Tiempo de espera para cerrar el menú. Al desloguearse queda la pantalla inhabilitada debido a que al completarse la animación, no desactiva la inhabilitación de la pantalla. queda con la clase modal-content-open
+      );
+
     });
   }
   pruebaNotificacion() {
