@@ -65,7 +65,7 @@
     "HAVE_CONFIRMATION_CODE": "I have a confirmation code",
     "CANCEL": "Cancel",
     "CONFIRM_USER_DESCRIPTION_MAIL": "Please enter your registration email address and the confirmation code you have received.",
-    "CONFIRM_USER_DESCRIPTION": "Please enter your registration email address and the confirmation code you have received.",
+    "CONFIRM_USER_DESCRIPTION": "Please enter the confirmation code you have received in your email.",
     "CONFIRM_USER": "Account confirmation",
     "CONFIRM_CODE": "Confirmation code",
     "CONFIRM_USER_SEND": "Confirm account"
