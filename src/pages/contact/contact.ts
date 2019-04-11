@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { GenericPage } from '../generic/generic';
 import { Webservice } from '../../providers/webservice/webservice';
 import { RemoteConfigProvider } from '../../providers/remote-config/remote-config';
@@ -11,7 +11,6 @@ import { RemoteConfigProvider } from '../../providers/remote-config/remote-confi
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html',

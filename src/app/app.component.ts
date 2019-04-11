@@ -20,7 +20,6 @@ import { UserModel } from "./models/user-model";
 import { IntroPage } from "../pages/intro/intro";
 import { ContactPage } from '../pages/contact/contact';
 import { AppVersion } from '@ionic-native/app-version';
-import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
