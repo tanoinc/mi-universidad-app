@@ -44,6 +44,15 @@ Antes de generar el APK de Android:
 
 4. `ionic cordova build android`
 
+
+### iOS
+
+1. Reemplazar en <APP_NAME>-info.plist el valor de NSCalendarsUsageDescription (necesario para publicar en AppStore)
+```
+	<key>NSCalendarsUsageDescription</key>
+	<string>El acceso al calendario es requerido para guardar eventos (exámenes, parciales, fechas importantes, etc). Siempre se solicitará permiso antes de guardar un evento.</string>
+```
+
 ## TO DO
 
 * Agregar información de los permisos al agregar servicios que no requieren autenticación.
