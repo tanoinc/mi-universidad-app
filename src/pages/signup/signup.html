@@ -104,6 +104,7 @@
             <button ion-button block [disabled]="!signupForm.valid" type="submit" class="continue-button">{{'REGISTER'|translate}}</button>
 
         </form>
-        <button ion-button block (click)="cancel()" color="danger">Cancelar</button>
+        <button ion-button block (click)="cancel()" color="danger">{{'CANCEL'|translate}}</button>
+        <button ion-button block (click)="confirmUser()">{{'HAVE_CONFIRMATION_CODE'|translate}}</button>
     </div>
 </ion-content>

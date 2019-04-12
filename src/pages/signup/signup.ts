@@ -5,6 +5,7 @@ import { GenericPage } from "../generic/generic";
 import { LoginPage } from "../login/login";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { CONFIG } from "../../config/config";
+import { SignupConfirmPage } from '../signup-confirm/signup-confirm';
 
 /*
   Generated class for the Signup page.
@@ -55,8 +56,8 @@ export class SignupPage extends GenericPage {
     this.ws.userRegister(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.username, this.signupForm.value.name, this.signupForm.value.surname).then((result) => {
       this.loading.dismiss();
       this.clearForm();
-      this.showAlert('Cuenta creada', 'Su cuenta de usuario ha sido creada con éxito!');
-      this.navCtrl.push(LoginPage);
+      this.confirmUser(this.signupForm.value.email);
+      this.showAlert('Cuenta creada', 'Tu cuenta de usuario ha sido creada. Revisá tu correo electrónico para obtener el código de confirmación de tu cuenta.');
     }, (err) => {
       this.loading.dismiss();
       this.error_data = err.data;
@@ -67,6 +68,10 @@ export class SignupPage extends GenericPage {
   cancel() {
     this.signupForm.reset();
     this.navCtrl.setRoot(LoginPage);
+  }  
+
+  confirmUser(email: string) {
+    this.navCtrl.push(SignupConfirmPage, { email: email });
   }  
 
   clearForm() {

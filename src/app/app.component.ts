@@ -101,8 +101,12 @@ export class MyApp {
         return this.ws.checkVersionCompatibility(this.versionNumber);
       }).catch((error)=>{
         console.log(error);
+        if (error == 'cordova_not_available') {
+          return Promise.resolve();
+        }
         this.enabled = false;
         this.errorVersionCompatible();
+        console.log('incompatible!!');
       });
   }
 
@@ -251,9 +255,14 @@ export class MyApp {
 
   logout() {
     this.showLoader('Saliendo');
+    this.menu.close('right');
     this.user.logout().then(() => {
-      this.user = null;
-      this.hideLoader();
+      setTimeout( () => {
+        this.user = null;
+        this.hideLoader();
+      }, 500 // Tiempo de espera para cerrar el menú. Al desloguearse queda la pantalla inhabilitada debido a que al completarse la animación, no desactiva la inhabilitación de la pantalla. queda con la clase modal-content-open
+      );
+
     });
   }
   pruebaNotificacion() {
