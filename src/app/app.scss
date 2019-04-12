@@ -89,4 +89,17 @@ p.alert {
     padding-top: env(safe-area-inset-top);
 }
 
+.platform-ios {
+    div#user_profile {
+        padding-top: 5rem;
+    }
+    #ion-profile_button {
+        margin-bottom: 5px;
+    }
+    #sidenav {
+        padding-top: 7px;
+    }
+
+}
+
 @import "app.custom";

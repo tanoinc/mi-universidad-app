@@ -1,12 +1,12 @@
 <ion-header *ngIf="!this.full_screen">
   <ion-navbar>
-    <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
-    <ion-title>
+    <button ion-button menuToggle (click)="toggleLeftMenu()"><ion-icon name="menu"></ion-icon></button>
+    <ion-title id="main-title">
       <img alt="Logo" id="logo-titulo" src="assets/img/custom/logo-titulo.png">
     </ion-title>
 
     <ion-buttons *ngIf="user" end>
-      <button ion-button large outline (click)="toggleUserMenu()">
+      <button ion-button id="ion-profile_button" large outline (click)="toggleUserMenu()">
         <div class="profile_button">
         {{user.name}}
         </div>

@@ -251,8 +251,13 @@ export class MyApp {
 
   toggleUserMenu() {
     this.menu.toggle('right');
+    this.menu.close('left');
   }
 
+  toggleLeftMenu() {
+    this.menu.close('right');
+  }
+  
   logout() {
     this.showLoader('Saliendo');
     this.menu.close('right');
