@@ -29,6 +29,7 @@ export class Webservice {
       } else {
         url = action;
       }
+      console.log("Por cargar (get): " + url);
 
       if (this.cache.has(url) && !force_load) {
         resolve(this.cache.get(url));
