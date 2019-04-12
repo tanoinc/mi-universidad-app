@@ -85,5 +85,8 @@ p.alert {
     display: inline-block;
 }
 
+.toolbar-ios {
+    padding-top: env(safe-area-inset-top);
+}
 
 @import "app.custom";
