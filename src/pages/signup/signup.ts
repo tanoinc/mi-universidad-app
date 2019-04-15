@@ -60,8 +60,13 @@ export class SignupPage extends GenericPage {
       this.showAlert('Cuenta creada', 'Tu cuenta de usuario ha sido creada. Revisá tu correo electrónico para obtener el código de confirmación de tu cuenta.');
     }, (err) => {
       this.loading.dismiss();
-      this.error_data = err.data;
-      this.showAlert('Error', err.message);
+      this.error_data = {};
+      if (err.status != 422) {
+        this.connectionError();
+      } else {
+        this.error_data = err.error.data;
+        this.showAlert('Error', 'Alguno de los valores ingresados no es correcto.');
+      }
     });
   }
 

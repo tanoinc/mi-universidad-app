@@ -42,6 +42,10 @@ export class GenericPage {
     alert.present();
   }
 
+  connectionError() {
+    this.showAlert("Error", "Ha ocurrido un error en la conexión.");
+  }
+    
   resetPage() {
     this.page = 0;
   }

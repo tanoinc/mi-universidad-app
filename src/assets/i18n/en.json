@@ -68,5 +68,6 @@
     "CONFIRM_USER_DESCRIPTION": "Please enter the confirmation code you have received in your email.",
     "CONFIRM_USER": "Account confirmation",
     "CONFIRM_CODE": "Confirmation code",
-    "CONFIRM_USER_SEND": "Confirm account"
+    "CONFIRM_USER_SEND": "Confirm account",
+    "The email has already been taken.": "The email has already been taken."
 }

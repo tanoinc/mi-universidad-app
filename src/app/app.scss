@@ -91,15 +91,17 @@ p.alert {
 
 .platform-ios {
     div#user_profile {
-        padding-top: 5rem;
+        padding-top: 6rem;
     }
     #ion-profile_button {
-        margin-bottom: 5px;
+        //margin-bottom: 5px;
     }
     #sidenav {
         padding-top: 7px;
     }
-
+    ion-navbar {
+        height: 5rem;
+    }
 }
 
 @import "app.custom";

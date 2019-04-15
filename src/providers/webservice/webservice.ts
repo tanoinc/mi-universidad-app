@@ -42,6 +42,9 @@ export class Webservice {
           },
           err => {
             console.log('webservice: get(' + url + '): Error: ' + JSON.stringify(err));
+            if (err.status == 401) {
+              this.auth.logout();
+            }
             reject(err);
           }
         );

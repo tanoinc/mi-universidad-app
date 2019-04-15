@@ -50,8 +50,8 @@ export class GenericDynamicListPage extends GenericPage {
       .then((data: any) => {
         refresher.complete();
       }).catch((error) => {
-        this.showAlert("Error", error);
         refresher.complete();
+        this.connectionError();
       });
   }
 
@@ -72,8 +72,8 @@ export class GenericDynamicListPage extends GenericPage {
     this.search_text = event.target.value;
     this.update()
       .catch((error) => {
-        this.showAlert("Error", error);
-        this.list_searching = false;
+        this.list_searching = false;        
+        this.connectionError();
       });
   }
 

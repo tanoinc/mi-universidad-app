@@ -1,6 +1,8 @@
 <ion-header *ngIf="!this.full_screen">
   <ion-navbar>
+
     <button ion-button menuToggle (click)="toggleLeftMenu()"><ion-icon name="menu"></ion-icon></button>
+
     <ion-title id="main-title">
       <img alt="Logo" id="logo-titulo" src="assets/img/custom/logo-titulo.png">
     </ion-title>
@@ -11,6 +13,7 @@
         {{user.name}}
         </div>
       </button>
+
     </ion-buttons>
 
   </ion-navbar>

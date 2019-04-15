@@ -68,5 +68,6 @@
     "CONFIRM_USER_DESCRIPTION": "Verificá tu correo electrónico. Deberías haber recibido un código de confirmación, ingresalo a continuación.",
     "CONFIRM_USER": "Confirmar cuenta",
     "CONFIRM_CODE": "Código de confirmación",
-    "CONFIRM_USER_SEND": "Confirmar cuenta"
+    "CONFIRM_USER_SEND": "Confirmar cuenta",
+    "The email has already been taken.": "La dirección de correo electrónico ya está en uso. Por favor elija otra o recupere su clave."
 }

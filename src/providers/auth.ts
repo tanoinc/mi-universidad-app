@@ -196,12 +196,16 @@ export class Auth {
         console.log("Logout promise error: "+JSON.stringify(e));
       })
       .then(() => this.unregisterPushToken().catch(() => { }))
-      .then(() => this.ws.userLogout())
+      .then(() => this.ws.userLogout().catch(() => { }))
       .then(() => this.clearPushToken())
       .then(() => {
         this.setAuthData(null, true);
         this.events.publish('user:unauthenticated', this);
       });
+  }
+
+  public clientLogout() {
+    
   }
 
   logout() {
