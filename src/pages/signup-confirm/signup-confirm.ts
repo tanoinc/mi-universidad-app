@@ -49,7 +49,7 @@ export class SignupConfirmPage extends GenericPage {
       this.loading.dismiss();
       this.navCtrl.pop();
       this.navCtrl.setRoot(LoginPage);
-      this.showAlert("Éxito", "El usuario se confirmó correctamete. Ya podés ingresar.");
+      this.showAlert("Éxito", "El usuario se confirmó correctamente. Ya podés ingresar.");
     }).catch((error) => {
       this.loading.dismiss();
       this.showAlert("Error", "El código de confirmación es inválido.");
