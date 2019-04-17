@@ -47,11 +47,17 @@ Antes de generar el APK de Android:
 
 ### iOS
 
-1. Reemplazar en <APP_NAME>-info.plist el valor de NSCalendarsUsageDescription (necesario para publicar en AppStore)
+1. `ionic cordova platform add ios`
+
+2. `ionic cordova prepare ios`
+
+3. Reemplazar en <APP_NAME>-info.plist el valor de NSCalendarsUsageDescription (necesario reemplazar cada vez, para publicar en AppStore)
 ```
 	<key>NSCalendarsUsageDescription</key>
 	<string>El acceso al calendario es requerido para guardar eventos (exámenes, parciales, fechas importantes, etc). Siempre se solicitará permiso antes de guardar un evento.</string>
 ```
+
+3. Dentro de `platforms/ios` ejecutar: `pod install` (Corrige error de mapas de google)
 
 ## TO DO
 

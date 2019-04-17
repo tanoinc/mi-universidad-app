@@ -113,7 +113,7 @@ export class GoogleMapPage extends GenericPage {
       center_pos = data.center;
     }
 
-    this.map = this.google_map.create(this.map_element.nativeElement);
+    this.map = GoogleMaps.create(this.map_element.nativeElement);
 
     return this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {

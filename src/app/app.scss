@@ -86,7 +86,7 @@ p.alert {
 }
 
 .toolbar-ios {
-    padding-top: env(safe-area-inset-top);
+    //padding-top: env(safe-area-inset-top);∫
 }
 
 .platform-ios {
@@ -101,6 +101,12 @@ p.alert {
     }
     ion-navbar {
         height: 5rem;
+    }
+    ion-navbar#mainHeaderNavbar{
+        margin-top: env(safe-area-inset-top);
+    }
+    #mainHeader {
+        background-color: $toolbar-background;
     }
 }
 

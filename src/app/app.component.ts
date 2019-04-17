@@ -64,7 +64,10 @@ export class MyApp {
       ])
       )
       .then(() => {
-        statusBar.styleDefault();
+        //statusBar.overlaysWebView(false);
+        //statusBar.backgroundColorByHexString('#00FFFF');
+        //statusBar.styleDefault();
+        statusBar.styleLightContent();
         setTimeout(() => {
           splashScreen.hide();
         }, 200);
