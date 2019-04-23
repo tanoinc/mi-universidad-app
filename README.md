@@ -18,7 +18,7 @@ Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
 2. Renombrar package.json.template a package.json
 
-3. Reemplazar en config.xml y package.json los valores encerrados con %: %APP_VENDOR%, %APP_NAME%, %APP_NAME_FULL%, %APP_NAME_DESCRIPTION%, %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%, %API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%, %MAIN_COLOR% (valor RGB en hexadecimal con '#' antepuesto)
+3. Reemplazar en config.xml y package.json los valores encerrados con %: %APP_VENDOR%, %APP_NAME%, %APP_NAME_FULL%, %APP_NAME_DESCRIPTION%, %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%, %API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%, %MAIN_COLOR% (valor RGB en hexadecimal con '#' antepuesto), %LOCATION_IN_USE_USAGE_DESCRIPTION%, %LOCATION_ALWAYS_USAGE_DESCRIPTION%, %CALENDAR_USAGE_DESCRIPTION%
 
 4. Copiar src/config/config.example.ts a src/config/config.dev.ts o src/config/config.prod.ts y configurar parámetros.
 

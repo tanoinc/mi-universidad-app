@@ -37,7 +37,7 @@ export class FcmProvider {
   async getToken() {
     let token;
 
-    if (!this.isPlatformSupported()) return Promise.reject();
+    if (!this.isPlatformSupported()) return Promise.reject;
     
     if (this.platform.is('ios')) {
       console.log('Plataforma iOS!s');

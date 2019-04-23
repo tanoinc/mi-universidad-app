@@ -85,6 +85,9 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSCalendarsUsageDescription">
             <string>%CALENDAR_USAGE_DESCRIPTION%</string>
         </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
+            <string>%LOCATION_ALWAYS_USAGE_DESCRIPTION%</string>
+        </edit-config>
     </platform>
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
@@ -125,7 +128,7 @@
         <variable name="PLAY_SERVICES_VERSION" value="+" />
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="%LOCATION_IN_USE_USAGE_DESCRIPTION%" />
-        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="This app wants to get your location always, even this app runs in background." />
+        <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="%LOCATION_ALWAYS_USAGE_DESCRIPTION%" />
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <plugin name="phonegap-plugin-push" spec="^2.2.3">
