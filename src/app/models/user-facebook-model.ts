@@ -15,7 +15,7 @@ export class UserFacebookModel extends UserModel {
     }
 
     protected retrieveFacebookProfile() {
-        this.facebook.api("/me?fields=picture", []).then((data)=>{
+        this.facebook.api("/me?fields=picture.type(large)", []).then((data)=>{
             this.facebook_profile = data;
             this.profile_picture_url = data.picture.data.url;
             console.log("Facebook data: "+JSON.stringify(data.picture));
