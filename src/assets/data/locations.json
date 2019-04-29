@@ -4,14 +4,14 @@
     "zoom": 14, 
     "tilt": 0 },
   "markers" : [
-	{"title" : "Facultad de Medicina, Naturales, Periodismo, Observatorio", "position" : { "lat": -34.909083, "lng": -57.928880 }, "icon": "www/assets/icon/micro32.png" },
-  {"title" : "Facultad de Agronomía, Veterinarias", "position" : { "lat":  -34.911080, "lng": -57.931023 }, "icon": "www/assets/icon/micro32.png" },
-  {"title" : "1 y 60", "position" : { "lat": -34.914886, "lng": -57.935310 }, "icon": "www/assets/icon/micro32.png" },
-  {"title" : "Rectorado, Derecho, Económicas", "position" : { "lat":-34.914094, "lng": -57.950049 } , "icon": "www/assets/icon/micro32.png" },
-  {"title" : "Facultad de Odontología, Colegio Nacional", "position" : { "lat":-34.908397, "lng": -57.942694 }, "icon": "www/assets/icon/micro32.png"  },
-  {"title" : "Facultad de Arquitectura, Escuela Anexa", "position" : { "lat":-34.905939, "lng": -57.940033 }, "icon": "www/assets/icon/micro32.png"  },
-  {"title" : "Facultad de Informática", "position" : { "lat":-34.903663, "lng": -57.937421 }, "icon": "www/assets/icon/micro32.png"  },
-  {"title" : "Facultad de Humanidades, Psicología", "position" : { "lat":-34.901262, "lng": -57.932386 } , "icon": "www/assets/icon/micro32.png" }
+	{"title" : "Facultad de Medicina, Naturales, Periodismo, Observatorio", "position" : { "lat": -34.909083, "lng": -57.928880 }, "icon": "assets/icon/micro32.png" },
+  {"title" : "Facultad de Agronomía, Veterinarias", "position" : { "lat":  -34.911080, "lng": -57.931023 }, "icon": "assets/icon/micro32.png" },
+  {"title" : "1 y 60", "position" : { "lat": -34.914886, "lng": -57.935310 }, "icon": "assets/icon/micro32.png" },
+  {"title" : "Rectorado, Derecho, Económicas", "position" : { "lat":-34.914094, "lng": -57.950049 } , "icon": "assets/icon/micro32.png" },
+  {"title" : "Facultad de Odontología, Colegio Nacional", "position" : { "lat":-34.908397, "lng": -57.942694 }, "icon": "assets/icon/micro32.png"  },
+  {"title" : "Facultad de Arquitectura, Escuela Anexa", "position" : { "lat":-34.905939, "lng": -57.940033 }, "icon": "assets/icon/micro32.png"  },
+  {"title" : "Facultad de Informática", "position" : { "lat":-34.903663, "lng": -57.937421 }, "icon": "assets/icon/micro32.png"  },
+  {"title" : "Facultad de Humanidades, Psicología", "position" : { "lat":-34.901262, "lng": -57.932386 } , "icon": "assets/icon/micro32.png" }
 ],
   "polylines": 
    { "points" : [
