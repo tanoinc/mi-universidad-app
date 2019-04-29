@@ -72,7 +72,7 @@ export class GoogleMapPage extends GenericPage {
         position: new LatLng(this.current_geolocation.coords.latitude, this.current_geolocation.coords.longitude),
         title: 'Estas aquí',
         icon: {
-          url: 'www/assets/img/marker.png',
+          url: 'assets/img/marker.png',
           size: {
             width: 32,
             height: 32
