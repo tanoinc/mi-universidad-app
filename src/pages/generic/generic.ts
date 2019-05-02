@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, AlertController, Events } from 'ionic-angular';
 import { Webservice } from "../../providers/webservice/webservice";
+import marked from 'marked';
 
 /*
   Generated class for the Generic page.
@@ -70,4 +71,8 @@ export class GenericPage {
   ionViewWillLeave() {
     this.events.publish('app:full_screen_off');
   }
+
+  markdown(text: string) {
+    return marked(text);
+  }  
 }

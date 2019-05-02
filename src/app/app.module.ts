@@ -47,6 +47,7 @@ import { NotificationProvider } from '../providers/notification/notification';
 import { RemoteConfigProvider } from '../providers/remote-config/remote-config';
 import { AppVersion } from '@ionic-native/app-version';
 import { SignupConfirmPage } from '../pages/signup-confirm/signup-confirm';
+import { TruncatePipe } from '../pipes/truncate/truncate';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -91,7 +92,8 @@ registerLocaleData(localeEs);
     GenericDynamicListPage,
     IntroPage,
     LoginForgotPasswordPage,
-    SignupConfirmPage
+    SignupConfirmPage,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

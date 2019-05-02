@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, AlertController, Events } from 'ionic-angular';
+import { GenericPage } from '../generic/generic';
+import { Webservice } from '../../providers/webservice/webservice';
 
 /**
  * Generated class for the NotificationDetailPage page.
@@ -11,7 +13,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
   selector: 'page-notification-detail',
   templateUrl: 'notification-detail.html',
 })
-export class NotificationDetailPage {
+export class NotificationDetailPage extends GenericPage {
   protected notification;
   protected type;
 
@@ -19,7 +21,8 @@ export class NotificationDetailPage {
   protected content;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events) {
+    super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.notification = navParams.get('notification');
     this.type = navParams.get('type');
 

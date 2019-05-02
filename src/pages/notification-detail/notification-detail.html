@@ -28,7 +28,7 @@
     <p>{{this.notification.event_description}}</p>
   </ng-container>
   <ng-container *ngIf="type == 'newsfeed'">
-    <p>{{this.notification.content}}</p>
+    <div [innerHtml]="markdown(this.notification.content)"></div>
     <p>{{this.notification.created_at|date:'medium'}}</p>
   </ng-container>
 </ion-content>

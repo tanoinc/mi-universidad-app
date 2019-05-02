@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, AlertController, Events, M
 import { Webservice } from "../../providers/webservice/webservice";
 import 'rxjs/add/operator/map';
 import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-list";
+import { NotificationDetailPage } from '../notification-detail/notification-detail';
 
 @Component({
   selector: 'page-home',
@@ -29,4 +30,9 @@ export class HomePage extends GenericDynamicListPage  {
   protected getLoadMorePromise(): Promise<any> {
     return this.ws.userNewsfeeds(this.page);
   }
+  
+  open(news) {
+    let profileModal = this.modalCtrl.create(NotificationDetailPage, { notification: news, type: 'newsfeed' });
+    profileModal.present();
+  }  
 }

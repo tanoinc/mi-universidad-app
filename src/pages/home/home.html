@@ -16,14 +16,13 @@
   </div>
 
   <ion-card *ngFor="let news of list">
-    <ion-item>
+    <ion-item (click)="open(news)">
       <h2>{{news.title}}</h2>
       <p>{{news.created_at|date:'longDate'}} {{news.created_at|date:'shortTime'}}</p>
       <ion-icon *ngIf="news.global == 1" name="globe" item-right></ion-icon>
       <ion-icon *ngIf="news.context_name" name="pricetag" item-right></ion-icon>
     </ion-item>
-    <ion-card-content>
-      <p>{{news.content}}</p>
+    <ion-card-content [innerHtml]="markdown(news.content|truncate)">
     </ion-card-content>
     <ion-row>
       <ion-col  center text-center>
