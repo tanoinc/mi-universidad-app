@@ -9,7 +9,7 @@
 	},
 	"markers": [{
 			"title": "Facultad de Ciencias Agrarias y Forestales",
-			"icon": "assets/icon/university32.png",
+			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
 			"position": {
 				"lat": -34.910421,
 				"lng": -57.929013
