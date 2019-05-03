@@ -9,7 +9,7 @@
 	},
 	"markers": [{
 			"title": "Facultad de Ciencias Agrarias y Forestales",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.910421,
 				"lng": -57.929013
@@ -17,7 +17,7 @@
 		},
 		{
 			"title": "Facultad de Ingeniería",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.906470,
 				"lng": -57.944945
@@ -25,7 +25,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Jurídicas y Sociales",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.913090,
 				"lng": -57.950364
@@ -33,7 +33,7 @@
 		},
 		{
 			"title": "Facultad de Humanidades y Cs de la Educación",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.900088,
 				"lng": -57.931800
@@ -41,7 +41,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Veterinarias",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.908992,
 				"lng": -57.930377
@@ -49,7 +49,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Exactas",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.904079,
 				"lng": -57.944849
@@ -57,7 +57,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Médicas",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.909274,
 				"lng": -57.928225
@@ -65,7 +65,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Económicas",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.912293,
 				"lng": -57.950636
@@ -73,7 +73,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Naturales",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.907490,
 				"lng": -57.926044
@@ -81,7 +81,7 @@
 		},
 		{
 			"title": "Facultad de Arquitectura y Urbanismo",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.904653,
 				"lng": -57.942505
@@ -89,7 +89,7 @@
 		},
 		{
 			"title": "Facultad de Ciencias Astronómicas y Geofísicas",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.908092,
 				"lng": -57.933196
@@ -97,7 +97,7 @@
 		},
 		{
 			"title": "Facultad de Bellas Artes",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.921945,
 				"lng": -57.941665
@@ -105,7 +105,7 @@
 		},
 		{
 			"title": "Facultad de Periodismo y Comunicación Social",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.912263,
 				"lng": -57.926528
@@ -113,7 +113,7 @@
 		},
 		{
 			"title": "Facultad de Odontología",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.907906,
 				"lng": -57.942713
@@ -121,7 +121,7 @@
 		},
 		{
 			"title": "Facultad de Trabajo Social",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.924945,
 				"lng": -57.940600
@@ -129,7 +129,7 @@
 		},
 		{
 			"title": "Escuela de Recursos Humanos y Equipos de Salud",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.873896,
 				"lng": -57.886607
@@ -137,7 +137,7 @@
 		},
 		{
 			"title": "Facultad de Informática",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.903185,
 				"lng": -57.937608
@@ -145,7 +145,7 @@
 		},
 		{
 			"title": "Facultad de Psicología",
-			"icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/OOjs_UI_icon_university.svg/32px-OOjs_UI_icon_university.svg.png",
+			"icon": "https://cdn.mapmarker.io/api/v1/pin?size=45&background=%2304505a&icon=fa-bank&color=%23FFFFFF&voffset=0&hoffset=1",
 			"position": {
 				"lat": -34.900536,
 				"lng": -57.932927
