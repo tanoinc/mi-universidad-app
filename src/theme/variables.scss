@@ -23,6 +23,7 @@ $signup-background-bottom: none;
 $item-md-detail-push-show: true;
 $user-profile-image-size: 100px;
 $user-profile-padding: 20px;
+$color-primary:  #387ef5;
 
 @import "variables.custom.scss";
 
@@ -35,7 +36,7 @@ $user-profile-padding: 20px;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #387ef5,
+  primary:  $color-primary,// #387ef5,
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
@@ -71,6 +72,9 @@ $colors: (
 // default are overridden.
 
 @import "ionic.theme.default";
+
+$refresher-icon-color: $toolbar-md-title-text-color;
+$refresher-text-color: $toolbar-md-title-text-color;
 
 
 // Ionicons

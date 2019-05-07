@@ -33,8 +33,12 @@ export class CalendarPage extends GenericPage {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
   }
 
-  doRefresh(refresher) {
-    this.loadCalendar(true, true)
+  doRefresh() {
+    return this.loadCalendar(true, true);
+  }
+
+  doRefreshWithRefresher(refresher) {
+    this.doRefresh()
       .then(() => {
         refresher.complete();
       }).catch((error) => {

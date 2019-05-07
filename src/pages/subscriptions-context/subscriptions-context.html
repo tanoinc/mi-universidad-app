@@ -32,7 +32,7 @@
   </div>
 
   <ion-list>
-    <ion-item *ngFor="let context of list">
+    <ion-item text-wrap *ngFor="let context of list">
       <h2>{{context.description}}</h2>
       <button *ngIf="!this.hasSuscribed(context.name)" ion-button item-right icon-left (click)="subscribe(context)">
         <ion-icon name="pricetag"></ion-icon>

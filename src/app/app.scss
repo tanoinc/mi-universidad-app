@@ -89,6 +89,16 @@ p.alert {
     //padding-top: env(safe-area-inset-top);∫
 }
 
+ion-content.has-refresher .fixed-content {
+    background-color: $toolbar-background;
+}
+
+.platform-android {
+    .header-md::after {
+        background-image: none;
+    }
+}
+
 .platform-ios {
     div#user_profile {
         padding-top: 6rem;
@@ -107,6 +117,10 @@ p.alert {
     }
     #mainHeader {
         background-color: $toolbar-background;
+    }
+
+    ion-segment {
+        margin-top: 5px;
     }
 }
 
