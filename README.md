@@ -14,11 +14,46 @@ Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
 ### Pasos de instalación
 
+1. Renombrar parameters.config.template a parameters.config
+
+2. Configurar valores de parameters.config
+
+3. Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
+
+6. `bash prepare.sh`
+
+## Compilación
+
+### Android
+
+Antes de generar el APK de Android:
+
+1. `bash compile-android.sh`
+
+
+### iOS
+
+1. `ionic cordova platform add ios`
+
+2. `ionic cordova prepare ios`
+
+3. Reemplazar la explicación para la utilización de: %LOCATION_IN_USE_USAGE_DESCRIPTION%, %CALENDAR_USAGE_DESCRIPTION%
+
+4. Dentro de `platforms/ios` ejecutar: `pod install` (Corrige error de mapas de google)
+
+## TO DO
+
+* Agregar información de los permisos al agregar servicios que no requieren autenticación.
+
+## Pasos manuales de compilación
+
+En caso de no utilizar los scripts en bash para preparar y compilar, y realizar los pasos manuales, estos son:
+
 1. Renombrar config.xml.template a config.xml
 
 2. Renombrar package.json.template a package.json
 
-3. Reemplazar en config.xml y package.json los valores encerrados con %: %APP_VENDOR%, %APP_NAME%, %APP_NAME_FULL%, %APP_NAME_DESCRIPTION%, %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%, %API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%, %MAIN_COLOR% (valor RGB en hexadecimal con '#' antepuesto), %LOCATION_IN_USE_USAGE_DESCRIPTION%, %LOCATION_ALWAYS_USAGE_DESCRIPTION%, %CALENDAR_USAGE_DESCRIPTION%
+3. Reemplazar en config.xml y package.json los valores encerrados con %: %APP_VENDOR%, %APP_NAME%, %APP_NAME_FULL%, %APP_NAME_DESCRIPTION%, %FACEBOOK_APP_ID%, %FACEBOOK_APP_NAME%, %API_KEY_FOR_ANDROID%, %API_KEY_FOR_IOS%, %MAIN_COLOR% (valor RGB en hexadecimal con '#' antepuesto)
 
 4. Copiar src/config/config.example.ts a src/config/config.dev.ts o src/config/config.prod.ts y configurar parámetros.
 
@@ -26,7 +61,6 @@ Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
 6. npm install
 
-## Compilación
 
 ### Android
 
@@ -43,18 +77,3 @@ Antes de generar el APK de Android:
 ```
 
 4. `ionic cordova build android`
-
-
-### iOS
-
-1. `ionic cordova platform add ios`
-
-2. `ionic cordova prepare ios`
-
-3. Reemplazar la explicación para la utilización de: %LOCATION_IN_USE_USAGE_DESCRIPTION%, %CALENDAR_USAGE_DESCRIPTION%
-
-4. Dentro de `platforms/ios` ejecutar: `pod install` (Corrige error de mapas de google)
-
-## TO DO
-
-* Agregar información de los permisos al agregar servicios que no requieren autenticación.

@@ -31,6 +31,7 @@ www/
 $RECYCLE.BIN/
 config.xml
 package.json
+parameters.config
 google-services.json
 GoogleService-Info.plist
 

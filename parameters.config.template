@@ -1,0 +1,15 @@
+APP_NAME_FULL="" # Full name
+APP_VENDOR="" # vendor part of app id like 'com.ionic'
+APP_NAME="" # app unique name
+APP_NAME_DESCRIPTION="" # app description
+APP_VERSION="1.1.0" # version
+API_KEY_FOR_ANDROID="" # Google maps api API_KEY_FOR_ANDROID
+API_KEY_FOR_IOS="" #google maps API_KEY_FOR_IOS
+LOCATION_IN_USE_USAGE_DESCRIPTION="" 
+LOCATION_ALWAYS_USAGE_DESCRIPTION=""
+CALENDAR_USAGE_DESCRIPTION=""
+MAIN_COLOR="#343434" # Hex of main color
+FACEBOOK_APP_ID=""
+FACEBOOK_APP_NAME=""
+INTRO_SLIDES='{ TITLE: "Bienvenid@", DESCRIPTION: "Para estar conectado con tu Universidad donde estés", IMAGE: "custom/logo-menu.png" },{ TITLE: "Iniciá", DESCRIPTION: "Antes de ingresar, necesitás crear un usuario. Si preferís, podés entrar con tu cuenta de Facebook.", IMAGE: "custom/slide_overlay_miunlp_app_0.png" },{ TITLE: "", DESCRIPTION: "", IMAGE: "custom/slide_overlay_miunlp_app_1.png" },{ TITLE: "", DESCRIPTION: "", IMAGE: "custom/slide_overlay_miunlp_app_2.png" },' # Intro slides
+API_URL="https://localhost:8800/" # MiUniversidad API URL
