@@ -67,6 +67,6 @@ END
 
 echo $APP_CONFIG > src/config/config.dev.ts
 
-#npm i
+npm i
 
 echo "* $APP_NAME_FULL: Configurada !"
