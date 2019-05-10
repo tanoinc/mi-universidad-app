@@ -45,7 +45,7 @@ Antes de generar el APK de Android:
 
 * Agregar información de los permisos al agregar servicios que no requieren autenticación.
 
-## Pasos manuales de compilación
+## Pasos manuales de preparación y compilación
 
 En caso de no utilizar los scripts en bash para preparar y compilar, y realizar los pasos manuales, estos son:
 
