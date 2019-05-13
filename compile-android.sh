@@ -11,8 +11,11 @@ if ! grep -q fb_app_id "./platforms/android/app/src/main/res/values/strings.xml"
 fi
 
 if ! grep -q miuniversidad "./platforms/android/app/src/main/res/values/colors.xml"; then
-  sed -i -e "s/<\/resources>/<color name=\"miuniversidad\">${MAIN_COLOR}FF<\/color>\n<\/resources>/g" ./platforms/android/app/src/main/res/values/colors.xml
+  sed -i -e "s/<\/resources>/<color name=\"miuniversidad\">#FF${MAIN_COLOR}<\/color>\n<\/resources>/g" ./platforms/android/app/src/main/res/values/colors.xml
 fi
+
+# Remover la siguiente línea luego de solucionar https://github.com/arnesson/cordova-plugin-firebase/issues/1057
+bash compile-android-fix-20190513.sh
 
 echo "* $APP_NAME_FULL: Plataforma android Configurada!"
 
