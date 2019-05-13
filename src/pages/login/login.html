@@ -18,10 +18,10 @@
   </ion-list>
 
   <button ion-button block (click)="login(credentials)">{{'SIGN_IN'|translate}}</button>
-  <button ion-button block color="secondary" (click)="register()">{{'CREATE_ACCOUNT'|translate}}</button>
-  <button ion-button block icon-left (click)="facebookLogin()">
+  <button ion-button block color="facebook" icon-left (click)="facebookLogin()">
     <ion-icon name="logo-facebook"></ion-icon> {{'LOG_IN_WITH_FACEBOOK'|translate}}
   </button>
+  <button ion-button block small color="secondary" (click)="register()">{{'CREATE_ACCOUNT'|translate}}</button>  
   <button ion-button block small clear (click)="forgotPassword()">{{'FORGOT_PASSWORD'|translate}}</button>
   <button ion-button block small clear (click)="contact()">{{'CONTACT'|translate}}</button>
 </div>
