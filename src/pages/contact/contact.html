@@ -9,5 +9,7 @@
 
 <ion-content padding>
   <p>{{'CONTACT_PAGE_DESCRIPTION'|translate}}</p>
-  <a href="mailto:{{ this.config.getContactEmail() }}?subject={{this.config.getContactEmailSubject()}}"><ion-icon name="mail"></ion-icon> {{ this.config.getContactEmail() }}</a>
+  <a ion-button full icon-start href="mailto:{{ this.config.getContactEmail() }}?subject={{this.config.getContactEmailSubject()}}">
+    <ion-icon name="mail"></ion-icon> {{ this.config.getContactEmail() }}
+  </a>
 </ion-content>
