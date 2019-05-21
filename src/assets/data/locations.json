@@ -11,7 +11,8 @@
   {"title" : "Facultad de Odontología, Colegio Nacional", "position" : { "lat":-34.908397, "lng": -57.942694 }, "icon": "https://cdn.mapmarker.io/api/v1/pin?size=50&background=%2304505a&icon=fa-bus&color=%23FFFFFF&voffset=0&hoffset=1"  },
   {"title" : "Facultad de Arquitectura, Escuela Anexa", "position" : { "lat":-34.905939, "lng": -57.940033 }, "icon": "https://cdn.mapmarker.io/api/v1/pin?size=50&background=%2304505a&icon=fa-bus&color=%23FFFFFF&voffset=0&hoffset=1"  },
   {"title" : "Facultad de Informática", "position" : { "lat":-34.903663, "lng": -57.937421 }, "icon": "https://cdn.mapmarker.io/api/v1/pin?size=50&background=%2304505a&icon=fa-bus&color=%23FFFFFF&voffset=0&hoffset=1"  },
-  {"title" : "Facultad de Humanidades, Psicología", "position" : { "lat":-34.901262, "lng": -57.932386 } , "icon": "https://cdn.mapmarker.io/api/v1/pin?size=50&background=%2304505a&icon=fa-bus&color=%23FFFFFF&voffset=0&hoffset=1" }
+  {"title" : "Facultad de Humanidades, Psicología", "position" : { "lat":-34.901262, "lng": -57.932386 } , "icon": "https://cdn.mapmarker.io/api/v1/pin?size=50&background=%2304505a&icon=fa-bus&color=%23FFFFFF&voffset=0&hoffset=1" },
+  {"title" : "Plaza Rocha", "position" : { "lat":-34.920160, "lng": -57.941888 } , "icon": "https://cdn.mapmarker.io/api/v1/pin?size=50&background=%2304505a&icon=fa-bus&color=%23FFFFFF&voffset=0&hoffset=1" }
 ],
   "polylines": 
    { "points" : [
@@ -69,25 +70,19 @@
 {"lat": -34.914615, "lng": -57.934831},
 {"lat": -34.914831, "lng": -57.935094},
 {"lat": -34.915127, "lng": -57.935453},
-{"lat": -34.915254, "lng": -57.936764},
-{"lat": -34.915318, "lng": -57.937478},
-{"lat": -34.915386, "lng": -57.939871},
-{"lat": -34.915426, "lng": -57.940390},
-{"lat": -34.915525, "lng": -57.941912},
-{"lat": -34.915549, "lng": -57.943317},
-{"lat": -34.915569, "lng": -57.944086},
-{"lat": -34.915564, "lng": -57.944559},
 
-{"lat": -34.915564, "lng": -57.945655},
-{"lat":-34.915581, "lng": -57.945875},
 
-{"lat": -34.915765,"lng": -57.946128}, 
-{"lat":-34.915637, "lng": -57.946293},
-{"lat": -34.915296, "lng": -57.946619},
-{"lat":-34.915232, "lng": -57.946678},
-{"lat":-34.913777, "lng": -57.948673},
+{"lng": -57.935430, "lat": -34.915110},
+{"lng": -57.940955, "lat": -34.920274},
+{"lng": -57.941223, "lat": -34.920186},
+{"lng": -57.941545, "lat": -34.920151},
+{"lng": -57.941888, "lat": -34.920160},
+{"lng": -57.942232, "lat": -34.920336},
+{"lng": -57.947079, "lat": -34.916633},
+{"lng": -57.947798, "lat": -34.916185},
+{"lng": -57.949064, "lat": -34.915296},
 
-{"lat":-34.914714, "lng": -57.949674},
+
 
 {"lat": -34.914252, "lng": -57.950336},
 {"lat": -34.913270,"lng": -57.949398},
