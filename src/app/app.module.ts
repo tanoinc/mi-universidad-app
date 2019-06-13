@@ -48,6 +48,7 @@ import { RemoteConfigProvider } from '../providers/remote-config/remote-config';
 import { AppVersion } from '@ionic-native/app-version';
 import { SignupConfirmPage } from '../pages/signup-confirm/signup-confirm';
 import { TruncatePipe } from '../pipes/truncate/truncate';
+import { AttendancePage } from '../pages/attendance/attendance';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -93,7 +94,8 @@ registerLocaleData(localeEs);
     IntroPage,
     LoginForgotPasswordPage,
     SignupConfirmPage,
-    TruncatePipe
+    TruncatePipe,
+    AttendancePage
   ],
   imports: [
     BrowserModule,
@@ -130,7 +132,8 @@ registerLocaleData(localeEs);
     GenericDynamicListPage,
     IntroPage,
     LoginForgotPasswordPage,
-    SignupConfirmPage
+    SignupConfirmPage,
+    AttendancePage
   ],
   providers: [
     StatusBar,

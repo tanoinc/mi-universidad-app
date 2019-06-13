@@ -28,6 +28,8 @@ export class NotificationDetailPage extends GenericPage {
 
     if (this.type=="calendar") {
       this.title= this.notification.event_name;
+    } else if (this.type=="attendance") {
+      this.title= this.notification.name;
     } else if (this.type=="newsfeed") {
       this.title= this.notification.title;
     }

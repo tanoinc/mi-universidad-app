@@ -250,6 +250,14 @@ export class Webservice {
     return this.fetch('mobile/v1/calendar_event/between_dates/' + start.toISOString().split('T')[0] + '/' + end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
   }
 
+  userAttendanceFuture(page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/v1/attendance/future?page=' + page, this.headersFromAuth(auth), false, force_load);
+  }
+
+  userAttendanceNow(page: number = 0, auth?: Auth, force_load: boolean = false) {
+    return this.fetch('mobile/v1/attendance/now?page=' + page , this.headersFromAuth(auth), false, force_load);
+  }
+
   userAddApplication(application_name: string, auth?: Auth) {
     return this.post('mobile/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
   }
