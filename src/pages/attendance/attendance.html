@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{'HOME'|translate}}</ion-title>
+    <ion-title>{{'ATTENDANCE'|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -9,6 +9,15 @@
     <ion-refresher-content pullingText="{{'PULL_DOWN_LOAD'|translate}}" refreshingText="{{'LOADING'|translate}}...">
     </ion-refresher-content>
   </ion-refresher>
+
+  <ion-list-header>
+    {{'CURRENT_ATTENDANCE'|translate}}
+  </ion-list-header>  
+
+  <div class="empty_message empty_message_attendance" *ngIf="list_now.length == 0 && !this.list_searching">
+    <ion-icon name="information-circle"></ion-icon>
+    <h2 class="card-title">{{'NO_CURRENT_ATTENCANCE'|translate}}</h2>
+  </div>
 
   <ion-card *ngFor="let attendance_event of list_now">
     <ion-item>
@@ -21,6 +30,10 @@
         {{'FROM'|translate}} {{attendance_event.start_time|date:'shortTime'}} {{'TO_TIME'|translate}}
         {{attendance_event.end_time|date:'shortTime'}}        
       </p>
+      <p *ngIf="attendance_event.location">
+        <ion-icon name="compass"></ion-icon>
+        {{attendance_event.location}}
+      </p>      
     </ion-item>
 
     <ion-card-content>
@@ -41,7 +54,7 @@
     </ion-row>
 
     <ion-item>
-      <button ion-button icon-start full large>
+      <button ion-button icon-start full large (click)="present(attendance_event)">
         <ion-icon name="checkmark-circle-outline"></ion-icon>
         <div>{{'IM_PRESENT'|translate}}!</div>
       </button>

@@ -71,9 +71,12 @@
     "CONFIRM_USER_SEND": "Confirm account",
     "The email has already been taken.": "The email has already been taken.",
     "ATTENDANCE": "Attendance",
+    "attendance": "Attendance",
     "NO_FUTURE_ATTENCANCE": "No future attendance",
     "FROM": "from",
     "TO_TIME": "until",
     "IM_PRESENT": "I'm present",
-    "FUTURE_ATTENDANCE": "Future attendances"
+    "FUTURE_ATTENDANCE": "Future attendances",
+    "NO_CURRENT_ATTENCANCE": "No attendance happening at this time",
+    "CURRENT_ATTENDANCE": "Current attendance"
 }

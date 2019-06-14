@@ -32,7 +32,6 @@
     <p>{{this.notification.created_at|date:'medium'}}</p>
   </ng-container>
   <ng-container *ngIf="type == 'attendance'">
-    <div>{{this.notification.description}}</div>
     <p>
       <ion-icon name="calendar"></ion-icon>
       {{this.notification.start_time|date:'longDate'}}
@@ -42,6 +41,10 @@
       {{'FROM'|translate}} {{this.notification.start_time|date:'shortTime'}} {{'TO_TIME'|translate}}
       {{this.notification.end_time|date:'shortTime'}}
     </p>
+    <p *ngIf="this.notification.location">
+      <ion-icon name="compass"></ion-icon>
+      {{this.notification.location}}
+    </p>    
     <p>
       <ion-icon name="apps"></ion-icon>
       {{this.notification.application_description}}
@@ -50,5 +53,6 @@
       <ion-icon name="pricetag"></ion-icon>
       {{this.notification.context_name}}
     </p>
+    <div>{{this.notification.description}}</div>
   </ng-container>
 </ion-content>
