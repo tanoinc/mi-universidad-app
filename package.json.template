@@ -93,14 +93,14 @@
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "%API_KEY_FOR_ANDROID%",
         "API_KEY_FOR_IOS": "%API_KEY_FOR_IOS%",
-        "PLAY_SERVICES_VERSION": "+",
+        "PLAY_SERVICES_VERSION": "16.+",
         "ANDROID_SUPPORT_V4_VERSION": "27.+",
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "%LOCATION_IN_USE_USAGE_DESCRIPTION%",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "%LOCATION_ALWAYS_USAGE_DESCRIPTION%"
       },
       "cordova-plugin-geolocation": {},
       "cordova-android-play-services-gradle-release": {
-        "PLAY_SERVICES_VERSION": "+"
+        "PLAY_SERVICES_VERSION": "16.+"
       },
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-calendar": {
