@@ -78,5 +78,8 @@
     "IM_PRESENT": "I'm present",
     "FUTURE_ATTENDANCE": "Future attendances",
     "NO_CURRENT_ATTENCANCE": "No attendance happening at this time",
-    "CURRENT_ATTENDANCE": "Current attendance"
+    "CURRENT_ATTENDANCE": "Current attendance",
+    "geolocation":"Geolocation control",
+    "ip":"Network control",
+    "qr":"QR code control"
 }

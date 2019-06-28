@@ -60,7 +60,18 @@
       </button>
     </ion-item>
 
+    <ion-row>
+      <ion-col text-center *ngFor="let control of attendance_event.controls">
+        <ion-icon class="control" name="{{controlToIcon(control)}}"></ion-icon>
+        {{control|translate}}
+      </ion-col>
+    </ion-row>
+
   </ion-card>
+
+  <ion-list-header>
+    {{'FUTURE_ATTENDANCE'|translate}}
+  </ion-list-header>
 
   <div class="empty_message" *ngIf="list.length == 0 && !this.list_searching">
     <ion-icon name="information-circle"></ion-icon>
@@ -68,9 +79,6 @@
   </div>
 
   <ion-list *ngIf="list.length > 0">
-    <ion-list-header>
-      {{'FUTURE_ATTENDANCE'|translate}}
-    </ion-list-header>    
     <ion-item (click)="open(attendance_event)" *ngFor="let attendance_event of list">
       <h2>{{attendance_event.name}}</h2>
       <h3>{{attendance_event.start_time|date:'longDate'}}: {{attendance_event.start_time|date:'shortTime'}} -

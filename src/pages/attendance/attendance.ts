@@ -63,7 +63,6 @@ export class AttendancePage extends GenericDynamicListPage {
   }
 
   protected updateNowList() {
-    console.log("actualizando now");
     this.list_now.forEach((element, index, list) => {
       if (!this.isHappeningNow(element)) {
         this.removeFromListNow(index);
@@ -72,7 +71,6 @@ export class AttendancePage extends GenericDynamicListPage {
   }
 
   protected updateFutureList() {
-    console.log("actualizando future");
     this.list.forEach((element, index, list) => {
       if (this.isHappeningNow(element)) {
         this.moveToListNow(index);
@@ -81,15 +79,29 @@ export class AttendancePage extends GenericDynamicListPage {
   }
 
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {
-    return this.ws.userAttendanceNow()
+    return this.ws.userAttendanceNow(0, null, true)
       .then((data: any) => {
         this.list_now = data.data;
       })
-      .then(() => this.ws.userAttendanceFuture(this.page));
+      .then(() => this.ws.userAttendanceFuture(this.page, null, true));
   }
 
   protected getLoadMorePromise(): Promise<any> {
     return this.ws.userAttendanceFuture(this.page);
+  }
+
+  protected controlToIcon(control_name: string) {
+    if (control_name == 'qr') {
+      return 'qr-scanner';
+    }
+    if (control_name == 'geolocation') {
+      return 'locate';
+    }
+    if (control_name == 'ip') {
+      return 'wifi';
+    }
+
+    return 'lock';
   }
 
   open(attendance_event) {
@@ -98,6 +110,13 @@ export class AttendancePage extends GenericDynamicListPage {
   }
 
   present(attendance_event) {
-    this.toastMessage("Presente!");
+    this.ws.userAttendanceChangeStatusPresent(attendance_event.id)
+    .then( ()=>{
+      this.toastMessage("Presente!");
+    }).catch( (error) => {
+      console.log(error);
+      this.toastMessage(error.error.message);
+    });
+    
   }
 }

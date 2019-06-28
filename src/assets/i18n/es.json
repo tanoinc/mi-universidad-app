@@ -78,5 +78,8 @@
     "IM_PRESENT": "Estoy presente",
     "FUTURE_ATTENDANCE": "Asistencias futuras",
     "NO_CURRENT_ATTENCANCE": "En este momento no hay sesiones vigentes",
-    "CURRENT_ATTENDANCE": "Asistencias en este momento"
+    "CURRENT_ATTENDANCE": "Asistencias en este momento",
+    "geolocation":"Control de ubicación",
+    "ip":"Control de red",
+    "qr":"Escaneo de código QR"
 }

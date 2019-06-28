@@ -258,6 +258,10 @@ export class Webservice {
     return this.fetch('mobile/v1/attendance/now?page=' + page , this.headersFromAuth(auth), false, force_load);
   }
 
+  userAttendanceChangeStatusPresent(attendance_id: number, params: any = null, auth?: Auth) {
+    return this.put('mobile/v1/attendance/'+attendance_id+'/status/present', params, this.headersFromAuth(auth));
+  }
+
   userAddApplication(application_name: string, auth?: Auth) {
     return this.post('mobile/v1/application/subscription', { application_name: application_name }, this.headersFromAuth(auth));
   }
