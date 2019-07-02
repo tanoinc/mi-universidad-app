@@ -12,7 +12,7 @@
 
   <ion-list-header>
     {{'CURRENT_ATTENDANCE'|translate}}
-  </ion-list-header>  
+  </ion-list-header>
 
   <div class="empty_message empty_message_attendance" *ngIf="list_now.length == 0 && !this.list_searching">
     <ion-icon name="information-circle"></ion-icon>
@@ -24,16 +24,17 @@
       <h2>{{attendance_event.name}}</h2>
       <p>
         <ion-icon name="calendar"></ion-icon>
-        {{attendance_event.start_time|date:'longDate'}}</p>
+        {{attendance_event.start_time|date:'longDate'}}
+      </p>
       <p>
         <ion-icon name="time"></ion-icon>
         {{'FROM'|translate}} {{attendance_event.start_time|date:'shortTime'}} {{'TO_TIME'|translate}}
-        {{attendance_event.end_time|date:'shortTime'}}        
+        {{attendance_event.end_time|date:'shortTime'}}
       </p>
       <p *ngIf="attendance_event.location">
         <ion-icon name="compass"></ion-icon>
         {{attendance_event.location}}
-      </p>      
+      </p>
     </ion-item>
 
     <ion-card-content>
@@ -53,8 +54,18 @@
       </ion-col>
     </ion-row>
 
+    <ion-row *ngIf="attendance_event.status == 'p'">
+      <ion-col text-center>
+        <ion-chip>
+          <ion-icon color="secondary" name="checkmark"></ion-icon>
+          <ion-label>{{'STATUS_PRESENT'|translate}}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  
     <ion-item>
-      <button ion-button icon-start full large (click)="present(attendance_event)">
+      <button ion-button icon-start full large *ngIf="attendance_event.status != 'p'"
+        (click)="present(attendance_event)">
         <ion-icon name="checkmark-circle-outline"></ion-icon>
         <div>{{'IM_PRESENT'|translate}}!</div>
       </button>

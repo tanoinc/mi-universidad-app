@@ -81,5 +81,6 @@
     "CURRENT_ATTENDANCE": "Current attendance",
     "geolocation":"Geolocation control",
     "ip":"Network control",
-    "qr":"QR code control"
+    "qr":"QR code control",
+    "STATUS_PRESENT": "Present"
 }

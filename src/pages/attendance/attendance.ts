@@ -112,6 +112,7 @@ export class AttendancePage extends GenericDynamicListPage {
   present(attendance_event) {
     this.ws.userAttendanceChangeStatusPresent(attendance_event.id)
     .then( ()=>{
+      attendance_event.status = 'p';
       this.toastMessage("Presente!");
     }).catch( (error) => {
       console.log(error);

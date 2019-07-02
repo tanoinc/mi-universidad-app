@@ -81,5 +81,6 @@
     "CURRENT_ATTENDANCE": "Asistencias en este momento",
     "geolocation":"Control de ubicación",
     "ip":"Control de red",
-    "qr":"Escaneo de código QR"
+    "qr":"Escaneo de código QR",
+    "STATUS_PRESENT": "Presente"
 }
