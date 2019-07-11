@@ -174,7 +174,7 @@ export class Webservice {
     this.auth = auth;
   }
 
-  userNewsfeeds(page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userNewsfeeds(page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/newsfeed?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
@@ -190,19 +190,19 @@ export class Webservice {
     return headers;
   }
 
-  userApplicationsAvailable(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userApplicationsAvailable(search: string = "", page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/application/available?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
-  userApplicationsSubscribed(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userApplicationsSubscribed(search: string = "", page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/application?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
-  userNotifications(page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userNotifications(page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/notification?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
-  applicationContextsAvailable(application_name: string, search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+  applicationContextsAvailable(application_name: string, search: string = "", page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/contexts/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
@@ -214,11 +214,11 @@ export class Webservice {
     return this.delete('mobile/v1/context/subscription/' + application_name + '/' + context_name, this.headersFromAuth(auth));
   }
 
-  userContextSubscriptions(search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userContextSubscriptions(search: string = "", page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/context/subscriptions?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
-  userApplicationContextSubscriptions(application_name: string, search: string = "", page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userApplicationContextSubscriptions(application_name: string, search: string = "", page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/context/subscriptions/' + application_name + '?page=' + page + '&search=' + search, this.headersFromAuth(auth), false, force_load);
   }
 
@@ -250,11 +250,11 @@ export class Webservice {
     return this.fetch('mobile/v1/calendar_event/between_dates/' + start.toISOString().split('T')[0] + '/' + end.toISOString().split('T')[0], this.headersFromAuth(auth), false, force_load);
   }
 
-  userAttendanceFuture(page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userAttendanceFuture(page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/attendance/future?page=' + page, this.headersFromAuth(auth), false, force_load);
   }
 
-  userAttendanceNow(page: number = 0, auth?: Auth, force_load: boolean = false) {
+  userAttendanceNow(page: number = 1, auth?: Auth, force_load: boolean = false) {
     return this.fetch('mobile/v1/attendance/now?page=' + page , this.headersFromAuth(auth), false, force_load);
   }
 

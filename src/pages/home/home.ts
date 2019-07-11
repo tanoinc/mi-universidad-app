@@ -24,7 +24,7 @@ export class HomePage extends GenericDynamicListPage  {
   }
 
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {
-    return this.ws.userNewsfeeds(0, null, force_load);
+    return this.ws.userNewsfeeds(this.page, null, force_load);
   }
 
   protected getLoadMorePromise(): Promise<any> {

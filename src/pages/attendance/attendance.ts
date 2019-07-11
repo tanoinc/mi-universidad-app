@@ -79,7 +79,7 @@ export class AttendancePage extends GenericDynamicListPage {
   }
 
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {
-    return this.ws.userAttendanceNow(0, null, true)
+    return this.ws.userAttendanceNow(1, null, true)
       .then((data: any) => {
         this.list_now = data.data;
       })

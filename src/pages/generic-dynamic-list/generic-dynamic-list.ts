@@ -37,10 +37,10 @@ export class GenericDynamicListPage extends GenericPage {
   }
 
   update(force_load:boolean = false) {
+    this.resetPage();
     return this.getUpdatePromise(force_load).then((data: any) => {
       this.setPaginationData(data);
       this.list = data.data;
-      this.resetPage();
       this.list_searching = false;
     });
   }
