@@ -82,5 +82,8 @@
     "geolocation":"Geolocation control",
     "ip":"Network control",
     "qr":"QR code control",
-    "STATUS_PRESENT": "Present"
+    "ERROR_QR": "An error has ocurred while scanning the QR code",
+    "STATUS_PRESENT": "Present",
+    "ATTENDANCE_NEW_SESSION": "A new attendance session has started!",
+    "ATTENDANCE_STATUS_PRESENT": "Your status is now present."
 }

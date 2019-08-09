@@ -15,7 +15,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { NotificationsPage } from "../pages/notifications/notifications";
 import { SubscriptionsPage } from "../pages/subscriptions/subscriptions";
 import { SubscriptionsContextPage } from "../pages/subscriptions-context/subscriptions-context";
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CONFIG } from "../config/config";
 import { ApplicationContents } from "../providers/application-contents";
@@ -49,6 +49,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { SignupConfirmPage } from '../pages/signup-confirm/signup-confirm';
 import { TruncatePipe } from '../pipes/truncate/truncate';
 import { AttendancePage } from '../pages/attendance/attendance';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 /*
 const cloudSettings: CloudSettings = {
@@ -155,7 +156,9 @@ registerLocaleData(localeEs);
     FcmProvider,
     NotificationProvider,
     RemoteConfigProvider,
-    AppVersion
+    AppVersion,
+    BarcodeScanner,
+    TranslateService
   ]
 })
 export class AppModule { }

@@ -82,5 +82,11 @@
     "geolocation":"Control de ubicación",
     "ip":"Control de red",
     "qr":"Escaneo de código QR",
-    "STATUS_PRESENT": "Presente"
+    "ERROR_QR": "Ha ocurrido algún error al escanear el código QR",
+    "STATUS_PRESENT": "Presente",
+    "ATTENDANCE_NEW_SESSION": "Ha comenzado una nueva sesión de asistencia!",
+    "ATTENDANCE_STATUS_PRESENT": "Tu asistencia fue marcada como presente.",
+    "Forbidden: Attendance control condition not met: ip": "No autorizado: no estás dentro de la red correcta para controlar tu asistencia.",
+    "Forbidden: Attendance control condition not met: qr": "No autorizado: el código escaneado no es correcto.",
+    "Forbidden: Attendance control condition not met: geolocation": "No autorizado: tenés que estar cerca de la ubicación desde donde se toma asistencia."
 }

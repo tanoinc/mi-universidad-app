@@ -4,6 +4,8 @@ import { Webservice } from "../../providers/webservice/webservice";
 import 'rxjs/add/operator/map';
 import { GenericDynamicListPage } from "../generic-dynamic-list/generic-dynamic-list";
 import { NotificationDetailPage } from '../notification-detail/notification-detail';
+import { BarcodeScannerOptions, BarcodeScanner } from "@ionic-native/barcode-scanner";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-attendance',
@@ -13,11 +15,16 @@ import { NotificationDetailPage } from '../notification-detail/notification-deta
 export class AttendancePage extends GenericDynamicListPage {
 
   protected list_now: any = [];
+  protected qr_scanner_options: BarcodeScannerOptions;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected modalCtrl: ModalController, private toast: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ws: Webservice, public loadingCtrl: LoadingController, public alertCtrl: AlertController, protected events: Events, protected modalCtrl: ModalController, private toast: ToastController, private qr: BarcodeScanner, protected trans: TranslateService) {
     super(navCtrl, navParams, ws, loadingCtrl, alertCtrl, events);
     this.full_screen = false;
     this.list_searching = true;
+    this.qr_scanner_options = {
+      showTorchButton: true,
+      showFlipCameraButton: true
+    };    
   }
 
   ionViewDidLoad() {
@@ -44,12 +51,12 @@ export class AttendancePage extends GenericDynamicListPage {
     var attendance = this.list[index];
     this.list.splice(index, 1);
     this.list_now.push(attendance);
-    this.toastMessage("Ha comenzado una nueva sesión de asistencia!");
+    this.toastMessage(this.trans.instant("ATTENDANCE_NEW_SESSION"));
   }
 
 
 
-  protected toastMessage(message:string) {
+  protected toastMessage(message: string) {
     this.toast.create({
       message: message,
       duration: 3000,
@@ -110,14 +117,41 @@ export class AttendancePage extends GenericDynamicListPage {
   }
 
   present(attendance_event) {
-    this.ws.userAttendanceChangeStatusPresent(attendance_event.id)
-    .then( ()=>{
-      attendance_event.status = 'p';
-      this.toastMessage("Presente!");
-    }).catch( (error) => {
-      console.log(error);
-      this.toastMessage(error.error.message);
-    });
-    
+    this
+      .createControlParameters(attendance_event)
+      .then((parameters) => this.ws.userAttendanceChangeStatusPresent(attendance_event.id, parameters))
+      .then(() => {
+        attendance_event.status = 'p';
+        this.toastMessage(this.trans.instant("ATTENDANCE_STATUS_PRESENT"));
+      }).catch((error) => {
+        console.log(error);
+        this.toastMessage(this.trans.instant(error.error.message));
+      });
+
   }
+
+  protected createControlParameters(attendance_event): Promise<any> {
+    for (let control of attendance_event.controls) {
+      if (control == 'qr') {
+        return this.controlQrParameter();
+      }
+    }
+
+    return Promise.resolve({});
+  }
+
+  protected controlQrParameter(): Promise<any> {
+    return this.qr.scan(this.qr_scanner_options).then(scanned => {
+      console.log("Scaned: "+JSON.stringify(scanned));
+      if (scanned.cancelled) {
+        return Promise.reject();
+      }
+
+      return Promise.resolve({ 'code': scanned.text });
+    }).catch(err => {
+      this.toastMessage(this.trans.instant("ERROR_QR"));
+      console.log('Error', err);
+    });    
+  }
+
 }
