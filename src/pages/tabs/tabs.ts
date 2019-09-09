@@ -7,6 +7,7 @@ import { Events, NavController, Tabs, NavParams } from 'ionic-angular';
 import { NotificationsPage } from "../notifications/notifications";
 import { CalendarPage } from "../calendar/calendar";
 import { NotificationProvider } from '../../providers/notification/notification';
+import { AttendancePage } from '../attendance/attendance';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -22,6 +23,7 @@ export class TabsPage {
     { title: "LOGIN", root: LoginPage, icon: "log-in", display: ['not-authenticated'] },
     { title: "CREATE_ACCOUNT", root: SignupPage, icon: "person-add", display: ['not-authenticated'] },
     { title: "CALENDAR", root: CalendarPage, icon: "calendar", display: ['authenticated'] },
+    { title: "ATTENDANCE", root: AttendancePage, icon: "checkbox-outline", display: ['authenticated'] },
   ];
   tabs_badge = { "NOTIFICATIONS": null }
   displayed_tabs = [];

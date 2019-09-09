@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'ATTENDANCE'|translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingText="{{'PULL_DOWN_LOAD'|translate}}" refreshingText="{{'LOADING'|translate}}...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list-header>
+    {{'CURRENT_ATTENDANCE'|translate}}
+  </ion-list-header>
+
+  <div class="empty_message empty_message_attendance" *ngIf="list_now.length == 0 && !this.list_searching">
+    <ion-icon name="information-circle"></ion-icon>
+    <h2 class="card-title">{{'NO_CURRENT_ATTENCANCE'|translate}}</h2>
+  </div>
+
+  <ion-card *ngFor="let attendance_event of list_now">
+    <ion-item>
+      <h2>{{attendance_event.name}}</h2>
+      <p>
+        <ion-icon name="calendar"></ion-icon>
+        {{attendance_event.start_time|date:'longDate'}}
+      </p>
+      <p>
+        <ion-icon name="time"></ion-icon>
+        {{'FROM'|translate}} {{attendance_event.start_time|date:'shortTime'}} {{'TO_TIME'|translate}}
+        {{attendance_event.end_time|date:'shortTime'}}
+      </p>
+      <p *ngIf="attendance_event.location">
+        <ion-icon name="compass"></ion-icon>
+        {{attendance_event.location}}
+      </p>
+    </ion-item>
+
+    <ion-card-content>
+      {{attendance_event.description}}
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          {{attendance_event.context_description}}
+        </ion-note>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          {{attendance_event.application_description}}
+        </ion-note>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="attendance_event.status == 'p'">
+      <ion-col text-center>
+        <ion-chip>
+          <ion-icon color="secondary" name="checkmark"></ion-icon>
+          <ion-label>{{'STATUS_PRESENT'|translate}}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  
+    <ion-item>
+      <button ion-button icon-start full large *ngIf="attendance_event.status != 'p'"
+        (click)="present(attendance_event)">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <div>{{'IM_PRESENT'|translate}}!</div>
+      </button>
+    </ion-item>
+
+    <ion-row>
+      <ion-col text-center *ngFor="let control of attendance_event.controls">
+        <ion-icon class="control" name="{{controlToIcon(control)}}"></ion-icon>
+        {{control|translate}}
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  <ion-list-header>
+    {{'FUTURE_ATTENDANCE'|translate}}
+  </ion-list-header>
+
+  <div class="empty_message" *ngIf="list.length == 0 && !this.list_searching">
+    <ion-icon name="information-circle"></ion-icon>
+    <h2 class="card-title">{{'NO_FUTURE_ATTENCANCE'|translate}}</h2>
+  </div>
+
+  <ion-list *ngIf="list.length > 0">
+    <ion-item (click)="open(attendance_event)" *ngFor="let attendance_event of list">
+      <h2>{{attendance_event.name}}</h2>
+      <h3>{{attendance_event.start_time|date:'longDate'}}: {{attendance_event.start_time|date:'shortTime'}} -
+        {{attendance_event.end_time|date:'shortTime'}}</h3>
+      <p>{{attendance_event.description|truncate}}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" [enabled]="this.has_next_page">
+    <ion-infinite-scroll-content loadingText="{{'LOADING'|translate}}...">></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
