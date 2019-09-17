@@ -46,6 +46,13 @@ p.alert {
     color: red;
 }
 
+.empty_message.empty_message_attendance {
+    height: auto;
+    padding-bottom: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
 .empty_message {
     position: relative;
     text-align: center;

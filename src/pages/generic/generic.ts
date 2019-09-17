@@ -48,7 +48,7 @@ export class GenericPage {
   }
     
   resetPage() {
-    this.page = 0;
+    this.page = 1;
   }
 
   nextPage() {

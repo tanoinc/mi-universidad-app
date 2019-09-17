@@ -48,7 +48,7 @@ export class NotificationsPage extends GenericDynamicListPage {
   }
 */
   protected getUpdatePromise(force_load: boolean = false): Promise<any> {
-    return this.ws.userNotifications(0, null, force_load);
+    return this.ws.userNotifications(this.page, null, force_load);
   }
 
   protected getLoadMorePromise(): Promise<any> {

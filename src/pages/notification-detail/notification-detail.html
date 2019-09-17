@@ -31,4 +31,28 @@
     <div [innerHtml]="markdown(this.notification.content)"></div>
     <p>{{this.notification.created_at|date:'medium'}}</p>
   </ng-container>
+  <ng-container *ngIf="type == 'attendance'">
+    <p>
+      <ion-icon name="calendar"></ion-icon>
+      {{this.notification.start_time|date:'longDate'}}
+    </p>
+    <p>
+      <ion-icon name="time"></ion-icon>
+      {{'FROM'|translate}} {{this.notification.start_time|date:'shortTime'}} {{'TO_TIME'|translate}}
+      {{this.notification.end_time|date:'shortTime'}}
+    </p>
+    <p *ngIf="this.notification.location">
+      <ion-icon name="compass"></ion-icon>
+      {{this.notification.location}}
+    </p>    
+    <p>
+      <ion-icon name="apps"></ion-icon>
+      {{this.notification.application_description}}
+    </p>
+    <p *ngIf="this.notification.context_name != null">
+      <ion-icon name="pricetag"></ion-icon>
+      {{this.notification.context_name}}
+    </p>
+    <div>{{this.notification.description}}</div>
+  </ng-container>
 </ion-content>

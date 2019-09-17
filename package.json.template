@@ -34,17 +34,20 @@
     "@ngx-translate/http-loader": "4.0.0",
     "amdefine": "^1.0.1",
     "angular2-jwt": "^0.2.3",
-    "cordova-android": "7.1.4",
+    "cordova-android": "^8.0.0",
     "cordova-android-play-services-gradle-release": "^2.1.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
+    "cordova-plugin-androidx": "^1.0.2",
+    "cordova-plugin-androidx-adapter": "^1.1.0",
     "cordova-plugin-app-version": "0.1.9",
     "cordova-plugin-calendar": "^5.1.4",
+    "cordova-plugin-cocoapod-supportx": "^1.7.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "^3.2.0",
-    "cordova-plugin-firebase": "^2.0.5",
+    "cordova-plugin-firebasex": "^3.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-googlemaps": "^2.5.2",
     "cordova-plugin-inappbrowser": "^3.0.0",
@@ -52,7 +55,7 @@
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-sqlite-storage": "^2.6.0",
-    "cordova-support-google-services": "^1.1.0",
+    "cordova-support-google-services": "^1.2.1",
     "crypto-md5": "^1.0.0",
     "intl": "^1.2.5",
     "ionic-angular": "3.9.2",
@@ -70,6 +73,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.3",
+    "phonegap-plugin-push": "git+https://github.com/phonegap/phonegap-plugin-push.git",
     "typescript": "^2.6.2"
   },
   "description": "mi-universidad-app",
@@ -89,30 +93,44 @@
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "%API_KEY_FOR_ANDROID%",
         "API_KEY_FOR_IOS": "%API_KEY_FOR_IOS%",
-        "PLAY_SERVICES_VERSION": "+",
+        "PLAY_SERVICES_VERSION": "16.+",
         "ANDROID_SUPPORT_V4_VERSION": "27.+",
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "%LOCATION_IN_USE_USAGE_DESCRIPTION%",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "%LOCATION_ALWAYS_USAGE_DESCRIPTION%"
       },
       "cordova-plugin-geolocation": {},
       "cordova-android-play-services-gradle-release": {
-        "PLAY_SERVICES_VERSION": "+"
+        "PLAY_SERVICES_VERSION": "16.+"
       },
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-calendar": {
         "CALENDAR_USAGE_DESCRIPTION": "%CALENDAR_USAGE_DESCRIPTION%",
         "CONTACTS_USAGE_DESCRIPTION": " "
       },
-      "cordova-plugin-firebase": {
-        "FIREBASE_VERSION": "+"
-      },
       "cordova-plugin-app-version": {},
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "phonegap-plugin-push": {
+        "SENDER_ID": "",
+        "ANDROID_SUPPORT_V13_VERSION": "27.+",
+        "FCM_VERSION": "11.6.2"
+      },
+      "cordova-plugin-firebasex": {
+        "ANDROID_PLAY_SERVICES_TAGMANAGER_VERSION": "16.0.8",
+        "ANDROID_FIREBASE_CORE_VERSION": "16.0.8",
+        "ANDROID_FIREBASE_MESSAGING_VERSION": "17.6.0",
+        "ANDROID_FIREBASE_CONFIG_VERSION": "16.4.1",
+        "ANDROID_FIREBASE_PERF_VERSION": "16.2.4",
+        "ANDROID_FIREBASE_AUTH_VERSION": "18.0.0",
+        "ANDROID_CRASHLYTICS_VERSION": "2.9.8",
+        "ANDROID_SHORTCUTBADGER_VERSION": "1.1.22"
+      },
+      "cordova-plugin-androidx": {},
+      "cordova-plugin-androidx-adapter": {}
     },
     "platforms": [
-      "android",
       "ios",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }
