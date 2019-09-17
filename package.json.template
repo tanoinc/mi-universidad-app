@@ -85,7 +85,7 @@
       "cordova-plugin-device": {},
       "cordova-plugin-facebook4-no-zxing": {
         "APP_ID": "%FACEBOOK_APP_ID%",
-        "APP_NAME": "%FACEBOOK_APP_NAME%",
+        "APP_NAME": "%FACEBOOK_APP_NAME%"
       },
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
