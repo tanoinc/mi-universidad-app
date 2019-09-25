@@ -38,7 +38,7 @@
     "cordova-android": "^8.0.0",
     "cordova-android-play-services-gradle-release": "^2.1.0",
     "cordova-browser": "5.0.4",
-    "cordova-ios": "4.5.5",
+    "cordova-ios": "^5.0.1",
     "cordova-plugin-androidx": "^1.0.2",
     "cordova-plugin-androidx-adapter": "^1.1.0",
     "cordova-plugin-app-version": "0.1.9",
@@ -67,7 +67,6 @@
     "localforage-cordovasqlitedriver": "^1.7.0",
     "marked": "^0.5.2",
     "phonegap-plugin-multidex": "^1.0.0",
-    "phonegap-plugin-push": "^2.2.3",
     "rxjs": "5.5.11",
     "superagent": "^4.0.0",
     "sw-toolbox": "3.6.0",
@@ -109,11 +108,6 @@
       },
       "cordova-plugin-app-version": {},
       "cordova-plugin-splashscreen": {},
-      "phonegap-plugin-push": {
-        "SENDER_ID": "",
-        "ANDROID_SUPPORT_V13_VERSION": "27.+",
-        "FCM_VERSION": "11.6.2"
-      },
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {},
       "phonegap-plugin-barcodescanner": {

@@ -148,16 +148,11 @@
     </plugin>
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <plugin name="phonegap-plugin-push" spec="~2.2.3">
-        <variable name="SENDER_ID" value="" />
-        <variable name="ANDROID_SUPPORT_V13_VERSION" value="27.+" />
-        <variable name="FCM_VERSION" value="11.6.2" />
-    </plugin>
     <plugin name="cordova-plugin-androidx-adapter" spec="^1.1.0" />
     <plugin name="cordova-plugin-facebook4-no-zxing" spec="^4.2.2">
         <variable name="APP_ID" value="%FACEBOOK_APP_ID%" />
         <variable name="APP_NAME" value="%FACEBOOK_APP_NAME%" />
     </plugin>
     <engine name="browser" spec="5.0.4" />
-    <engine name="ios" spec="4.5.5" />
+    <engine name="ios" spec="^5.0.1" />
 </widget>
