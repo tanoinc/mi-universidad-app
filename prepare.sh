@@ -27,7 +27,7 @@ sed \
 -e "s/%MAIN_COLOR%/$MAIN_COLOR/g" \
 -e "s/%FACEBOOK_APP_ID%/$FACEBOOK_APP_ID/g" \
 -e "s/%FACEBOOK_APP_NAME%/$FACEBOOK_APP_NAME/g" \
-config.xml.template > config.xml
+config.xml.template.$1 > config.xml
 
 sed \
 -e "s/%APP_NAME_FULL%/$APP_NAME_FULL/g" \
@@ -43,7 +43,7 @@ sed \
 -e "s/%MAIN_COLOR%/$MAIN_COLOR/g" \
 -e "s/%FACEBOOK_APP_ID%/$FACEBOOK_APP_ID/g" \
 -e "s/%FACEBOOK_APP_NAME%/$FACEBOOK_APP_NAME/g" \
-package.json.template > package.json
+package.json.template.$1 > package.json
 
 
 APP_CONFIG=$(cat <<-END

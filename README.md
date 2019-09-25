@@ -18,7 +18,7 @@ Proyecto "Mi Universidad": Aplicación móvil (cliente)
 
 2. Configurar valores de parameters.config
 
-3. Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto 
+3. *Android*: Obtener desde Google Firebase "google-services.json" y guardarlo a la raiz del proyecto. *iOS*: Obtener desde Google Firebase "GoogleService-Info.plist" y guardarlo a la raiz del proyecto.  
 
 6. `bash prepare.sh`
 
@@ -39,7 +39,19 @@ Antes de generar el APK de Android:
 
 3. Reemplazar la explicación para la utilización de: %LOCATION_IN_USE_USAGE_DESCRIPTION%, %CALENDAR_USAGE_DESCRIPTION%
 
-4. Dentro de `platforms/ios` ejecutar: `pod install` (Corrige error de mapas de google)
+4. (Opcional para plataforma ios@4.5.5) Para emular en iOS, cambiar `platforms/ios/cordova/lib/list-emulator-build-targets` lìnea 54 por (ref https://github.com/apache/cordova-ios/issues/427#issuecomment-503522317):
+````
+var availableDevices = Object.keys(devices).reduce(function (availAcc, deviceCategory) {
+var availableDevicesInCategory = devices[deviceCategory];
+availableDevicesInCategory.forEach(function (device) {
+        if (device && device.name === deviceType.name.replace(/\-inch/g, ' inch') && device.isAvailable == true) {
+        availAcc.push(device);
+        }
+});
+return availAcc;
+}, []);
+````
+
 
 ## TO DO
 

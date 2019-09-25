@@ -144,7 +144,7 @@ export class AttendancePage extends GenericDynamicListPage {
     return this.qr.scan(this.qr_scanner_options).then(scanned => {
       console.log("Scaned: "+JSON.stringify(scanned));
       if (scanned.cancelled) {
-        return Promise.reject();
+        return Promise.reject({'error':'QR_SCAN_CANCELLED'});
       }
 
       return Promise.resolve({ 'code': scanned.text });
