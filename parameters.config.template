@@ -13,3 +13,4 @@ FACEBOOK_APP_ID=""
 FACEBOOK_APP_NAME=""
 INTRO_SLIDES='{ TITLE: "Bienvenid@", DESCRIPTION: "Para estar conectado con tu Universidad donde estés", IMAGE: "custom/logo-menu.png" },{ TITLE: "Iniciá", DESCRIPTION: "Antes de ingresar, necesitás crear un usuario. Si preferís, podés entrar con tu cuenta de Facebook.", IMAGE: "custom/slide_overlay_miunlp_app_0.png" },{ TITLE: "", DESCRIPTION: "", IMAGE: "custom/slide_overlay_miunlp_app_1.png" },{ TITLE: "", DESCRIPTION: "", IMAGE: "custom/slide_overlay_miunlp_app_2.png" },' # Intro slides
 API_URL="https://localhost:8800/" # MiUniversidad API URL
+CAMERA_USAGE_DESCRIPTION=""

@@ -89,6 +89,9 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
             <string>%LOCATION_ALWAYS_USAGE_DESCRIPTION%</string>
         </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>%CAMERA_USAGE_DESCRIPTION%</string>
+        </edit-config>
         <icon height="20" src="resources/ios/icon/icon-20.png" width="20" />
         <icon height="40" src="resources/ios/icon/icon-20@2x.png" width="40" />
         <icon height="60" src="resources/ios/icon/icon-20@3x.png" width="60" />
