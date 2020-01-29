@@ -174,7 +174,7 @@ export class Auth {
   }
 
   loginFacebook(fn_fb_post_login = null) {
-    return this.fb.login(['public_profile', 'email', 'user_friends'])
+    return this.fb.login(['public_profile', 'email'])
       .then((res: FacebookLoginResponse) => {
         console.log("Logged in FB: " + JSON.stringify(res));
         if (fn_fb_post_login) {
